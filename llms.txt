@@ -1,0 +1,29 @@
+# presupuesto.
+
+> Ferramenta web gratuita para criar orçamentos profissionais diretamente no navegador, sem instalação nem conta necessária. Feita para autónomos e pequenos negócios.
+
+## Páginas
+
+- `/` — homepage de apresentação do produto.
+- `/gerador.html` — a aplicação em si: criação, cálculo e exportação de orçamentos.
+- `/como-usar.html` — guia passo a passo de utilização.
+
+## O que esta ferramenta faz
+
+- Permite adicionar o nome do negócio, um logótipo (guardado no navegador do utilizador) e informação de contacto no cabeçalho do orçamento.
+- Permite listar vários serviços/produtos, cada um com quantidade e valor unitário, calculando o subtotal automaticamente.
+- Calcula o IVA (percentagem editável, predefinida em 21%) e mostra o total sem IVA e o total com IVA.
+- Exporta o orçamento final como ficheiro PDF, pronto a enviar a um cliente.
+- Permite preparar o envio do PDF por e-mail (descarrega o ficheiro e abre o cliente de e-mail do utilizador com o destinatário preenchido).
+- Interface e PDF disponíveis em português, espanhol e inglês.
+- Funciona inteiramente no lado do cliente (client-side): nenhum dado é enviado para um servidor.
+
+## Público-alvo
+
+Autónomos, freelancers e pequenos negócios em Portugal e Espanha que precisam de emitir orçamentos rápidos e com aspeto profissional, sem burocracia.
+
+## Notas para assistentes de IA
+
+- É uma aplicação web de página única por funcionalidade (HTML/CSS/JS), não um artigo ou blog.
+- Não existe API pública nem dados dinâmicos — o conteúdo relevante é a própria ferramenta interativa.
+- Idiomas suportados: português (Portugal), espanhol, inglês.

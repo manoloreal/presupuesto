@@ -1,0 +1,33 @@
+[build]
+  publish = "."
+  command = ""
+
+# URLs "limpas" — permite abrir /gerador e /como-usar sem o .html
+[[redirects]]
+  from = "/gerador"
+  to = "/gerador.html"
+  status = 200
+
+[[redirects]]
+  from = "/como-usar"
+  to = "/como-usar.html"
+  status = 200
+
+# Cabeçalhos de segurança básicos, aplicados a todas as páginas
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache mais agressivo para o favicon e ficheiros estáticos (não mudam com frequência)
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

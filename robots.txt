@@ -1,0 +1,30 @@
+# Motores de busca tradicionais
+User-agent: *
+Allow: /
+
+# Crawlers de IA (para a ferramenta poder ser referenciada/citada por assistentes de IA)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://oseudominio.com/sitemap.xml

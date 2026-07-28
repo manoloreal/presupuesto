@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===== SEO básico ===== -->
+<title>Gerador de Orçamentos Online Grátis — Cálculo de IVA e Exportação em PDF</title>
+<meta name="description" content="Crie orçamentos profissionais em minutos: adicione o seu logótipo, liste serviços com quantidades, calcule automaticamente o IVA a 21% e exporte tudo num PDF pronto a enviar ao cliente.">
+<meta name="keywords" content="gerador de orçamentos, criar orçamento online, orçamento em PDF, calculadora de IVA, orçamento grátis, orçamento para clientes">
+<meta name="robots" content="index, follow">
+<meta name="language" content="Portuguese">
+<link rel="canonical" href="https://oseudominio.com/">
+
+<!-- ===== Open Graph (Facebook, LinkedIn, WhatsApp, etc.) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:site_name" content="Gerador de Orçamentos">
+<meta property="og:title" content="Gerador de Orçamentos Online Grátis">
+<meta property="og:description" content="Crie orçamentos com logótipo, serviços, cálculo automático de IVA e exportação em PDF — tudo no navegador, sem instalar nada.">
+<meta property="og:url" content="https://oseudominio.com/">
+<meta property="og:image" content="https://oseudominio.com/preview.png">
+
+<!-- ===== Twitter / X Card ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gerador de Orçamentos Online Grátis">
+<meta name="twitter:description" content="Crie orçamentos com logótipo, cálculo automático de IVA e exportação em PDF.">
+<meta name="twitter:image" content="https://oseudominio.com/preview.png">
+
+<!-- ===== Favicon (SVG embutido, não precisa de ficheiro extra) ===== -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%231c2321'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23a85c32' font-family='Georgia,serif' font-weight='bold'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+
+<!-- ===== Dados estruturados para motores de busca e IAs (schema.org) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Gerador de Orçamentos",
+  "url": "https://oseudominio.com/",
+  "description": "Ferramenta gratuita para criar orçamentos profissionais com logótipo, serviços por quantidade, cálculo automático de IVA a 21% e exportação em PDF.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Qualquer (aplicação web)",
+  "inLanguage": "pt-PT",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1c2321;
+    --paper:#faf8f3;
+    --paper-2:#f1ede2;
+    --slate:#4a5859;
+    --copper:#a85c32;
+    --line:#d8d3c7;
+    --line-strong:#1c2321;
+    --danger:#a3402f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper-2);
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    padding:32px 16px 80px;
+  }
+  .toolbar{
+    max-width:820px;
+    margin:0 auto 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+  .site-logo{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:800;
+    font-size:20px;
+    letter-spacing:-0.03em;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    user-select:none;
+    text-decoration:none;
+  }
+  .site-logo .dot{color:var(--copper);}
+  .toolbar-right{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  #helpLink{
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:.02em;
+    border:1px solid var(--ink);
+    background:var(--paper);
+    color:var(--ink);
+    padding:10px 16px;
+    border-radius:2px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    transition:background .15s, color .15s;
+  }
+  #helpLink:hover{background:var(--ink);color:var(--paper);}
+  .lang-switch{display:flex;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  button.lang-btn{
+    border:none;
+    background:var(--paper);
+    color:var(--slate);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.03em;
+    padding:6px 9px;
+    cursor:pointer;
+    border-radius:0;
+  }
+  button.lang-btn + button.lang-btn{border-left:1px solid var(--line);}
+  button.lang-btn:hover{background:var(--paper-2);color:var(--ink);}
+  button.lang-btn.active{background:var(--ink);color:var(--paper);}
+  #status{font-size:12px;color:var(--slate);min-height:16px;}
+  .toolbar-buttons{display:flex;gap:10px;align-items:center;}
+  button{
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:.02em;
+    border:1px solid var(--ink);
+    background:var(--paper);
+    color:var(--ink);
+    padding:10px 16px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  button:hover{background:var(--ink);color:var(--paper);}
+  button:disabled{opacity:.5;cursor:default;}
+  #exportBtn{background:var(--copper);border-color:var(--copper);color:#fff;}
+  #exportBtn:hover{background:#8a4926;border-color:#8a4926;}
+
+  #sheet{
+    max-width:820px;
+    margin:0 auto;
+    background:var(--paper);
+    border:1px solid var(--line-strong);
+    padding:48px 52px;
+    position:relative;
+  }
+  #sheet::before{
+    content:"";
+    position:absolute;
+    top:10px;left:10px;right:10px;bottom:10px;
+    border:1px solid var(--line);
+    pointer-events:none;
+  }
+
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+    padding-bottom:24px;
+    border-bottom:2px solid var(--ink);
+    margin-bottom:28px;
+  }
+  .brand{flex:1;}
+  .logo-box{
+    width:150px;height:96px;
+    border:1px dashed var(--line);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    overflow:hidden;
+    margin-bottom:16px;
+    background:var(--paper);
+    position:relative;
+  }
+  .logo-box img{max-width:100%;max-height:100%;object-fit:contain;}
+  .logo-box span{font-size:11px;color:var(--slate);text-align:center;padding:8px;}
+  #logoInput{display:none;}
+  #removeLogoBtn{
+    position:absolute;top:4px;right:4px;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:none;
+    background:var(--ink);
+    color:var(--paper);
+    font-size:13px;
+    line-height:1;
+    padding:0;
+    display:none;
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  #removeLogoBtn:hover{background:var(--danger);color:#fff;}
+
+  [contenteditable]{outline:none;}
+  [contenteditable]:hover, [contenteditable]:focus{
+    background:rgba(168,92,50,0.06);
+  }
+  .biz-name{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.15;
+    margin:0 0 8px;
+    min-width:200px;
+  }
+  .biz-info{
+    font-size:12.5px;
+    color:var(--slate);
+    line-height:1.6;
+    white-space:pre-line;
+    min-width:200px;
+  }
+
+  .doc-meta{
+    text-align:right;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:12px;
+    color:var(--slate);
+    min-width:180px;
+  }
+  .doc-meta .eyebrow{
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--copper);
+    margin-bottom:10px;
+  }
+  .meta-row{display:flex;justify-content:flex-end;gap:8px;margin-bottom:4px;}
+  .meta-row .k{color:var(--ink);opacity:.55;}
+  .meta-row .v{min-width:90px;text-align:right;}
+
+  .client{
+    margin-bottom:28px;
+    font-size:13px;
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .client .field{min-width:220px;}
+  .client .label{
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin-bottom:6px;
+  }
+  .client input{
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:14px;
+    font-weight:600;
+    border:none;
+    border-bottom:1px solid var(--line);
+    background:transparent;
+    padding:4px 0;
+    width:100%;
+    color:var(--ink);
+  }
+  .client input:focus{outline:none;border-bottom:1px solid var(--copper);}
+
+  table{width:100%;border-collapse:collapse;margin-bottom:8px;}
+  thead th{
+    text-align:left;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--slate);
+    font-weight:600;
+    padding:0 8px 10px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  thead th.num{text-align:right;}
+  tbody td{
+    padding:10px 8px;
+    border-bottom:1px solid var(--line);
+    font-size:13.5px;
+    vertical-align:top;
+  }
+  tbody td.num{text-align:right;font-family:'IBM Plex Mono',ui-monospace,monospace;}
+  tbody input, tbody textarea{
+    width:100%;
+    border:none;
+    background:transparent;
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:13.5px;
+    color:var(--ink);
+    padding:2px 0;
+    resize:none;
+  }
+  tbody input.qty, tbody input.price{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    text-align:right;
+  }
+  tbody input:focus, tbody textarea:focus{
+    outline:none;
+    background:rgba(168,92,50,0.06);
+  }
+  td.rowtotal{font-weight:600;white-space:nowrap;}
+  td.del{width:28px;text-align:center;}
+  .del-btn{
+    border:none;background:none;color:var(--slate);
+    cursor:pointer;font-size:16px;line-height:1;padding:2px 4px;
+  }
+  .del-btn:hover{color:var(--danger);background:none;}
+
+  #addRowBtn{
+    margin:8px 0 24px;
+    font-size:12px;
+    padding:8px 14px;
+  }
+
+  .totals{
+    margin-left:auto;
+    width:280px;
+    font-size:13.5px;
+  }
+  .totals .line{
+    display:flex;justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .totals .line .v{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+  .totals .vat-label{display:flex;align-items:center;gap:6px;}
+  .totals .vat-label input{
+    width:40px;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:13px;
+    border:none;border-bottom:1px solid var(--line);
+    background:transparent;
+    text-align:right;
+    padding:0 2px;
+  }
+  .totals .vat-label input:focus{outline:none;border-bottom:1px solid var(--copper);}
+  .totals .grand{
+    display:flex;justify-content:space-between;
+    padding:14px 0 4px;
+    margin-top:4px;
+    border-top:2px solid var(--ink);
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:700;
+    font-size:19px;
+  }
+  .totals .subtle{color:var(--slate);font-size:11px;text-transform:uppercase;letter-spacing:.08em;}
+
+  footer.sheet-footer{
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    font-size:11px;
+    color:var(--slate);
+    text-align:center;
+  }
+
+  #fallbackLink{
+    align-self:center;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--copper);
+    text-decoration:underline;
+    cursor:pointer;
+  }
+
+  @media print{
+    body{background:#fff;padding:0;}
+    .toolbar{display:none;}
+    #sheet{border:none;box-shadow:none;max-width:none;}
+  }
+
+  @media (max-width:600px){
+    body{padding:16px 8px 60px;}
+    #sheet{padding:24px 16px;}
+    .toolbar{flex-direction:column;align-items:stretch;gap:10px;}
+    .toolbar-right{flex-direction:column;align-items:stretch;gap:8px;}
+    .toolbar-buttons{justify-content:flex-end;flex-wrap:wrap;}
+    header{flex-direction:column;}
+    .doc-meta{text-align:left;width:100%;}
+    .meta-row{justify-content:flex-start;}
+    table{display:block;overflow-x:auto;white-space:nowrap;}
+    .totals{width:100%;}
+    .biz-name{font-size:21px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html" class="site-logo">presupuesto<span class="dot">.</span></a>
+  <div class="toolbar-right">
+    <div class="lang-switch">
+      <button type="button" class="lang-btn" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn" data-lang="es">ES</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <span id="status"></span>
+    <div class="toolbar-buttons">
+      <a id="fallbackLink" style="display:none;" data-i18n="fallbackLink">Abrir PDF</a>
+      <a id="helpLink" href="como-usar.html" data-i18n="helpLink">Como usar</a>
+      <button id="emailBtn" data-i18n="emailBtn">Enviar por E-mail</button>
+      <button id="exportBtn" data-i18n="exportBtn">Exportar PDF</button>
+    </div>
+  </div>
+</div>
+
+<div id="sheet">
+  <header>
+    <div class="brand">
+      <div class="logo-box" id="logoBox">
+        <span id="logoPlaceholder" data-i18n="logoPlaceholder">Clique para<br>adicionar logótipo</span>
+        <img id="logoImg" style="display:none;">
+        <button type="button" id="removeLogoBtn" data-i18n-title="removeLogo" title="Remover logótipo">×</button>
+      </div>
+      <input type="file" id="logoInput" accept="image/*">
+      <div class="biz-name" contenteditable="true" data-i18n-default="bizName">Nome do Local</div>
+      <div class="biz-info" contenteditable="true" data-i18n-default="bizInfo">Morada, Código Postal — Cidade
+NIF: 000 000 000 &middot; email@exemplo.pt &middot; +351 000 000 000</div>
+    </div>
+    <div class="doc-meta">
+      <div class="eyebrow" data-i18n="eyebrow">Orçamento</div>
+      <div class="meta-row"><span class="k" data-i18n="metaNumber">Nº</span><span class="v" contenteditable="true">2026-001</span></div>
+      <div class="meta-row"><span class="k" data-i18n="metaDate">Data</span><span class="v" contenteditable="true" id="docDate" data-i18n-default="dateToday"></span></div>
+      <div class="meta-row"><span class="k" data-i18n="metaValid">Válido até</span><span class="v" contenteditable="true" data-i18n-default="validDefault">30 dias</span></div>
+    </div>
+  </header>
+
+  <div class="client">
+    <div class="field">
+      <div class="label" data-i18n="clientLabel">Cliente</div>
+      <input type="text" id="clientName" data-i18n-placeholder="clientPlaceholder" placeholder="Nome do cliente">
+    </div>
+    <div class="field">
+      <div class="label" data-i18n="clientEmailLabel">E-mail do cliente</div>
+      <input type="email" id="clientEmail" data-i18n-placeholder="clientEmailPlaceholder" placeholder="email@cliente.com">
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:44%" data-i18n="thTitle">Serviço / Descrição</th>
+        <th class="num" style="width:12%" data-i18n="thQty">Qtd.</th>
+        <th class="num" style="width:18%" data-i18n="thPrice">Valor unit. (€)</th>
+        <th class="num" style="width:18%" data-i18n="thSubtotal">Subtotal (€)</th>
+        <th style="width:6%"></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <button id="addRowBtn" data-i18n="addRowMain">+ Adicionar serviço</button>
+
+  <div class="totals">
+    <div class="line"><span data-i18n="subtotalLabel">Subtotal (sem IVA)</span><span class="v" id="subTotal">0,00 €</span></div>
+    <div class="line">
+      <span class="vat-label"><span data-i18n="vatLabelPrefix">IVA</span> <input type="number" id="vatRate" value="21" min="0" max="100" step="0.1">%</span>
+      <span class="v" id="vatAmount">0,00 €</span>
+    </div>
+    <div class="grand"><span data-i18n="totalLabel">Total com IVA</span><span id="grandTotal">0,00 €</span></div>
+    <div class="subtle" style="text-align:right;margin-top:2px;"><span data-i18n="totalNoVatPrefix">Total sem IVA:</span> <span id="subTotal2">0,00 €</span></div>
+  </div>
+
+  <footer class="sheet-footer" id="footerNote" contenteditable="true" data-i18n-default="footerDefault">
+    Obrigado pela preferência. Este orçamento é válido pelo prazo indicado acima.
+  </footer>
+</div>
+
+<script>
+/* ================= i18n ================= */
+const LOCALE = { pt:'pt-PT', es:'es-ES', en:'en-US' };
+
+const I18N = {
+  pt:{
+    helpLink:'Como usar',
+    fallbackLink:'Abrir PDF',
+    addRowShort:'+ Linha',
+    addRowMain:'+ Adicionar serviço',
+    exportBtn:'Exportar PDF',
+    exportBtnGenerating:'A gerar...',
+    logoPlaceholder:'Clique para<br>adicionar logótipo',
+    removeLogo:'Remover logótipo',
+    eyebrow:'Orçamento',
+    metaNumber:'Nº',
+    metaDate:'Data',
+    metaValid:'Válido até',
+    clientLabel:'Cliente',
+    clientPlaceholder:'Nome do cliente',
+    clientEmailLabel:'E-mail do cliente',
+    clientEmailPlaceholder:'email@cliente.pt',
+    emailBtn:'Enviar por E-mail',
+    emailRequired:'Escreva o e-mail do cliente antes de enviar.',
+    emailSubject:'Orçamento',
+    emailBody:'Olá,\n\nSegue o orçamento solicitado.\n\nO PDF foi descarregado automaticamente — por favor anexe-o a este e-mail antes de enviar.\n\nCumprimentos.',
+    emailStatus:'PDF descarregado. Anexe-o ao e-mail que abriu e envie.',
+    thTitle:'Serviço / Descrição',
+    thQty:'Qtd.',
+    thPrice:'Valor unit. (€)',
+    thSubtotal:'Subtotal (€)',
+    titlePlaceholder:'Ex: Instalação elétrica',
+    removeRow:'Remover',
+    subtotalLabel:'Subtotal (sem IVA)',
+    vatLabelPrefix:'IVA',
+    totalLabel:'Total com IVA',
+    totalNoVatPrefix:'Total sem IVA:',
+    bizName:'Nome do Local',
+    bizInfo:'Morada, Código Postal — Cidade\nNIF: 000 000 000 · email@exemplo.pt · +351 000 000 000',
+    validDefault:'30 dias',
+    footerDefault:'Obrigado pela preferência. Este orçamento é válido pelo prazo indicado acima.',
+    seedRow1:'Consultoria e planeamento inicial',
+    seedRow2:'Mão de obra (por hora)',
+    pdfEyebrow:'ORÇAMENTO',
+    pdfClientLabel:'CLIENTE',
+    pdfClientEmpty:'—',
+    pdfThTitle:'SERVIÇO / DESCRIÇÃO',
+    pdfThQty:'QTD.',
+    pdfThPrice:'VALOR UNIT.',
+    pdfThSubtotal:'SUBTOTAL',
+    pdfNoDescription:'(sem descrição)',
+    pdfSubtotalLabel:'Subtotal (sem IVA)',
+    pdfVatLabel:(r)=>`IVA (${r}%)`,
+    pdfTotalLabel:'Total com IVA',
+    statusDownloadOk:'PDF gerado e descarregado com sucesso.',
+    statusNewTab:'PDF aberto numa nova aba — guarde-o a partir daí, ou use o link "Abrir PDF".',
+    statusManual:'PDF pronto. Clique em "Abrir PDF" para o descarregar.',
+    errorPrefix:'Erro: ',
+    alertPrefix:'Não foi possível gerar o PDF: ',
+    libWarning:'Aviso: biblioteca de PDF não carregou (verifique a ligação à internet).',
+    logoSaved:'Logótipo guardado neste navegador.',
+    logoTooLarge:'Não foi possível guardar o logótipo (ficheiro demasiado grande).',
+    pdfLibMissing:'A biblioteca jsPDF ainda não carregou. Aguarde um instante e tente novamente.',
+    titleTag:'Gerador de Orçamentos Online Grátis — Cálculo de IVA e Exportação em PDF'
+  },
+  es:{
+    helpLink:'Cómo usar',
+    fallbackLink:'Abrir PDF',
+    addRowShort:'+ Línea',
+    addRowMain:'+ Añadir servicio',
+    exportBtn:'Exportar PDF',
+    exportBtnGenerating:'Generando...',
+    logoPlaceholder:'Haga clic para<br>añadir logotipo',
+    removeLogo:'Quitar logotipo',
+    eyebrow:'Presupuesto',
+    metaNumber:'Nº',
+    metaDate:'Fecha',
+    metaValid:'Válido hasta',
+    clientLabel:'Cliente',
+    clientPlaceholder:'Nombre del cliente',
+    clientEmailLabel:'Correo del cliente',
+    clientEmailPlaceholder:'email@cliente.es',
+    emailBtn:'Enviar por E-mail',
+    emailRequired:'Escriba el correo del cliente antes de enviar.',
+    emailSubject:'Presupuesto',
+    emailBody:'Hola,\n\nAdjunto el presupuesto solicitado.\n\nEl PDF se descargó automáticamente — por favor adjúntelo a este correo antes de enviarlo.\n\nSaludos.',
+    emailStatus:'PDF descargado. Adjúntelo al correo que se abrió y envíelo.',
+    thTitle:'Servicio / Descripción',
+    thQty:'Cant.',
+    thPrice:'Precio unit. (€)',
+    thSubtotal:'Subtotal (€)',
+    titlePlaceholder:'Ej: Instalación eléctrica',
+    removeRow:'Eliminar',
+    subtotalLabel:'Subtotal (sin IVA)',
+    vatLabelPrefix:'IVA',
+    totalLabel:'Total con IVA',
+    totalNoVatPrefix:'Total sin IVA:',
+    bizName:'Nombre del Negocio',
+    bizInfo:'Dirección, Código Postal — Ciudad\nNIF: 000 000 000 · email@ejemplo.es · +34 000 000 000',
+    validDefault:'30 días',
+    footerDefault:'Gracias por su preferencia. Este presupuesto es válido durante el plazo indicado arriba.',
+    seedRow1:'Consultoría y planificación inicial',
+    seedRow2:'Mano de obra (por hora)',
+    pdfEyebrow:'PRESUPUESTO',
+    pdfClientLabel:'CLIENTE',
+    pdfClientEmpty:'—',
+    pdfThTitle:'SERVICIO / DESCRIPCIÓN',
+    pdfThQty:'CANT.',
+    pdfThPrice:'PRECIO UNIT.',
+    pdfThSubtotal:'SUBTOTAL',
+    pdfNoDescription:'(sin descripción)',
+    pdfSubtotalLabel:'Subtotal (sin IVA)',
+    pdfVatLabel:(r)=>`IVA (${r}%)`,
+    pdfTotalLabel:'Total con IVA',
+    statusDownloadOk:'PDF generado y descargado con éxito.',
+    statusNewTab:'PDF abierto en una nueva pestaña — guárdelo desde ahí, o use el enlace "Abrir PDF".',
+    statusManual:'PDF listo. Haga clic en "Abrir PDF" para descargarlo.',
+    errorPrefix:'Error: ',
+    alertPrefix:'No se pudo generar el PDF: ',
+    libWarning:'Aviso: la librería de PDF no cargó (verifique su conexión a internet).',
+    logoSaved:'Logotipo guardado en este navegador.',
+    logoTooLarge:'No se pudo guardar el logotipo (archivo demasiado grande).',
+    pdfLibMissing:'La librería jsPDF aún no ha cargado. Espere un momento e intente de nuevo.',
+    titleTag:'Generador de Presupuestos Online Gratis — Cálculo de IVA y Exportación en PDF'
+  },
+  en:{
+    helpLink:'How to use',
+    fallbackLink:'Open PDF',
+    addRowShort:'+ Line',
+    addRowMain:'+ Add service',
+    exportBtn:'Export PDF',
+    exportBtnGenerating:'Generating...',
+    logoPlaceholder:'Click to<br>add logo',
+    removeLogo:'Remove logo',
+    eyebrow:'Quote',
+    metaNumber:'No.',
+    metaDate:'Date',
+    metaValid:'Valid until',
+    clientLabel:'Client',
+    clientPlaceholder:'Client name',
+    clientEmailLabel:'Client email',
+    clientEmailPlaceholder:'email@client.com',
+    emailBtn:'Send by Email',
+    emailRequired:'Enter the client\'s email before sending.',
+    emailSubject:'Quote',
+    emailBody:'Hello,\n\nPlease find the requested quote below.\n\nThe PDF was downloaded automatically — please attach it to this email before sending.\n\nBest regards.',
+    emailStatus:'PDF downloaded. Attach it to the email that opened and send.',
+    thTitle:'Service / Description',
+    thQty:'Qty',
+    thPrice:'Unit price (€)',
+    thSubtotal:'Subtotal (€)',
+    titlePlaceholder:'E.g: Electrical installation',
+    removeRow:'Remove',
+    subtotalLabel:'Subtotal (excl. VAT)',
+    vatLabelPrefix:'VAT',
+    totalLabel:'Total incl. VAT',
+    totalNoVatPrefix:'Total excl. VAT:',
+    bizName:'Business Name',
+    bizInfo:'Address, Postal Code — City\nTax ID: 000 000 000 · email@example.com · +1 000 000 0000',
+    validDefault:'30 days',
+    footerDefault:'Thank you for your business. This quote is valid for the period stated above.',
+    seedRow1:'Initial consulting and planning',
+    seedRow2:'Labor (per hour)',
+    pdfEyebrow:'QUOTE',
+    pdfClientLabel:'CLIENT',
+    pdfClientEmpty:'—',
+    pdfThTitle:'SERVICE / DESCRIPTION',
+    pdfThQty:'QTY',
+    pdfThPrice:'UNIT PRICE',
+    pdfThSubtotal:'SUBTOTAL',
+    pdfNoDescription:'(no description)',
+    pdfSubtotalLabel:'Subtotal (excl. VAT)',
+    pdfVatLabel:(r)=>`VAT (${r}%)`,
+    pdfTotalLabel:'Total incl. VAT',
+    statusDownloadOk:'PDF generated and downloaded successfully.',
+    statusNewTab:'PDF opened in a new tab — save it from there, or use the "Open PDF" link.',
+    statusManual:'PDF ready. Click "Open PDF" to download it.',
+    errorPrefix:'Error: ',
+    alertPrefix:'Could not generate the PDF: ',
+    libWarning:'Warning: the PDF library did not load (check your internet connection).',
+    logoSaved:'Logo saved in this browser.',
+    logoTooLarge:'Could not save the logo (file too large).',
+    pdfLibMissing:'The jsPDF library has not loaded yet. Wait a moment and try again.',
+    titleTag:'Free Online Quote Generator — VAT Calculation and PDF Export'
+  }
+};
+
+function detectDefaultLang(){
+  try{
+    const saved = localStorage.getItem('presupuesto_lang');
+    if(saved && I18N[saved]) return saved;
+  }catch(e){}
+  const nav = (navigator.language || 'es').toLowerCase();
+  if(nav.startsWith('pt')) return 'pt';
+  if(nav.startsWith('en')) return 'en';
+  return 'es';
+}
+
+let currentLang = detectDefaultLang();
+
+function t(key){ return I18N[currentLang][key]; }
+
+/* ================= elementos base ================= */
+const rowsEl = document.getElementById('rows');
+const statusEl = document.getElementById('status');
+
+function fmtScreen(n){
+  return n.toLocaleString(LOCALE[currentLang], {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+}
+function fmtNum(n){
+  return n.toLocaleString(LOCALE[currentLang], {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+/* ================= linhas de serviço ================= */
+function addRow(title='', qty=1, price=0, seedKey=null){
+  const tr = document.createElement('tr');
+  if(seedKey) tr.dataset.seedKey = seedKey;
+  tr.dataset.edited = 'false';
+  tr.innerHTML = `
+    <td><textarea rows="1" class="title" placeholder="${t('titlePlaceholder')}">${title}</textarea></td>
+    <td class="num"><input type="number" class="qty" value="${qty}" min="0" step="1"></td>
+    <td class="num"><input type="number" class="price" value="${price}" min="0" step="0.01"></td>
+    <td class="num rowtotal">0,00 €</td>
+    <td class="del"><button class="del-btn" type="button" title="${t('removeRow')}">×</button></td>
+  `;
+  rowsEl.appendChild(tr);
+
+  const qtyInput = tr.querySelector('.qty');
+  const priceInput = tr.querySelector('.price');
+  const totalCell = tr.querySelector('.rowtotal');
+  const delBtn = tr.querySelector('.del-btn');
+  const titleArea = tr.querySelector('.title');
+
+  function autoGrow(){
+    titleArea.style.height = 'auto';
+    titleArea.style.height = titleArea.scrollHeight + 'px';
+  }
+  titleArea.addEventListener('input', ()=>{ autoGrow(); tr.dataset.edited = 'true'; });
+  setTimeout(autoGrow, 0);
+
+  function updateRow(){
+    const q = parseFloat(qtyInput.value) || 0;
+    const p = parseFloat(priceInput.value) || 0;
+    totalCell.textContent = fmtScreen(q*p);
+    updateTotals();
+  }
+  qtyInput.addEventListener('input', updateRow);
+  priceInput.addEventListener('input', updateRow);
+  delBtn.addEventListener('click', ()=>{ tr.remove(); updateTotals(); });
+
+  updateRow();
+}
+
+function updateTotals(){
+  let sub = 0;
+  rowsEl.querySelectorAll('tr').forEach(tr=>{
+    const q = parseFloat(tr.querySelector('.qty').value) || 0;
+    const p = parseFloat(tr.querySelector('.price').value) || 0;
+    sub += q*p;
+  });
+  const vatRate = parseFloat(document.getElementById('vatRate').value) || 0;
+  const vatAmount = sub * (vatRate/100);
+  const total = sub + vatAmount;
+
+  document.getElementById('subTotal').textContent = fmtScreen(sub);
+  document.getElementById('subTotal2').textContent = fmtScreen(sub);
+  document.getElementById('vatAmount').textContent = fmtScreen(vatAmount);
+  document.getElementById('grandTotal').textContent = fmtScreen(total);
+}
+
+function refreshRowTotalsDisplay(){
+  rowsEl.querySelectorAll('tr').forEach(tr=>{
+    const q = parseFloat(tr.querySelector('.qty').value) || 0;
+    const p = parseFloat(tr.querySelector('.price').value) || 0;
+    tr.querySelector('.rowtotal').textContent = fmtScreen(q*p);
+  });
+  updateTotals();
+}
+
+document.getElementById('vatRate').addEventListener('input', updateTotals);
+document.getElementById('addRowBtn').addEventListener('click', ()=>addRow());
+
+
+/* ================= logótipo (com persistência em localStorage) ================= */
+const LOGO_KEY = 'presupuesto_logo';
+const logoBox = document.getElementById('logoBox');
+const logoInput = document.getElementById('logoInput');
+const logoImg = document.getElementById('logoImg');
+const logoPlaceholder = document.getElementById('logoPlaceholder');
+const removeLogoBtn = document.getElementById('removeLogoBtn');
+let logoDataUrl = null;
+
+function showLogo(dataUrl){
+  logoDataUrl = dataUrl;
+  logoImg.src = dataUrl;
+  logoImg.style.display = 'block';
+  logoPlaceholder.style.display = 'none';
+  removeLogoBtn.style.display = 'flex';
+}
+function clearLogo(){
+  logoDataUrl = null;
+  logoImg.removeAttribute('src');
+  logoImg.style.display = 'none';
+  logoPlaceholder.style.display = 'block';
+  removeLogoBtn.style.display = 'none';
+  try{ localStorage.removeItem(LOGO_KEY); }catch(e){}
+}
+
+try{
+  const saved = localStorage.getItem(LOGO_KEY);
+  if(saved) showLogo(saved);
+}catch(e){ /* localStorage indisponível (ex: modo privado) */ }
+
+logoBox.addEventListener('click', ()=>logoInput.click());
+removeLogoBtn.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  clearLogo();
+});
+logoInput.addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev)=>{
+    const dataUrl = ev.target.result;
+    showLogo(dataUrl);
+    try{
+      localStorage.setItem(LOGO_KEY, dataUrl);
+      statusEl.textContent = t('logoSaved');
+    }catch(err){
+      statusEl.textContent = t('logoTooLarge');
+    }
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ================= aplicar idioma ================= */
+function applyLanguage(){
+  document.documentElement.lang = LOCALE[currentLang];
+  document.title = t('titleTag');
+
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    el.innerHTML = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{
+    el.title = t(el.dataset.i18nTitle);
+  });
+
+  // Campos com conteúdo padrão: só traduz se o utilizador ainda não editou
+  document.querySelectorAll('[data-i18n-default]').forEach(el=>{
+    if(el.dataset.edited === 'true') return;
+    const key = el.dataset.i18nDefault;
+    if(key === 'dateToday'){
+      el.textContent = new Date().toLocaleDateString(LOCALE[currentLang]);
+    } else if(key === 'bizInfo'){
+      el.textContent = t(key);
+    } else {
+      el.textContent = t(key);
+    }
+  });
+
+  // Linhas semeadas por omissão (só traduz se não editadas)
+  rowsEl.querySelectorAll('tr[data-seed-key]').forEach(tr=>{
+    if(tr.dataset.edited === 'true') return;
+    const textarea = tr.querySelector('.title');
+    textarea.value = t(tr.dataset.seedKey);
+  });
+
+  // placeholders e botões dentro das linhas (criados dinamicamente)
+  rowsEl.querySelectorAll('.title').forEach(ta=> ta.placeholder = t('titlePlaceholder'));
+  rowsEl.querySelectorAll('.del-btn').forEach(btn=> btn.title = t('removeRow'));
+
+  // botões de idioma ativos
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.lang === currentLang);
+  });
+
+  refreshRowTotalsDisplay();
+
+  try{ localStorage.setItem('presupuesto_lang', currentLang); }catch(e){}
+}
+
+function setLanguage(lang){
+  if(!I18N[lang]) return;
+  currentLang = lang;
+  applyLanguage();
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> setLanguage(btn.dataset.lang));
+});
+
+/* ================= inicialização ================= */
+// marca 'edited' quando o utilizador digita nos campos com conteúdo padrão
+document.querySelectorAll('[data-i18n-default]').forEach(el=>{
+  el.addEventListener('input', ()=>{ el.dataset.edited = 'true'; });
+});
+
+addRow(t('seedRow1'), 1, 250, 'seedRow1');
+addRow(t('seedRow2'), 8, 35, 'seedRow2');
+
+applyLanguage();
+
+/* ---------- Exportação de PDF (desenhada diretamente com jsPDF, sem captura de ecrã) ---------- */
+
+function getJsPDF(){
+  if(window.jspdf && window.jspdf.jsPDF) return window.jspdf.jsPDF;
+  return null;
+}
+
+function buildPdf(){
+  const JsPDFCtor = getJsPDF();
+  if(!JsPDFCtor){
+    throw new Error(t('pdfLibMissing'));
+  }
+
+  const doc = new JsPDFCtor('p','mm','a4');
+  const pageW = 210, pageH = 297;
+  const marginX = 18;
+  let y = 20;
+
+  const inkRGB = [28,35,33];
+  const slateRGB = [74,88,89];
+  const copperRGB = [168,92,50];
+  const lineRGB = [216,211,199];
+
+  function checkPageBreak(next){
+    if(y + next > pageH - 20){
+      doc.addPage();
+      y = 20;
+    }
+  }
+
+  // Logótipo
+  if(logoDataUrl){
+    try{
+      const props = doc.getImageProperties(logoDataUrl);
+      const maxW = 32, maxH = 20;
+      let w = maxW, h = (props.height/props.width)*w;
+      if(h > maxH){ h = maxH; w = (props.width/props.height)*h; }
+      doc.addImage(logoDataUrl, 'PNG', marginX, y, w, h);
+    }catch(e){ /* logótipo opcional; ignora se falhar */ }
+  }
+
+  // Nome do local e info
+  const bizName = document.querySelector('.biz-name').innerText.trim() || t('bizName');
+  const bizInfo = document.querySelector('.biz-info').innerText.trim();
+
+  let leftY = logoDataUrl ? y + 26 : y;
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(17);
+  doc.setTextColor(...inkRGB);
+  doc.text(bizName, marginX, leftY);
+  leftY += 6;
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9.5);
+  doc.setTextColor(...slateRGB);
+  const bizInfoLines = doc.splitTextToSize(bizInfo, 95);
+  bizInfoLines.forEach(line=>{
+    doc.text(line, marginX, leftY);
+    leftY += 4.3;
+  });
+
+  // Meta do documento
+  const rightX = pageW - marginX;
+  let rightY = 20;
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(9);
+  doc.setTextColor(...copperRGB);
+  doc.text(t('pdfEyebrow'), rightX, rightY, {align:'right'});
+  rightY += 6;
+
+  const metaRows = document.querySelectorAll('.doc-meta .meta-row');
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(...slateRGB);
+  metaRows.forEach(row=>{
+    const k = row.querySelector('.k').textContent.trim();
+    const v = row.querySelector('.v').textContent.trim();
+    doc.text(`${k}: ${v}`, rightX, rightY, {align:'right'});
+    rightY += 4.6;
+  });
+
+  y = Math.max(leftY, rightY) + 4;
+  doc.setDrawColor(...inkRGB);
+  doc.setLineWidth(0.6);
+  doc.line(marginX, y, pageW - marginX, y);
+  y += 10;
+
+  // Cliente
+  const clientName = document.getElementById('clientName').value.trim();
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(10);
+  doc.setTextColor(...slateRGB);
+  doc.text(t('pdfClientLabel'), marginX, y);
+  y += 5;
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(11);
+  doc.setTextColor(...inkRGB);
+  doc.text(clientName || t('pdfClientEmpty'), marginX, y);
+  y += 10;
+
+  // Cabeçalho da tabela
+  const colTitleX = marginX;
+  const colQtyX = pageW - marginX - 62;
+  const colPriceX = pageW - marginX - 40;
+  const colTotalX = pageW - marginX;
+  const titleColWidth = colQtyX - colTitleX - 4;
+
+  function drawTableHeader(){
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(8.5);
+    doc.setTextColor(...slateRGB);
+    doc.text(t('pdfThTitle'), colTitleX, y);
+    doc.text(t('pdfThQty'), colQtyX, y, {align:'right'});
+    doc.text(t('pdfThPrice'), colPriceX, y, {align:'right'});
+    doc.text(t('pdfThSubtotal'), colTotalX, y, {align:'right'});
+    y += 3;
+    doc.setDrawColor(...inkRGB);
+    doc.setLineWidth(0.5);
+    doc.line(marginX, y, pageW - marginX, y);
+    y += 6;
+  }
+  drawTableHeader();
+
+  // Linhas
+  let subtotalGeral = 0;
+  const rowsData = [];
+  rowsEl.querySelectorAll('tr').forEach(tr=>{
+    const title = tr.querySelector('.title').value.trim();
+    const qty = parseFloat(tr.querySelector('.qty').value) || 0;
+    const price = parseFloat(tr.querySelector('.price').value) || 0;
+    rowsData.push({title, qty, price});
+  });
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9.5);
+
+  rowsData.forEach(row=>{
+    const lineTotal = row.qty * row.price;
+    subtotalGeral += lineTotal;
+
+    const titleLines = doc.splitTextToSize(row.title || t('pdfNoDescription'), titleColWidth);
+    const textBlockHeight = (titleLines.length - 1) * 4.6;
+    const rowHeight = textBlockHeight + 9;
+    checkPageBreak(rowHeight + 2);
+
+    doc.setTextColor(...inkRGB);
+    titleLines.forEach((line, i)=>{
+      doc.text(line, colTitleX, y + i*4.6);
+    });
+    doc.text(String(row.qty), colQtyX, y, {align:'right'});
+    doc.text(fmtNum(row.price), colPriceX, y, {align:'right'});
+    doc.setFont('helvetica','bold');
+    doc.text(fmtNum(lineTotal) + ' €', colTotalX, y, {align:'right'});
+    doc.setFont('helvetica','normal');
+
+    const dividerY = y + textBlockHeight + 4;
+    doc.setDrawColor(...lineRGB);
+    doc.setLineWidth(0.2);
+    doc.line(marginX, dividerY, pageW - marginX, dividerY);
+
+    y += rowHeight;
+  });
+
+  y += 6;
+  checkPageBreak(45);
+
+  // Totais
+  const vatRate = parseFloat(document.getElementById('vatRate').value) || 0;
+  const vatAmount = subtotalGeral * (vatRate/100);
+  const total = subtotalGeral + vatAmount;
+
+  const totalsX = pageW - marginX;
+  const totalsLabelX = totalsX - 70;
+
+  doc.setFontSize(9.5);
+  doc.setTextColor(...inkRGB);
+  doc.setFont('helvetica','normal');
+  doc.text(t('pdfSubtotalLabel'), totalsLabelX, y);
+  doc.text(fmtNum(subtotalGeral) + ' €', totalsX, y, {align:'right'});
+  doc.setDrawColor(...lineRGB);
+  doc.line(totalsLabelX, y + 3, totalsX, y + 3);
+  y += 7;
+
+  doc.text(t('pdfVatLabel')(vatRate), totalsLabelX, y);
+  doc.text(fmtNum(vatAmount) + ' €', totalsX, y, {align:'right'});
+  doc.line(totalsLabelX, y + 3, totalsX, y + 3);
+  y += 7;
+
+  y += 2;
+  doc.setDrawColor(...inkRGB);
+  doc.setLineWidth(0.7);
+  doc.line(totalsLabelX, y - 2, totalsX, y - 2);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(13.5);
+  doc.text(t('pdfTotalLabel'), totalsLabelX, y + 4);
+  doc.text(fmtNum(total) + ' €', totalsX, y + 4, {align:'right'});
+  y += 16;
+
+  // Rodapé
+  const footerNote = document.getElementById('footerNote').innerText.trim();
+  if(footerNote){
+    checkPageBreak(14);
+    doc.setDrawColor(...lineRGB);
+    doc.setLineWidth(0.3);
+    doc.line(marginX, y, pageW - marginX, y);
+    y += 6;
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(...slateRGB);
+    const footerLines = doc.splitTextToSize(footerNote, pageW - marginX*2);
+    footerLines.forEach(line=>{
+      doc.text(line, pageW/2, y, {align:'center'});
+      y += 4;
+    });
+  }
+
+  return doc;
+}
+
+let lastPdfUrl = null;
+const fallbackLink = document.getElementById('fallbackLink');
+
+function pdfFilename(){
+  const nome = (document.querySelector('.biz-name').innerText.trim() || 'orcamento').replace(/\s+/g,'_');
+  return `${nome}_orcamento.pdf`;
+}
+
+// Descarrega o PDF com várias camadas de segurança (download direto,
+// nova aba, e link manual persistente) e devolve a chave de status a mostrar.
+function triggerPdfDownload(doc, filename){
+  const blob = doc.output('blob');
+  if(lastPdfUrl) URL.revokeObjectURL(lastPdfUrl);
+  lastPdfUrl = URL.createObjectURL(blob);
+
+  let downloadWorked = false;
+  try{
+    const a = document.createElement('a');
+    a.href = lastPdfUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    downloadWorked = true;
+  }catch(e){ /* segue para o fallback */ }
+
+  if(downloadWorked){
+    fallbackLink.style.display = 'none';
+    return 'statusDownloadOk';
+  }
+
+  // só recorre à nova aba / link manual se o download direto falhar
+  const opened = window.open(lastPdfUrl, '_blank');
+  const popupBlocked = !opened || opened.closed || typeof opened.closed === 'undefined';
+
+  fallbackLink.href = lastPdfUrl;
+  fallbackLink.download = filename;
+  fallbackLink.style.display = 'inline';
+
+  if(!popupBlocked) return 'statusNewTab';
+  return 'statusManual';
+}
+
+const exportBtn = document.getElementById('exportBtn');
+exportBtn.addEventListener('click', ()=>{
+  const original = exportBtn.textContent;
+  exportBtn.textContent = t('exportBtnGenerating');
+  exportBtn.disabled = true;
+  statusEl.textContent = '';
+  fallbackLink.style.display = 'none';
+
+  try{
+    const doc = buildPdf();
+    const key = triggerPdfDownload(doc, pdfFilename());
+    statusEl.textContent = t(key);
+  }catch(err){
+    console.error(err);
+    statusEl.textContent = t('errorPrefix') + err.message;
+    alert(t('alertPrefix') + err.message);
+  }finally{
+    exportBtn.textContent = original;
+    exportBtn.disabled = false;
+  }
+});
+
+/* ---------- Enviar por e-mail (gera o PDF + abre o cliente de e-mail) ---------- */
+// Sem servidor próprio, o navegador não consegue anexar o PDF sozinho a um
+// e-mail: por isso descarregamos o PDF e abrimos o e-mail já preenchido,
+// pedindo para anexar o ficheiro descarregado antes de enviar.
+const emailBtn = document.getElementById('emailBtn');
+const clientEmailInput = document.getElementById('clientEmail');
+
+try{
+  const savedEmail = localStorage.getItem('presupuesto_last_email');
+  if(savedEmail) clientEmailInput.value = savedEmail;
+}catch(e){}
+
+emailBtn.addEventListener('click', ()=>{
+  const email = clientEmailInput.value.trim();
+  if(!email){
+    alert(t('emailRequired'));
+    clientEmailInput.focus();
+    return;
+  }
+
+  try{ localStorage.setItem('presupuesto_last_email', email); }catch(e){}
+
+  const original = emailBtn.textContent;
+  emailBtn.textContent = t('exportBtnGenerating');
+  emailBtn.disabled = true;
+  statusEl.textContent = '';
+
+  try{
+    const doc = buildPdf();
+    triggerPdfDownload(doc, pdfFilename());
+
+    const bizName = document.querySelector('.biz-name').innerText.trim() || t('bizName');
+    const subject = encodeURIComponent(`${t('emailSubject')} — ${bizName}`);
+    const body = encodeURIComponent(t('emailBody'));
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+    statusEl.textContent = t('emailStatus');
+  }catch(err){
+    console.error(err);
+    statusEl.textContent = t('errorPrefix') + err.message;
+    alert(t('alertPrefix') + err.message);
+  }finally{
+    emailBtn.textContent = original;
+    emailBtn.disabled = false;
+  }
+});
+
+setTimeout(()=>{
+  if(!getJsPDF()){
+    statusEl.textContent = t('libWarning');
+  }
+}, 4000);
+</script>
+</body>
+</html>

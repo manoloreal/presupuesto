@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como usar — Gerador de Orçamentos</title>
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%231c2321'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23a85c32' font-family='Georgia,serif' font-weight='bold'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#1c2321;
+    --paper:#faf8f3;
+    --paper-2:#f1ede2;
+    --slate:#4a5859;
+    --copper:#a85c32;
+    --line:#d8d3c7;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper-2);
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:720px;margin:0 auto;}
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:24px;
+  }
+  .site-logo{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:800;font-size:20px;letter-spacing:-0.03em;color:var(--ink);
+    text-decoration:none;
+  }
+  .site-logo .dot{color:var(--copper);}
+  .lang-switch{display:flex;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  button.lang-btn{
+    border:none;background:var(--paper);color:var(--slate);
+    font-size:11px;font-weight:700;letter-spacing:.03em;
+    padding:6px 9px;cursor:pointer;
+  }
+  button.lang-btn + button.lang-btn{border-left:1px solid var(--line);}
+  button.lang-btn:hover{background:var(--paper-2);color:var(--ink);}
+  button.lang-btn.active{background:var(--ink);color:var(--paper);}
+
+  .card{
+    background:var(--paper);
+    border:1px solid var(--ink);
+    padding:40px 44px;
+  }
+  h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:700;
+    font-size:30px;
+    margin:0 0 6px;
+  }
+  .subtitle{color:var(--slate);font-size:14px;margin-bottom:32px;}
+  .step{
+    display:flex;gap:16px;
+    padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .step:first-of-type{border-top:none;}
+  .step-num{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:700;
+    font-size:22px;
+    color:var(--copper);
+    min-width:32px;
+  }
+  .step h2{font-size:15px;margin:0 0 6px;}
+  .step p{font-size:13.5px;color:var(--slate);line-height:1.6;margin:0;}
+  .note{
+    margin-top:28px;
+    padding:16px 18px;
+    background:var(--paper-2);
+    border-left:3px solid var(--copper);
+    font-size:12.5px;
+    color:var(--slate);
+    line-height:1.6;
+  }
+  .back{
+    display:inline-block;
+    margin-top:28px;
+    font-size:13px;
+    color:var(--slate);
+    text-decoration:underline;
+  }
+  .back:hover{color:var(--copper);}
+  @media (max-width:600px){
+    .card{padding:28px 22px;}
+    h1{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a href="index.html" class="site-logo">presupuesto<span class="dot">.</span></a>
+    <div class="lang-switch">
+      <button type="button" class="lang-btn" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn" data-lang="es">ES</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h1 data-i18n="title">Como usar o Gerador de Orçamentos</h1>
+    <p class="subtitle" data-i18n="subtitle">Tudo funciona diretamente no seu navegador — sem contas, sem servidores.</p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h2 data-i18n="s1t">Preencha o cabeçalho</h2>
+        <p data-i18n="s1p">Clique na caixa tracejada para carregar o seu logótipo — ele fica guardado automaticamente neste navegador para as próximas vezes. Edite o nome do negócio e a informação de contacto clicando diretamente no texto.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h2 data-i18n="s2t">Identifique o cliente</h2>
+        <p data-i18n="s2p">Preencha o campo "Cliente" com o nome de quem vai receber o orçamento.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h2 data-i18n="s3t">Adicione os serviços</h2>
+        <p data-i18n="s3p">Use "+ Adicionar serviço" para cada linha. Preencha a descrição, a quantidade e o valor unitário — o subtotal de cada linha é calculado automaticamente (quantidade × valor).</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h2 data-i18n="s4t">Confirme o IVA e os totais</h2>
+        <p data-i18n="s4p">A percentagem de IVA vem predefinida em 21%, mas pode ser editada. O subtotal sem IVA, o valor do IVA e o total final são recalculados em tempo real.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div>
+        <h2 data-i18n="s5t">Exporte em PDF</h2>
+        <p data-i18n="s5p">Clique em "Exportar PDF". Se o download não começar automaticamente, use o link "Abrir PDF" que aparece ao lado do botão.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div>
+        <h2 data-i18n="s6t">Troque de idioma</h2>
+        <p data-i18n="s6p">Use os botões PT / ES / EN no topo da página para mudar todo o texto da interface e do PDF exportado. A sua escolha fica guardada para a próxima visita.</p>
+      </div>
+    </div>
+
+    <div class="note" data-i18n="note">
+      <strong>Nota:</strong> esta ferramenta não tem servidor nem base de dados — todos os dados (incluindo o logótipo e o idioma escolhido) ficam guardados apenas no seu navegador, neste computador. Se limpar os dados do navegador ou mudar de dispositivo, terá de configurar novamente.
+    </div>
+
+    <a href="gerador.html" class="back" data-i18n="back">← Voltar ao gerador</a>
+  </div>
+</div>
+
+<script>
+const T = {
+  pt:{
+    title:'Como usar o Gerador de Orçamentos',
+    subtitle:'Tudo funciona diretamente no seu navegador — sem contas, sem servidores.',
+    s1t:'Preencha o cabeçalho', s1p:'Clique na caixa tracejada para carregar o seu logótipo — ele fica guardado automaticamente neste navegador para as próximas vezes. Edite o nome do negócio e a informação de contacto clicando diretamente no texto.',
+    s2t:'Identifique o cliente', s2p:'Preencha o campo "Cliente" com o nome de quem vai receber o orçamento.',
+    s3t:'Adicione os serviços', s3p:'Use "+ Adicionar serviço" para cada linha. Preencha a descrição, a quantidade e o valor unitário — o subtotal de cada linha é calculado automaticamente (quantidade × valor).',
+    s4t:'Confirme o IVA e os totais', s4p:'A percentagem de IVA vem predefinida em 21%, mas pode ser editada. O subtotal sem IVA, o valor do IVA e o total final são recalculados em tempo real.',
+    s5t:'Exporte em PDF', s5p:'Clique em "Exportar PDF". Se o download não começar automaticamente, use o link "Abrir PDF" que aparece ao lado do botão.',
+    s6t:'Troque de idioma', s6p:'Use os botões PT / ES / EN no topo da página para mudar todo o texto da interface e do PDF exportado. A sua escolha fica guardada para a próxima visita.',
+    note:'<strong>Nota:</strong> esta ferramenta não tem servidor nem base de dados — todos os dados (incluindo o logótipo e o idioma escolhido) ficam guardados apenas no seu navegador, neste computador. Se limpar os dados do navegador ou mudar de dispositivo, terá de configurar novamente.',
+    back:'← Voltar ao gerador'
+  },
+  es:{
+    title:'Cómo usar el Generador de Presupuestos',
+    subtitle:'Todo funciona directamente en su navegador — sin cuentas, sin servidores.',
+    s1t:'Complete el encabezado', s1p:'Haga clic en el recuadro punteado para cargar su logotipo — se guarda automáticamente en este navegador para las próximas veces. Edite el nombre del negocio y la información de contacto haciendo clic directamente en el texto.',
+    s2t:'Identifique al cliente', s2p:'Complete el campo "Cliente" con el nombre de quien recibirá el presupuesto.',
+    s3t:'Añada los servicios', s3p:'Use "+ Añadir servicio" para cada línea. Complete la descripción, la cantidad y el precio unitario — el subtotal de cada línea se calcula automáticamente (cantidad × precio).',
+    s4t:'Confirme el IVA y los totales', s4p:'El porcentaje de IVA viene predefinido en 21%, pero puede editarse. El subtotal sin IVA, el importe del IVA y el total final se recalculan en tiempo real.',
+    s5t:'Exporte en PDF', s5p:'Haga clic en "Exportar PDF". Si la descarga no empieza automáticamente, use el enlace "Abrir PDF" que aparece junto al botón.',
+    s6t:'Cambie de idioma', s6p:'Use los botones PT / ES / EN en la parte superior de la página para cambiar todo el texto de la interfaz y del PDF exportado. Su elección se guarda para la próxima visita.',
+    note:'<strong>Nota:</strong> esta herramienta no tiene servidor ni base de datos — todos los datos (incluyendo el logotipo y el idioma elegido) se guardan solo en su navegador, en este equipo. Si borra los datos del navegador o cambia de dispositivo, tendrá que configurarlo de nuevo.',
+    back:'← Volver al generador'
+  },
+  en:{
+    title:'How to use the Quote Generator',
+    subtitle:'Everything works directly in your browser — no accounts, no servers.',
+    s1t:'Fill in the header', s1p:'Click the dashed box to upload your logo — it\'s saved automatically in this browser for next time. Edit the business name and contact info by clicking directly on the text.',
+    s2t:'Identify the client', s2p:'Fill in the "Client" field with the name of whoever will receive the quote.',
+    s3t:'Add the services', s3p:'Use "+ Add service" for each line. Fill in the description, quantity, and unit price — each line\'s subtotal is calculated automatically (quantity × price).',
+    s4t:'Confirm VAT and totals', s4p:'The VAT percentage defaults to 21%, but it can be edited. The subtotal excl. VAT, the VAT amount, and the final total recalculate in real time.',
+    s5t:'Export to PDF', s5p:'Click "Export PDF". If the download doesn\'t start automatically, use the "Open PDF" link next to the button.',
+    s6t:'Switch language', s6p:'Use the PT / ES / EN buttons at the top of the page to switch all interface text and the exported PDF. Your choice is saved for your next visit.',
+    note:'<strong>Note:</strong> this tool has no server or database — all data (including the logo and chosen language) is stored only in your browser, on this device. If you clear your browser data or switch devices, you\'ll need to set it up again.',
+    back:'← Back to the generator'
+  }
+};
+
+function detectLang(){
+  try{
+    const saved = localStorage.getItem('presupuesto_lang');
+    if(saved && T[saved]) return saved;
+  }catch(e){}
+  const nav = (navigator.language || 'es').toLowerCase();
+  if(nav.startsWith('pt')) return 'pt';
+  if(nav.startsWith('en')) return 'en';
+  return 'es';
+}
+
+function apply(lang){
+  document.documentElement.lang = lang === 'pt' ? 'pt-PT' : (lang === 'en' ? 'en-US' : 'es-ES');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    el.innerHTML = T[lang][el.dataset.i18n];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  try{ localStorage.setItem('presupuesto_lang', lang); }catch(e){}
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> apply(btn.dataset.lang));
+});
+
+apply(detectLang());
+</script>
+</body>
+</html>
