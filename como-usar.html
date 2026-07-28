@@ -101,6 +101,7 @@
     <a href="index.html" class="site-logo">presupuesto<span class="dot">.</span></a>
     <div class="lang-switch">
       <button type="button" class="lang-btn" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn" data-lang="br">BR</button>
       <button type="button" class="lang-btn" data-lang="es">ES</button>
       <button type="button" class="lang-btn" data-lang="en">EN</button>
     </div>
@@ -180,6 +181,18 @@ const T = {
     note:'<strong>Nota:</strong> esta ferramenta não tem servidor nem base de dados — todos os dados (incluindo o logótipo e o idioma escolhido) ficam guardados apenas no seu navegador, neste computador. Se limpar os dados do navegador ou mudar de dispositivo, terá de configurar novamente.',
     back:'← Voltar ao gerador'
   },
+  br:{
+    title:'Como usar o Gerador de Orçamentos',
+    subtitle:'Tudo funciona diretamente no seu navegador — sem contas, sem servidores.',
+    s1t:'Preencha o cabeçalho', s1p:'Clique na caixa tracejada para carregar o seu logotipo — ele fica salvo automaticamente neste navegador para as próximas vezes. Edite o nome do negócio e as informações de contato clicando diretamente no texto.',
+    s2t:'Identifique o cliente', s2p:'Preencha o campo "Cliente" com o nome de quem vai receber o orçamento.',
+    s3t:'Adicione os serviços', s3p:'Use "+ Adicionar serviço" para cada linha. Preencha a descrição, a quantidade e o valor unitário — o subtotal de cada linha é calculado automaticamente (quantidade × valor).',
+    s4t:'Confirme o IVA e os totais', s4p:'A porcentagem de IVA vem predefinida em 21%, mas pode ser editada. O subtotal sem IVA, o valor do IVA e o total final são recalculados em tempo real.',
+    s5t:'Exporte em PDF', s5p:'Clique em "Exportar PDF". Se o download não começar automaticamente, use o link "Abrir PDF" que aparece ao lado do botão.',
+    s6t:'Troque de idioma', s6p:'Use os botões PT / BR / ES / EN no topo da página para mudar todo o texto da interface e do PDF exportado. Sua escolha fica salva para a próxima visita.',
+    note:'<strong>Nota:</strong> esta ferramenta não tem servidor nem banco de dados — todos os dados (incluindo o logotipo e o idioma escolhido) ficam salvos apenas no seu navegador, neste computador. Se limpar os dados do navegador ou trocar de dispositivo, será preciso configurar tudo de novo.',
+    back:'← Voltar ao gerador'
+  },
   es:{
     title:'Cómo usar el Generador de Presupuestos',
     subtitle:'Todo funciona directamente en su navegador — sin cuentas, sin servidores.',
@@ -212,13 +225,15 @@ function detectLang(){
     if(saved && T[saved]) return saved;
   }catch(e){}
   const nav = (navigator.language || 'es').toLowerCase();
+  if(nav.startsWith('pt-br')) return 'br';
   if(nav.startsWith('pt')) return 'pt';
   if(nav.startsWith('en')) return 'en';
   return 'es';
 }
 
 function apply(lang){
-  document.documentElement.lang = lang === 'pt' ? 'pt-PT' : (lang === 'en' ? 'en-US' : 'es-ES');
+  const localeMap = { pt:'pt-PT', br:'pt-BR', es:'es-ES', en:'en-US' };
+  document.documentElement.lang = localeMap[lang] || 'es-ES';
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     el.innerHTML = T[lang][el.dataset.i18n];
   });

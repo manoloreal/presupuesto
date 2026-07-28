@@ -323,6 +323,7 @@
     <a href="como-usar.html" class="nav-link" data-i18n="navHelp">Como usar</a>
     <div class="lang-switch">
       <button type="button" class="lang-btn" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn" data-lang="br">BR</button>
       <button type="button" class="lang-btn" data-lang="es">ES</button>
       <button type="button" class="lang-btn" data-lang="en">EN</button>
     </div>
@@ -472,6 +473,33 @@ const T = {
     finalTitle:'Pronto para o seu primeiro orçamento?', finalLead:'Grátis, sem conta, sem burocracia. Comece agora.', finalCta:'Criar orçamento grátis →',
     footGerador:'Gerador', footHelp:'Como usar'
   },
+  br:{
+    navHelp:'Como usar', navCta:'Abrir gerador',
+    heroEyebrow:'Feito para quem trabalha por conta própria',
+    heroTitle:'Orçamentos profissionais em minutos. <em>Sem burocracia.</em>',
+    heroLead:'A ferramenta gratuita para autônomos e pequenos negócios criarem orçamentos com boa apresentação — sem criar conta, sem instalar nada, sem complicação.',
+    heroCtaPrimary:'Criar orçamento grátis →', heroCtaSecondary:'Ver como funciona',
+    trustLine:'GRÁTIS · SEM CONTA · TUDO NO SEU NAVEGADOR',
+    mockTag:'Orçamento', mockRow1:'Consultoria inicial', mockRow2:'Mão de obra (8h)', mockRow3:'Materiais',
+    mockTotalLabel:'Total com IVA', mockStamp:'PDF EM 1 CLIQUE',
+    trust1t:'Sem burocracia', trust1p:'Abra a página e comece a preencher. Sem cadastro, sem planos, sem período de teste.',
+    trust2t:'Seus dados, no seu computador', trust2p:'O logotipo e as preferências ficam salvos só no seu navegador — nunca em um servidor.',
+    trust3t:'Pronto em minutos', trust3p:'Preencha os serviços, confirme o IVA, exporte o PDF. É só isso que você precisa fazer.',
+    featEyebrow:'O que vem incluído',
+    featTitle:'Tudo o que um orçamento profissional precisa',
+    featLead:'Sem módulos extras para desbloquear, sem versão paga escondida atrás de um botão.',
+    f1t:'Logotipo e marca própria', f1p:'Adicione o logotipo do seu negócio uma vez — ele fica salvo automaticamente para a próxima vez.',
+    f2t:'Cálculo automático de IVA', f2p:'Subtotal, IVA e total recalculados em tempo real, com a porcentagem que você precisar.',
+    f3t:'Exportação em PDF', f3p:'Um documento limpo e profissional, pronto para enviar ao cliente em segundos.',
+    f4t:'Enviar por e-mail', f4p:'Baixe o PDF e abra seu e-mail já com o destinatário e assunto preenchidos.',
+    f5t:'Português, espanhol ou inglês', f5p:'Troque o idioma da interface e do PDF exportado com um clique.',
+    f6t:'Sem conta, sem instalação', f6p:'Funciona em qualquer navegador. Feche a aba e continue depois de onde parou.',
+    stEyebrow:'Para quem fatura por conta própria',
+    stQuote:'Eletricistas, consultores, designers, encanadores — <em>quem precisa de um orçamento com boa aparência</em>, rápido, sem lidar com software de faturamento caro ou complicado.',
+    stWho:'Se você trabalha por conta própria e ainda faz orçamentos em um documento de texto ou à mão, esta ferramenta foi pensada para você.',
+    finalTitle:'Pronto para o seu primeiro orçamento?', finalLead:'Grátis, sem conta, sem burocracia. Comece agora.', finalCta:'Criar orçamento grátis →',
+    footGerador:'Gerador', footHelp:'Como usar'
+  },
   es:{
     navHelp:'Cómo usar', navCta:'Abrir generador',
     heroEyebrow:'Hecho para quien trabaja por cuenta propia',
@@ -534,13 +562,15 @@ function detectLang(){
     if(saved && T[saved]) return saved;
   }catch(e){}
   const nav = (navigator.language || 'es').toLowerCase();
+  if(nav.startsWith('pt-br')) return 'br';
   if(nav.startsWith('pt')) return 'pt';
   if(nav.startsWith('en')) return 'en';
   return 'es';
 }
 
 function apply(lang){
-  document.documentElement.lang = lang === 'pt' ? 'pt-PT' : (lang === 'en' ? 'en-US' : 'es-ES');
+  const localeMap = { pt:'pt-PT', br:'pt-BR', es:'es-ES', en:'en-US' };
+  document.documentElement.lang = localeMap[lang] || 'es-ES';
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     el.innerHTML = T[lang][el.dataset.i18n];
   });

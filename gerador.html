@@ -395,6 +395,7 @@
   <div class="toolbar-right">
     <div class="lang-switch">
       <button type="button" class="lang-btn" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn" data-lang="br">BR</button>
       <button type="button" class="lang-btn" data-lang="es">ES</button>
       <button type="button" class="lang-btn" data-lang="en">EN</button>
     </div>
@@ -472,7 +473,7 @@ NIF: 000 000 000 &middot; email@exemplo.pt &middot; +351 000 000 000</div>
 
 <script>
 /* ================= i18n ================= */
-const LOCALE = { pt:'pt-PT', es:'es-ES', en:'en-US' };
+const LOCALE = { pt:'pt-PT', br:'pt-BR', es:'es-ES', en:'en-US' };
 
 const I18N = {
   pt:{
@@ -532,6 +533,66 @@ const I18N = {
     libWarning:'Aviso: biblioteca de PDF não carregou (verifique a ligação à internet).',
     logoSaved:'Logótipo guardado neste navegador.',
     logoTooLarge:'Não foi possível guardar o logótipo (ficheiro demasiado grande).',
+    pdfLibMissing:'A biblioteca jsPDF ainda não carregou. Aguarde um instante e tente novamente.',
+    titleTag:'Gerador de Orçamentos Online Grátis — Cálculo de IVA e Exportação em PDF'
+  },
+  br:{
+    helpLink:'Como usar',
+    fallbackLink:'Abrir PDF',
+    addRowShort:'+ Linha',
+    addRowMain:'+ Adicionar serviço',
+    exportBtn:'Exportar PDF',
+    exportBtnGenerating:'Gerando...',
+    logoPlaceholder:'Clique para<br>adicionar logotipo',
+    removeLogo:'Remover logotipo',
+    eyebrow:'Orçamento',
+    metaNumber:'Nº',
+    metaDate:'Data',
+    metaValid:'Válido até',
+    clientLabel:'Cliente',
+    clientPlaceholder:'Nome do cliente',
+    clientEmailLabel:'E-mail do cliente',
+    clientEmailPlaceholder:'email@cliente.com.br',
+    emailBtn:'Enviar por E-mail',
+    emailRequired:'Digite o e-mail do cliente antes de enviar.',
+    emailSubject:'Orçamento',
+    emailBody:'Olá,\n\nSegue o orçamento solicitado.\n\nO PDF foi baixado automaticamente — por favor anexe-o a este e-mail antes de enviar.\n\nAtenciosamente.',
+    emailStatus:'PDF baixado. Anexe-o ao e-mail que abriu e envie.',
+    thTitle:'Serviço / Descrição',
+    thQty:'Qtd.',
+    thPrice:'Valor unit. (€)',
+    thSubtotal:'Subtotal (€)',
+    titlePlaceholder:'Ex: Instalação elétrica',
+    removeRow:'Remover',
+    subtotalLabel:'Subtotal (sem IVA)',
+    vatLabelPrefix:'IVA',
+    totalLabel:'Total com IVA',
+    totalNoVatPrefix:'Total sem IVA:',
+    bizName:'Nome do Negócio',
+    bizInfo:'Endereço, CEP — Cidade\nCNPJ: 00.000.000/0000-00 · email@exemplo.com.br · +55 00 00000-0000',
+    validDefault:'30 dias',
+    footerDefault:'Agradecemos a confiança. Este orçamento é válido pelo prazo indicado acima.',
+    seedRow1:'Consultoria e planejamento inicial',
+    seedRow2:'Mão de obra (por hora)',
+    pdfEyebrow:'ORÇAMENTO',
+    pdfClientLabel:'CLIENTE',
+    pdfClientEmpty:'—',
+    pdfThTitle:'SERVIÇO / DESCRIÇÃO',
+    pdfThQty:'QTD.',
+    pdfThPrice:'VALOR UNIT.',
+    pdfThSubtotal:'SUBTOTAL',
+    pdfNoDescription:'(sem descrição)',
+    pdfSubtotalLabel:'Subtotal (sem IVA)',
+    pdfVatLabel:(r)=>`IVA (${r}%)`,
+    pdfTotalLabel:'Total com IVA',
+    statusDownloadOk:'PDF gerado e baixado com sucesso.',
+    statusNewTab:'PDF aberto em uma nova aba — salve-o a partir daí, ou use o link "Abrir PDF".',
+    statusManual:'PDF pronto. Clique em "Abrir PDF" para baixá-lo.',
+    errorPrefix:'Erro: ',
+    alertPrefix:'Não foi possível gerar o PDF: ',
+    libWarning:'Aviso: a biblioteca de PDF não carregou (verifique sua conexão com a internet).',
+    logoSaved:'Logotipo salvo neste navegador.',
+    logoTooLarge:'Não foi possível salvar o logotipo (arquivo muito grande).',
     pdfLibMissing:'A biblioteca jsPDF ainda não carregou. Aguarde um instante e tente novamente.',
     titleTag:'Gerador de Orçamentos Online Grátis — Cálculo de IVA e Exportação em PDF'
   },
@@ -663,6 +724,7 @@ function detectDefaultLang(){
     if(saved && I18N[saved]) return saved;
   }catch(e){}
   const nav = (navigator.language || 'es').toLowerCase();
+  if(nav.startsWith('pt-br')) return 'br';
   if(nav.startsWith('pt')) return 'pt';
   if(nav.startsWith('en')) return 'en';
   return 'es';
