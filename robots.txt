@@ -27,4 +27,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://oseudominio.com/sitemap.xml
+Sitemap: https://generadordepresupuesto.es/sitemap.xml

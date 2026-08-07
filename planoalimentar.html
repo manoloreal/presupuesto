@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Plano Alimentar Profissional</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --ink: #1c2321;
+    --paper: #faf8f3;
+    --paper-2: #f1ede2;
+    --slate: #4a5859;
+    --copper: #a85c32;
+    --copper-hover: #8a4926;
+    --line: #d8d3c7;
+    --line-strong: #1c2321;
+    --danger: #a3402f;
+    --success: #2e7d32;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper-2);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    padding: 32px 16px 80px;
+  }
+  .toolbar {
+    max-width: 1060px;
+    margin: 0 auto 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  /* Nova Barra de Pacientes */
+  .patient-toolbar {
+    max-width: 1060px; margin: 0 auto 24px;
+    display: flex; gap: 10px; background: var(--paper);
+    padding: 12px 16px; border: 1px solid var(--line); border-radius: 6px;
+    align-items: center; flex-wrap: wrap; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .patient-toolbar select {
+    padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px;
+    font-family: inherit; font-size: 13px; min-width: 220px; outline: none;
+  }
+  .patient-toolbar select:focus { border-color: var(--copper); }
+  .divider { width: 1px; height: 24px; background: var(--line); margin: 0 4px; }
+
+  .toolbar-buttons { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  button, .btn {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 600; font-size: 13px; letter-spacing: .02em;
+    border: 1px solid var(--ink); background: var(--paper);
+    color: var(--ink); padding: 9px 14px; border-radius: 4px;
+    cursor: pointer; transition: all .15s ease;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  button:hover, .btn:hover { background: var(--ink); color: var(--paper); }
+  button:disabled { opacity: .5; cursor: default; }
+  
+  #exportBtn { background: var(--copper); border-color: var(--copper); color: #fff; }
+  #exportBtn:hover { background: var(--copper-hover); border-color: var(--copper-hover); }
+  .btn-outline-danger { border-color: var(--danger); color: var(--danger); }
+  .btn-outline-danger:hover { background: var(--danger); color: #fff; }
+
+  .doc-sheet {
+    max-width: 1060px; margin: 0 auto; background: var(--paper);
+    border: 1px solid var(--line-strong); padding: 48px 52px;
+    position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+  .doc-sheet::before {
+    content: ""; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border: 1px solid var(--line); pointer-events: none;
+  }
+
+  header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 24px; padding-bottom: 24px; border-bottom: 2px solid var(--ink);
+    margin-bottom: 28px;
+  }
+  .brand { flex: 1; }
+  
+  .diet-photo-box {
+    width: 96px; height: 96px; flex-shrink: 0; margin-bottom: 16px;
+    border: 1px dashed var(--line); display: flex; align-items: center;
+    justify-content: center; cursor: pointer; overflow: hidden;
+    background: var(--paper); position: relative; border-radius: 4px;
+  }
+  .diet-photo-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .diet-photo-box span { font-size: 11px; color: var(--slate); text-align: center; padding: 8px; }
+  #dietPhotoInput { display: none; }
+  #removeDietPhotoBtn {
+    position: absolute; top: 4px; right: 4px; width: 22px; height: 22px;
+    border-radius: 50%; border: none; background: var(--ink); color: var(--paper);
+    font-size: 14px; line-height: 1; padding: 0; display: none;
+    align-items: center; justify-content: center; cursor: pointer;
+  }
+  #removeDietPhotoBtn:hover { background: var(--danger); color: #fff; }
+
+  .diet-name {
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 26px;
+    line-height: 1.15; margin: 0 0 8px; min-width: 200px; outline: none;
+  }
+
+  .diet-right { display: flex; align-items: flex-start; gap: 18px; }
+  .doc-meta { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--slate); min-width: 210px; }
+  .doc-meta .eyebrow { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 11px; color: var(--copper); margin-bottom: 10px; }
+  
+  .meta-row { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .meta-row .k { color: var(--ink); opacity: .65; font-size: 11px; }
+  .meta-row .v { min-width: 100px; text-align: right; outline: none; }
+  .meta-row input {
+    font-family: inherit; font-size: inherit; color: inherit; text-align: right;
+    border: 1px solid transparent; background: transparent; width: 80px; padding: 2px 4px;
+    border-radius: 2px;
+  }
+  .meta-row input:hover, .meta-row input:focus { border-color: var(--line); background: #fff; }
+
+  .water-badge {
+    margin-top: 8px; font-size: 11px; color: var(--copper); font-weight: 600;
+    background: rgba(168,92,50,0.08); padding: 4px 8px; border-radius: 4px; display: inline-block;
+  }
+
+  .diet-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 12px; table-layout: fixed; }
+  .diet-table thead th {
+    text-align: left; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--slate); font-weight: 600; padding: 0 4px 12px; border-bottom: 1.5px solid var(--ink);
+  }
+  .diet-table tbody td {
+    padding: 16px 4px; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: top;
+  }
+  .diet-table .day-label {
+    font-weight: 700; white-space: nowrap; font-family: 'Fraunces', Georgia, serif; font-size: 12.5px;
+    padding-top: 18px; width: 9%;
+  }
+  .diet-table textarea {
+    width: 100%; min-height: 40px; border: 1px solid transparent; border-radius: 3px;
+    background: transparent; font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11.5px; line-height: 1.4; color: var(--ink); padding: 4px; resize: none; transition: background .15s;
+  }
+  .diet-table textarea:hover, .diet-table textarea:focus { outline: none; background: rgba(168,92,50,0.05); border-color: var(--line); }
+
+  /* Grelha de Macronutrientes */
+  .macros-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 6px; padding: 0 4px;
+  }
+  .macros-grid input {
+    font-size: 9.5px; padding: 4px; border: 1px solid var(--line);
+    border-radius: 3px; background: #fff; color: var(--slate);
+    text-align: center; font-family: 'IBM Plex Mono', monospace; width: 100%;
+    transition: border 0.15s;
+  }
+  .macros-grid input:focus { outline: none; border-color: var(--copper); }
+  .macros-grid input::placeholder { color: #b0aba0; }
+  
+  /* Esconder as setas dos inputs tipo number */
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type=number] { -moz-appearance: textfield; }
+
+  /* Coluna Totais */
+  th.totals-th { width: 7%; }
+  .totals-cell {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
+    color: var(--slate); font-weight: 500; line-height: 1.5;
+    background: rgba(168,92,50,0.03); border-radius: 4px; padding: 12px 6px !important;
+  }
+  .totals-cell > div { margin-bottom: 3px; white-space: nowrap; }
+  .tot-kcal { color: var(--copper); font-weight: 600; font-size: 11.5px; margin-bottom: 6px !important; }
+
+  footer.sheet-footer {
+    margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 11.5px; color: var(--slate); text-align: center; outline: none; line-height: 1.6;
+  }
+
+  [contenteditable]:hover, [contenteditable]:focus { background: rgba(168,92,50,0.06); border-radius: 2px; }
+
+  #status { font-size: 12.5px; font-weight: 500; color: var(--slate); min-height: 20px; flex: 1; }
+  #status.error { color: var(--danger); }
+  #status.success { color: var(--success); }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar, .patient-toolbar { display: none; }
+    .doc-sheet { border: none; box-shadow: none; max-width: none; padding: 20px; }
+    .macros-grid input { border: none; padding: 0; }
+  }
+  @media (max-width: 900px) {
+    body { padding: 16px 8px 60px; }
+    .doc-sheet { padding: 24px 16px; }
+    header { flex-direction: column; }
+    .doc-meta { text-align: left; width: 100%; min-width: auto; }
+    .meta-row { justify-content: flex-start; }
+    .diet-table { display: block; overflow-x: auto; white-space: nowrap; }
+    .diet-table textarea { min-width: 140px; }
+    .totals-cell { min-width: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div id="status"></div>
+    <div class="toolbar-buttons">
+      <button type="button" id="copyMondayBtn" title="Copiar refeições e macros de Segunda para os restantes dias">📋 Replicar 2ª Feira</button>
+      <button type="button" id="resetBtn" class="btn-outline-danger" title="Limpar todo o plano">🗑️ Limpar Dieta</button>
+      <button type="button" id="exportBtn">📄 Exportar PDF</button>
+    </div>
+  </div>
+
+  <div class="patient-toolbar">
+    <span style="font-size:13px; font-weight:600; color:var(--slate)">Perfis de Pacientes:</span>
+    <select id="patientSelect">
+      <option value="">-- Carregar Paciente --</option>
+    </select>
+    <button type="button" id="savePatientBtn" style="background:var(--slate); color:#fff; border-color:var(--slate)">💾 Guardar Paciente Atual</button>
+    <div class="divider"></div>
+    <button type="button" id="deletePatientBtn" class="btn-outline-danger">🗑️ Excluir Perfil</button>
+  </div>
+
+  <div id="dietSheet" class="doc-sheet">
+    <header>
+      <div class="brand">
+        <div class="diet-photo-box" id="dietPhotoBox" title="Clique para escolher logo ou imagem">
+          <span id="dietPhotoPlaceholder">Clique para<br>adicionar imagem</span>
+          <img id="dietPhotoImg" style="display:none;" alt="Logótipo">
+          <button type="button" id="removeDietPhotoBtn" title="Remover imagem">×</button>
+        </div>
+        <div class="doc-meta"><div class="eyebrow" style="text-align:left; margin-bottom:4px;">Plano Alimentar</div></div>
+        <div class="diet-name" id="dietName" contenteditable="true">Nome do Paciente</div>
+      </div>
+      
+      <div class="diet-right">
+        <div class="doc-meta">
+          <div class="meta-row"><span class="k">Data</span><span class="v" contenteditable="true" id="dietDate"></span></div>
+          <div class="meta-row"><span class="k">Objetivo</span><span class="v" contenteditable="true" id="dietGoal">Hipertrofia / Definição</span></div>
+          <div class="meta-row">
+            <span class="k">Peso (kg)</span>
+            <input type="number" id="dietWeight" placeholder="Ex: 70" step="0.1" min="20" max="300">
+          </div>
+          <div class="water-badge" id="waterCalcBadge">Água reco.: 2.5 L/dia</div>
+        </div>
+        <input type="file" id="dietPhotoInput" accept="image/png, image/jpeg, image/webp">
+      </div>
+    </header>
+
+    <table class="diet-table">
+      <thead>
+        <tr>
+          <th>Dia</th>
+          <th>Manhã</th>
+          <th>Colação</th>
+          <th>Tarde</th>
+          <th>Lanche 1</th>
+          <th>Lanche 2</th>
+          <th>Noite</th>
+          <th class="totals-th">Totais</th>
+        </tr>
+      </thead>
+      <tbody id="dietRows"></tbody>
+    </table>
+
+    <footer class="sheet-footer" id="dietFooterNote" contenteditable="true">
+      Beba bastante água ao longo do dia. Ajuste as quantidades conforme orientação profissional.
+    </footer>
+  </div>
+</div>
+
+<script>
+/* ================= Estado e Constantes ================= */
+const STORAGE_KEY = 'plano_alimentar_draft_v4'; // Key atualizada para a nova estrutura de dados
+const PATIENT_PREFIX = 'pa_patient_';
+const DIET_DAYS = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+const MEAL_PLACEHOLDERS = ['Aveia, ovos', 'Fruta, nozes', 'Frango, arroz', 'Iogurte', 'Whey, pão', 'Sopa, peixe'];
+const MAX_IMAGE_SIZE_BYTES = 2 * 1024 * 1024; // 2MB
+
+let dietPhotoDataUrl = null;
+
+// Elementos DOM
+const statusEl = document.getElementById('status');
+const dietDateEl = document.getElementById('dietDate');
+const dietNameEl = document.getElementById('dietName');
+const dietGoalEl = document.getElementById('dietGoal');
+const dietWeightEl = document.getElementById('dietWeight');
+const waterBadgeEl = document.getElementById('waterCalcBadge');
+const dietFooterNoteEl = document.getElementById('dietFooterNote');
+const patientSelectEl = document.getElementById('patientSelect');
+
+const dietPhotoBox = document.getElementById('dietPhotoBox');
+const dietPhotoInput = document.getElementById('dietPhotoInput');
+const dietPhotoImg = document.getElementById('dietPhotoImg');
+const dietPhotoPlaceholder = document.getElementById('dietPhotoPlaceholder');
+const removeDietPhotoBtn = document.getElementById('removeDietPhotoBtn');
+
+/* ================= Funções Auxiliares & Debounce ================= */
+function showStatus(message, type = '') {
+  statusEl.textContent = message;
+  statusEl.className = type;
+  if(type === 'success' || type === '') {
+    setTimeout(() => { if(statusEl.textContent === message) statusEl.textContent = ''; }, 4000);
+  }
+}
+
+function debounce(func, wait = 250) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+/* ================= Gestão de Pacientes (Perfis) ================= */
+function loadPatientList() {
+  const currentVal = patientSelectEl.value;
+  patientSelectEl.innerHTML = '<option value="">-- Carregar Paciente --</option>';
+  
+  let patients = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith(PATIENT_PREFIX)) {
+      patients.push(key.replace(PATIENT_PREFIX, ''));
+    }
+  }
+  
+  patients.sort().forEach(pName => {
+    const opt = document.createElement('option');
+    opt.value = PATIENT_PREFIX + pName;
+    opt.textContent = pName;
+    patientSelectEl.appendChild(opt);
+  });
+  
+  if (currentVal && Array.from(patientSelectEl.options).some(o => o.value === currentVal)) {
+    patientSelectEl.value = currentVal;
+  }
+}
+
+document.getElementById('savePatientBtn').addEventListener('click', () => {
+  let pName = dietNameEl.innerText.trim();
+  if(!pName || pName === 'Nome do Paciente') {
+    pName = prompt('Digite o nome do paciente para guardar este perfil:');
+    if(!pName) return;
+    dietNameEl.innerText = pName;
+  }
+  const state = getDietState();
+  localStorage.setItem(PATIENT_PREFIX + pName, JSON.stringify(state));
+  loadPatientList();
+  patientSelectEl.value = PATIENT_PREFIX + pName;
+  showStatus(`Paciente "${pName}" guardado com sucesso!`, 'success');
+});
+
+patientSelectEl.addEventListener('change', (e) => {
+  const key = e.target.value;
+  if(key) {
+    try {
+      const data = JSON.parse(localStorage.getItem(key));
+      applyDietState(data);
+      saveDraft(); // O perfil carregado torna-se no rascunho atual
+      showStatus('Perfil carregado com sucesso!', 'success');
+    } catch(err) {
+      showStatus('Erro ao carregar perfil.', 'error');
+    }
+  }
+});
+
+document.getElementById('deletePatientBtn').addEventListener('click', () => {
+  const key = patientSelectEl.value;
+  if(!key) {
+    showStatus('Selecione um paciente da lista para excluir.', 'error');
+    return;
+  }
+  const pName = key.replace(PATIENT_PREFIX, '');
+  if(confirm(`Tem a certeza que deseja excluir permanentemente o perfil de "${pName}"?`)) {
+    localStorage.removeItem(key);
+    loadPatientList();
+    patientSelectEl.value = "";
+    showStatus('Perfil excluído.', 'success');
+  }
+});
+
+/* ================= Cálculo da Água ================= */
+function updateWaterRecommendation() {
+  const weight = parseFloat(dietWeightEl.value);
+  let litersText = "2.5 L/dia";
+  if (!isNaN(weight) && weight > 20) {
+    const ml = weight * 35;
+    const liters = (ml / 1000).toFixed(1);
+    litersText = `${liters} L/dia (${ml}ml)`;
+  }
+  waterBadgeEl.textContent = `Água reco.: ${litersText}`;
+}
+
+/* ================= Tabela e Cálculo de Macros ================= */
+function autoGrowTextArea(ta) {
+  ta.style.height = 'auto';
+  ta.style.height = (ta.scrollHeight) + 'px';
+}
+
+function calcTotals(tr) {
+  let totalKcal = 0, totalP = 0, totalC = 0, totalG = 0;
+  tr.querySelectorAll('.macros-grid').forEach(grid => {
+    totalKcal += Number(grid.querySelector('.mac-kcal').value) || 0;
+    totalP += Number(grid.querySelector('.mac-p').value) || 0;
+    totalC += Number(grid.querySelector('.mac-c').value) || 0;
+    totalG += Number(grid.querySelector('.mac-g').value) || 0;
+  });
+  
+  tr.querySelector('.tot-kcal').innerText = totalKcal + ' kcal';
+  tr.querySelector('.tot-p').innerText = 'P: ' + totalP + 'g';
+  tr.querySelector('.tot-c').innerText = 'C: ' + totalC + 'g';
+  tr.querySelector('.tot-g').innerText = 'G: ' + totalG + 'g';
+}
+
+const debouncedSaveDraft = debounce(saveDraft, 500);
+
+function buildDietRows() {
+  const tbody = document.getElementById('dietRows');
+  tbody.innerHTML = '';
+  DIET_DAYS.forEach((day, index) => {
+    const tr = document.createElement('tr');
+    tr.dataset.dayIndex = index;
+    
+    let mealsHtml = '';
+    for(let i=0; i<6; i++) {
+      mealsHtml += `
+        <td>
+          <textarea rows="1" class="diet-cell" placeholder="Ex: ${MEAL_PLACEHOLDERS[i]}"></textarea>
+          <div class="macros-grid">
+            <input type="number" min="0" class="mac-kcal" placeholder="Kcal" title="Calorias">
+            <input type="number" min="0" class="mac-p" placeholder="P(g)" title="Proteína">
+            <input type="number" min="0" class="mac-c" placeholder="C(g)" title="Hidratos">
+            <input type="number" min="0" class="mac-g" placeholder="G(g)" title="Gorduras">
+          </div>
+        </td>
+      `;
+    }
+    
+    tr.innerHTML = `
+      <td class="day-label">${day}</td>
+      ${mealsHtml}
+      <td class="totals-cell">
+        <div class="tot-kcal">0 kcal</div>
+        <div class="tot-p">P: 0g</div>
+        <div class="tot-c">C: 0g</div>
+        <div class="tot-g">G: 0g</div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+
+    // Eventos de Textarea
+    tr.querySelectorAll('textarea').forEach(ta => {
+      ta.addEventListener('input', () => { autoGrowTextArea(ta); debouncedSaveDraft(); });
+      setTimeout(() => autoGrowTextArea(ta), 0);
+    });
+    
+    // Eventos de Macros (Recalculo auto)
+    tr.querySelectorAll('.macros-grid input').forEach(inp => {
+      inp.addEventListener('input', () => {
+        calcTotals(tr);
+        debouncedSaveDraft();
+      });
+    });
+  });
+}
+
+/* ================= Ação: Replicar Segunda-feira ================= */
+document.getElementById('copyMondayBtn').addEventListener('click', () => {
+  const mondayRow = document.querySelector('#dietRows tr[data-day-index="0"]');
+  if(!mondayRow) return;
+  
+  // Capturar dados de 2a feira
+  const sourceData = Array.from(mondayRow.querySelectorAll('td:not(.day-label):not(.totals-cell)')).map(td => ({
+    text: td.querySelector('textarea').value,
+    kcal: td.querySelector('.mac-kcal').value,
+    p: td.querySelector('.mac-p').value,
+    c: td.querySelector('.mac-c').value,
+    g: td.querySelector('.mac-g').value
+  }));
+
+  // Replicar nos restantes
+  const allRows = document.querySelectorAll('#dietRows tr');
+  allRows.forEach((tr, idx) => {
+    if(idx === 0) return; // ignora a própria segunda-feira
+    const tds = tr.querySelectorAll('td:not(.day-label):not(.totals-cell)');
+    tds.forEach((td, ci) => {
+      td.querySelector('textarea').value = sourceData[ci].text;
+      td.querySelector('.mac-kcal').value = sourceData[ci].kcal;
+      td.querySelector('.mac-p').value = sourceData[ci].p;
+      td.querySelector('.mac-c').value = sourceData[ci].c;
+      td.querySelector('.mac-g').value = sourceData[ci].g;
+      autoGrowTextArea(td.querySelector('textarea'));
+    });
+    calcTotals(tr);
+  });
+  saveDraft();
+  showStatus('Segunda-feira (refeições e macros) replicada para os restantes dias!', 'success');
+});
+
+/* ================= Gestão da Imagem ================= */
+function showDietPhoto(dataUrl) {
+  dietPhotoDataUrl = dataUrl;
+  dietPhotoImg.src = dataUrl;
+  dietPhotoImg.style.display = 'block';
+  dietPhotoPlaceholder.style.display = 'none';
+  removeDietPhotoBtn.style.display = 'flex';
+}
+
+function clearDietPhoto() {
+  dietPhotoDataUrl = null;
+  dietPhotoImg.removeAttribute('src');
+  dietPhotoImg.style.display = 'none';
+  dietPhotoPlaceholder.style.display = 'block';
+  removeDietPhotoBtn.style.display = 'none';
+  dietPhotoInput.value = '';
+  debouncedSaveDraft();
+}
+
+dietPhotoBox.addEventListener('click', () => dietPhotoInput.click());
+removeDietPhotoBtn.addEventListener('click', (e) => { e.stopPropagation(); clearDietPhoto(); });
+
+dietPhotoInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+
+  if(file.size > MAX_IMAGE_SIZE_BYTES) {
+    showStatus('A imagem é demasiado grande! O tamanho máximo é 2MB.', 'error');
+    dietPhotoInput.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    showDietPhoto(ev.target.result);
+    saveDraft();
+    showStatus('Imagem carregada com sucesso.', 'success');
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ================= Serialização e Persistência ================= */
+function getDietState() {
+  const rowsData = [];
+  document.querySelectorAll('#dietRows tr').forEach(tr => {
+    const row = [];
+    tr.querySelectorAll('td:not(.day-label):not(.totals-cell)').forEach(td => {
+      row.push({
+        text: td.querySelector('textarea').value,
+        kcal: td.querySelector('.mac-kcal').value,
+        p: td.querySelector('.mac-p').value,
+        c: td.querySelector('.mac-c').value,
+        g: td.querySelector('.mac-g').value
+      });
+    });
+    rowsData.push(row);
+  });
+
+  return {
+    name: dietNameEl.innerText,
+    date: dietDateEl.innerText,
+    goal: dietGoalEl.innerText,
+    weight: dietWeightEl.value,
+    footerNote: dietFooterNoteEl.innerText,
+    photo: dietPhotoDataUrl,
+    rows: rowsData
+  };
+}
+
+function saveDraft() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(getDietState()));
+  } catch(e) {
+    console.warn("Não foi possível guardar no LocalStorage:", e);
+  }
+}
+
+function applyDietState(draft) {
+  if(draft.name) dietNameEl.innerText = draft.name;
+  if(draft.date) dietDateEl.innerText = draft.date;
+  if(draft.goal) dietGoalEl.innerText = draft.goal;
+  if(draft.weight) dietWeightEl.value = draft.weight;
+  if(draft.footerNote) dietFooterNoteEl.innerText = draft.footerNote;
+  if(draft.photo) showDietPhoto(draft.photo); else clearDietPhoto();
+
+  if(draft.rows && Array.isArray(draft.rows)) {
+    document.querySelectorAll('#dietRows tr').forEach((tr, rIdx) => {
+      if(draft.rows[rIdx]) {
+        const tds = tr.querySelectorAll('td:not(.day-label):not(.totals-cell)');
+        tds.forEach((td, cIdx) => {
+          let cellData = draft.rows[rIdx][cIdx];
+          // Migração de versões antigas (quando era só string)
+          if(typeof cellData === 'string') cellData = { text: cellData, kcal:'', p:'', c:'', g:'' };
+          if(!cellData) cellData = { text: '', kcal:'', p:'', c:'', g:'' };
+          
+          td.querySelector('textarea').value = cellData.text || '';
+          td.querySelector('.mac-kcal').value = cellData.kcal || '';
+          td.querySelector('.mac-p').value = cellData.p || '';
+          td.querySelector('.mac-c').value = cellData.c || '';
+          td.querySelector('.mac-g').value = cellData.g || '';
+          autoGrowTextArea(td.querySelector('textarea'));
+        });
+        calcTotals(tr);
+      }
+    });
+  }
+  updateWaterRecommendation();
+}
+
+function loadDraft() {
+  try {
+    loadPatientList();
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) {
+      dietDateEl.textContent = new Date().toLocaleDateString('pt-PT');
+      updateWaterRecommendation();
+      return;
+    }
+    applyDietState(JSON.parse(raw));
+  } catch(e) {
+    dietDateEl.textContent = new Date().toLocaleDateString('pt-PT');
+  }
+}
+
+/* ================= Ação: Limpar Tudo ================= */
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm('Tem a certeza que deseja limpar todo o plano alimentar atual?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    dietNameEl.innerText = 'Nome do Paciente';
+    dietDateEl.innerText = new Date().toLocaleDateString('pt-PT');
+    dietGoalEl.innerText = '—';
+    dietWeightEl.value = '';
+    dietFooterNoteEl.innerText = 'Beba bastante água ao longo do dia. Ajuste as quantidades conforme orientação profissional.';
+    clearDietPhoto();
+    patientSelectEl.value = "";
+    
+    document.querySelectorAll('#dietRows td:not(.day-label):not(.totals-cell)').forEach(td => {
+      td.querySelector('textarea').value = '';
+      td.querySelectorAll('input').forEach(i => i.value = '');
+      autoGrowTextArea(td.querySelector('textarea'));
+    });
+    
+    document.querySelectorAll('#dietRows tr').forEach(tr => calcTotals(tr));
+    updateWaterRecommendation();
+    showStatus('Plano limpo com sucesso.', 'success');
+  }
+});
+
+dietWeightEl.addEventListener('input', () => { updateWaterRecommendation(); debouncedSaveDraft(); });
+[dietNameEl, dietDateEl, dietGoalEl, dietFooterNoteEl].forEach(el => {
+  el.addEventListener('input', debouncedSaveDraft);
+});
+
+/* ================= Geração de PDF (Macros Inclusos) ================= */
+function buildDietPdf() {
+  const JsPDFCtor = window.jspdf && window.jspdf.jsPDF ? window.jspdf.jsPDF : null;
+  if(!JsPDFCtor) throw new Error("A biblioteca jsPDF ainda não carregou.");
+
+  const doc = new JsPDFCtor('l', 'mm', 'a4'); // Paisagem para caber tudo
+  const pageW = 297, pageH = 210; 
+  const marginX = 12;
+  let y = 16;
+
+  const inkRGB = [28, 35, 33];
+  const slateRGB = [74, 88, 89];
+  const copperRGB = [168, 92, 50];
+  const lineRGB = [216, 211, 199];
+
+  function checkPageBreak(neededHeight) {
+    if(y + neededHeight > pageH - 16) { doc.addPage(); y = 16; }
+  }
+
+  // Cabeçalho PDF
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(...copperRGB);
+  doc.text('PLANO ALIMENTAR', marginX, y); y += 6;
+
+  const dietName = dietNameEl.innerText.trim() || 'Nome do Paciente';
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.setTextColor(...inkRGB);
+  doc.text(dietName, marginX, y); let leftY = y + 5;
+
+  let rightY = 16, imageBottomY = 16, metaRightX = pageW - marginX;
+
+  if(dietPhotoDataUrl) {
+    try {
+      const photoMaxW = 20, photoMaxH = 20;
+      const props = doc.getImageProperties(dietPhotoDataUrl);
+      let w = photoMaxW, h = (props.height / props.width) * w;
+      if(h > photoMaxH) { h = photoMaxH; w = (props.width / props.height) * h; }
+      doc.addImage(dietPhotoDataUrl, 'PNG', pageW - marginX - w, 16, w, h);
+      metaRightX = pageW - marginX - photoMaxW - 6; imageBottomY = 16 + h;
+    } catch(e) {}
+  }
+
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(...slateRGB);
+  const dateVal = dietDateEl.innerText.trim();
+  const goalVal = dietGoalEl.innerText.trim();
+  const weightVal = dietWeightEl.value ? `${dietWeightEl.value} kg` : '';
+
+  doc.text(`Data: ${dateVal}`, metaRightX, rightY, {align: 'right'}); rightY += 4.5;
+  doc.text(`Objetivo: ${goalVal}`, metaRightX, rightY, {align: 'right'}); rightY += 4.5;
+  if(weightVal) { doc.text(`Peso: ${weightVal}`, metaRightX, rightY, {align: 'right'}); rightY += 4.5; }
+
+  y = Math.max(leftY, rightY, imageBottomY) + 5;
+  doc.setDrawColor(...inkRGB); doc.setLineWidth(0.6); doc.line(marginX, y, pageW - marginX, y);
+  y += 7;
+
+  // Layout das Colunas PDF
+  const mealHeaders = ['MANHÃ', 'COLAÇÃO', 'TARDE', 'LANCHE 1', 'LANCHE 2', 'NOITE'];
+  const dayColW = 20; // Reduzido para caber totais
+  const totColW = 18; // Coluna da direita
+  const colWidth = (pageW - marginX * 2 - dayColW - totColW) / mealHeaders.length;
+  
+  const colXs = mealHeaders.map((_, i) => marginX + dayColW + (i * colWidth));
+  const totColX = marginX + dayColW + (mealHeaders.length * colWidth);
+
+  // Imprimir Headers
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.setTextColor(...slateRGB);
+  mealHeaders.forEach((meal, i) => doc.text(meal, colXs[i], y));
+  doc.setTextColor(...copperRGB); doc.text('TOTAIS', totColX, y);
+  
+  y += 2; doc.setDrawColor(...inkRGB); doc.setLineWidth(0.4); doc.line(marginX, y, pageW - marginX, y); y += 5;
+
+  const colTextWidth = colWidth - 2;
+  
+  // Imprimir Linhas
+  document.querySelectorAll('#dietRows tr').forEach(tr => {
+    const dayLabel = tr.querySelector('.day-label').textContent.trim();
+    
+    // Ler Dados
+    const cellsData = [], macrosData = [];
+    tr.querySelectorAll('td:not(.day-label):not(.totals-cell)').forEach(td => {
+      cellsData.push(td.querySelector('textarea').value.trim() || '—');
+      const k = td.querySelector('.mac-kcal').value, p = td.querySelector('.mac-p').value, c = td.querySelector('.mac-c').value, g = td.querySelector('.mac-g').value;
+      let mStr = [];
+      if(k) mStr.push(`${k}k`); if(p) mStr.push(`${p}p`); if(c) mStr.push(`${c}c`); if(g) mStr.push(`${g}g`);
+      macrosData.push(mStr.length > 0 ? `[${mStr.join(' ')}]` : '');
+    });
+
+    const totKcal = tr.querySelector('.tot-kcal').innerText;
+    const totP = tr.querySelector('.tot-p').innerText;
+    const totC = tr.querySelector('.tot-c').innerText;
+    const totG = tr.querySelector('.tot-g').innerText;
+    const totText = `${totKcal}\n${totP}\n${totC}\n${totG}`;
+
+    // Calcular Altura (Texto da refeição + 1 linha para as macros se existirem)
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
+    const linesArr = cellsData.map(c => doc.splitTextToSize(c, colTextWidth));
+    const cellLinesCount = linesArr.map((lines, idx) => lines.length + (macrosData[idx] ? 1 : 0));
+    
+    // Mínimo de 4 linhas de altura para a coluna dos totais
+    const maxLines = Math.max(...cellLinesCount, 4);
+    const rowHeight = maxLines * 4.2 + 5;
+    
+    checkPageBreak(rowHeight + 2);
+
+    // Escrever Dia
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(...inkRGB); doc.setFontSize(8.5);
+    doc.text(dayLabel, marginX, y);
+
+    // Escrever Refeições e Macros
+    doc.setFont('helvetica', 'normal');
+    linesArr.forEach((lines, ci) => {
+      doc.setTextColor(...inkRGB); doc.setFontSize(8.5);
+      lines.forEach((line, i) => doc.text(line, colXs[ci], y + i * 4.2));
+      
+      if(macrosData[ci]) {
+        doc.setFontSize(6.5); doc.setTextColor(...slateRGB);
+        doc.text(macrosData[ci], colXs[ci], y + lines.length * 4.2 + 0.5);
+      }
+    });
+
+    // Escrever Totais
+    doc.setFontSize(7.5); doc.setTextColor(...copperRGB); doc.setFont('helvetica', 'bold');
+    const totLines = doc.splitTextToSize(totText, totColW - 1);
+    totLines.forEach((line, i) => doc.text(line, totColX, y + i * 4.2));
+
+    const dividerY = y + (maxLines - 1) * 4.2 + 4;
+    doc.setDrawColor(...lineRGB); doc.setLineWidth(0.2);
+    doc.line(marginX, dividerY, pageW - marginX, dividerY);
+
+    y += rowHeight;
+  });
+
+  // Footer PDF
+  y += 5;
+  const footerNote = dietFooterNoteEl.innerText.trim();
+  if(footerNote) {
+    checkPageBreak(12);
+    doc.setDrawColor(...lineRGB); doc.setLineWidth(0.3); doc.line(marginX, y, pageW - marginX, y);
+    y += 5; doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(...slateRGB);
+    const footerLines = doc.splitTextToSize(footerNote, pageW - marginX * 2);
+    footerLines.forEach(line => { doc.text(line, pageW / 2, y, {align: 'center'}); y += 3.5; });
+  }
+
+  return doc;
+}
+
+/* ================= Exportar Botão EventListener ================= */
+let lastPdfUrl = null;
+document.getElementById('exportBtn').addEventListener('click', function() {
+  const originalText = this.textContent;
+  this.textContent = 'A gerar...'; this.disabled = true;
+  showStatus('A gerar PDF...', '');
+
+  setTimeout(() => {
+    try {
+      const doc = buildDietPdf();
+      const nome = (dietNameEl.innerText.trim() || 'plano').replace(/\s+/g, '_');
+      const filename = `${nome}_plano_alimentar.pdf`;
+
+      const blob = doc.output('blob');
+      if(lastPdfUrl) URL.revokeObjectURL(lastPdfUrl);
+      lastPdfUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = lastPdfUrl; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      showStatus('PDF descarregado com sucesso!', 'success');
+    } catch(err) {
+      showStatus('Erro ao gerar PDF. Verifique se a biblioteca está ativa.', 'error');
+    } finally {
+      this.textContent = originalText; this.disabled = false;
+    }
+  }, 50);
+});
+
+/* ================= Inicialização ================= */
+buildDietRows();
+loadDraft();
+</script>
+</body>
+</html>
