@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nutri & Chef — Emagreça com Sabor</title>
 <meta name="description" content="Nutrição personalizada com alma de chef. Planos alimentares 100% adaptados aos seus gostos para emagrecimento saudável e sustentável.">
+
+<!-- Open Graph / redes sociales -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nutri & Chef — Emagreça com Sabor">
+<meta property="og:description" content="Nutrição personalizada com alma de chef. Planos alimentares 100% adaptados aos seus gostos para emagrecimento saudável e sustentável.">
+<meta property="og:image" content="https://placehold.co/1200x630/8FA68E/FFFFFF?text=Nutri+%26+Chef">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="pt_BR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nutri & Chef — Emagreça com Sabor">
+<meta name="twitter:description" content="Nutrição personalizada com alma de chef. Planos alimentares 100% adaptados aos seus gostos.">
+<meta name="twitter:image" content="https://placehold.co/1200x630/8FA68E/FFFFFF?text=Nutri+%26+Chef">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -25,6 +41,12 @@
     color: var(--charcoal);
     overflow-x: hidden;
   }
+  /* Accesibilidad: foco visible por teclado en todos los elementos interactivos */
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
   nav {
     position: fixed; top: 0; width: 100%; z-index: 1000;
     background: rgba(253,252,250,0.92);
@@ -32,18 +54,37 @@
     padding: 1rem 3rem;
     display: flex; justify-content: space-between; align-items: center;
     border-bottom: 1px solid rgba(143,166,142,0.15);
+    gap: 1.5rem;
   }
   .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--sage); }
   .logo span { color: var(--terracotta); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a { text-decoration: none; color: var(--charcoal); font-weight: 500; font-size: 0.9rem; transition: color 0.3s; }
   .nav-links a:hover { color: var(--terracotta); }
-  .nav-cta {
-    background: var(--terracotta); color: white; padding: 0.5rem 1.4rem;
-    border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.85rem;
-    transition: all 0.3s;
+  .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+
+  /* Selector de idioma */
+  .lang-switch {
+    display: flex; gap: 0.25rem; background: rgba(143,166,142,0.1);
+    padding: 0.25rem; border-radius: 30px;
   }
-  .nav-cta:hover { background: var(--terracotta-light); transform: translateY(-2px); }
+  .lang-switch button {
+    border: none; background: transparent; color: var(--charcoal);
+    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.75rem;
+    padding: 0.35rem 0.7rem; border-radius: 20px; cursor: pointer; transition: all 0.25s;
+    letter-spacing: 0.5px;
+  }
+  .lang-switch button:hover { color: var(--terracotta); }
+  .lang-switch button.active { background: var(--sage); color: white; }
+
+  /* CTA de navegación: estilo outline para no competir con el CTA final */
+  .nav-cta {
+    background: transparent; color: var(--sage); padding: 0.5rem 1.4rem;
+    border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    border: 1.5px solid var(--sage); transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--sage); color: white; transform: translateY(-2px); }
+
   .hero {
     min-height: 100vh; display: flex; align-items: center;
     padding: 8rem 5rem 4rem; position: relative; overflow: hidden;
@@ -71,6 +112,7 @@
     background: var(--sage); color: white; padding: 1rem 2.2rem;
     border-radius: 50px; text-decoration: none; font-weight: 600;
     transition: all 0.3s; border: none; cursor: pointer; font-size: 1rem;
+    display: inline-block;
   }
   .btn-primary:hover { background: var(--terracotta); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(196,120,90,0.25); }
   .btn-ghost {
@@ -79,21 +121,47 @@
     border: 2px solid var(--charcoal); transition: all 0.3s; cursor: pointer; font-size: 1rem;
   }
   .btn-ghost:hover { background: var(--charcoal); color: white; }
+
+  /* Hero visual rediseñado: ya no repite el logo, ahora comunica prueba social */
   .hero-visual {
     position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
-    width: 420px; height: 420px; border-radius: 50%;
+    width: 300px; height: 300px;
+  }
+  .hero-visual-ring {
+    position: absolute; inset: 0; border-radius: 50%;
     background: conic-gradient(from 0deg, var(--sage), var(--sage-light), var(--terracotta-light), var(--gold), var(--sage));
+    animation: rotate 24s linear infinite;
+  }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .hero-visual-photo {
+    position: absolute; inset: 20px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%),
+      linear-gradient(135deg, var(--sage) 0%, var(--terracotta-light) 100%);
     display: flex; align-items: center; justify-content: center;
-    animation: rotate 20s linear infinite;
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.08);
   }
-  @keyframes rotate { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
-  .hero-visual-inner {
-    width: 380px; height: 380px; border-radius: 50%; background: var(--warm-white);
-    display: flex; align-items: center; justify-content: center; flex-direction: column;
-    animation: rotate 20s linear infinite reverse;
+  .hero-visual-photo .emoji { font-size: 11rem; animation: rotate 20s linear infinite; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15)); }
+  .hero-stat-card {
+    position: absolute; left: -18px; bottom: 30px;
+    background: var(--warm-white); border-radius: 18px; padding: 1rem 1.3rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    display: flex; flex-direction: column; align-items: flex-start;
+    min-width: 140px;
   }
-  .hero-visual-inner span { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--sage); }
-  .hero-visual-inner small { font-size: 0.85rem; color: #888; margin-top: 0.5rem; }
+  .hero-stat-card .stat-num {
+    font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--sage);
+    line-height: 1;
+  }
+  .hero-stat-card .stat-label { font-size: 0.75rem; color: #777; margin-top: 0.25rem; }
+  .hero-badge-rating {
+    position: absolute; right: 10px; top: 10px;
+    background: var(--charcoal); color: white; border-radius: 30px;
+    padding: 0.45rem 0.9rem; font-size: 0.8rem; font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+  @media (max-width: 1024px) { .hero-visual { display: none; } }
+
   section { padding: 6rem 5rem; }
   .section-header { text-align: center; margin-bottom: 4rem; }
   .section-header h2 {
@@ -126,6 +194,35 @@
   }
   .service-card h3 { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--charcoal); }
   .service-card p { color: #666; font-size: 0.95rem; line-height: 1.7; }
+  /* Sección de especialidade: BLW */
+  #blw {
+    background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%);
+  }
+  .blw-wrap { max-width: 1100px; margin: 0 auto; }
+  .blw-intro {
+    max-width: 720px; margin: 0 auto 3.5rem; text-align: center;
+    color: #555; font-size: 1.05rem; line-height: 1.8;
+  }
+  .blw-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.75rem; margin-bottom: 3rem;
+  }
+  .blw-card {
+    background: var(--warm-white); border-radius: 20px; padding: 2rem;
+    border: 1px solid rgba(196,120,90,0.12); transition: all 0.3s;
+    text-align: left;
+  }
+  .blw-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.07); }
+  .blw-card .blw-icon {
+    width: 54px; height: 54px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--terracotta-light), var(--terracotta));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.2rem;
+  }
+  .blw-card h3 { font-size: 1.1rem; margin-bottom: 0.6rem; color: var(--charcoal); }
+  .blw-card p { color: #666; font-size: 0.92rem; line-height: 1.65; }
+  .blw-cta-wrap { text-align: center; }
+
   .philosophy {
     display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1100px; margin: 0 auto;
   }
@@ -147,7 +244,7 @@
   .phil-box:nth-child(3) { background: var(--gold); color: white; }
   .phil-box:nth-child(4) { background: var(--cream); color: var(--charcoal); border: 2px solid var(--sage-light); }
   .phil-box .num { font-size: 2.5rem; font-weight: 700; display: block; margin-bottom: 0.5rem; }
-  .phil-box span { font-size: 0.9rem; font-weight: 500; }
+  .phil-box span:last-child { font-size: 0.9rem; font-weight: 500; }
   #testimonios { background: var(--cream); }
   .testimonials {
     display: flex; gap: 2rem; overflow-x: auto; padding-bottom: 1rem;
@@ -171,15 +268,33 @@
   }
   .testimonial-author strong { display: block; color: var(--charcoal); }
   .testimonial-author small { color: #888; font-size: 0.8rem; }
+
+  /* CTA final: mayor peso visual para que sea el punto culminante de la página */
   .cta-section {
     background: linear-gradient(135deg, var(--sage) 0%, var(--terracotta) 100%);
     text-align: center; color: white; border-radius: 30px;
-    margin: 0 5rem; padding: 5rem 3rem;
+    margin: 0 5rem; padding: 5.5rem 3rem;
+    position: relative; overflow: hidden;
   }
-  .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; }
-  .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; }
-  .cta-section .btn-primary { background: white; color: var(--terracotta); }
-  .cta-section .btn-primary:hover { background: var(--cream); }
+  .cta-section::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.18), transparent 60%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 2.7rem; margin-bottom: 1rem; position: relative; }
+  .cta-section p { font-size: 1.15rem; opacity: 0.92; margin-bottom: 2.5rem; position: relative; }
+  .cta-section .btn-primary {
+    background: white; color: var(--terracotta);
+    padding: 1.2rem 3rem; font-size: 1.1rem; font-weight: 700;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    animation: pulse-cta 2.8s ease-in-out infinite;
+    position: relative;
+  }
+  .cta-section .btn-primary:hover { background: var(--cream); animation: none; }
+  @keyframes pulse-cta {
+    0%, 100% { box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+    50% { box-shadow: 0 15px 40px rgba(0,0,0,0.2), 0 0 0 10px rgba(255,255,255,0.15); }
+  }
   footer {
     background: var(--charcoal); color: #aaa; padding: 4rem 5rem 2rem;
     text-align: center;
@@ -211,7 +326,6 @@
   }
   .whatsapp-tooltip.show { opacity: 1; }
   @media (max-width: 1024px) {
-    .hero-visual { display: none; }
     .philosophy { grid-template-columns: 1fr; }
     .cta-section { margin: 0 2rem; }
   }
@@ -233,58 +347,104 @@
 <nav>
   <div class="logo">Nutri <span>&</span> Chef</div>
   <ul class="nav-links">
-    <li><a href="#inicio">Início</a></li>
-    <li><a href="#servicios">Serviços</a></li>
-    <li><a href="#filosofia">Filosofia</a></li>
-    <li><a href="#testimonios">Depoimentos</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#inicio" data-i18n="nav_inicio">Início</a></li>
+    <li><a href="#servicios" data-i18n="nav_servicios">Serviços</a></li>
+    <li><a href="#blw" data-i18n="nav_blw">BLW</a></li>
+    <li><a href="#filosofia" data-i18n="nav_filosofia">Filosofia</a></li>
+    <li><a href="#testimonios" data-i18n="nav_testimonios">Depoimentos</a></li>
+    <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta">Agendar Consulta</a>
+  <div class="nav-right">
+    <div class="lang-switch" role="group" aria-label="Selecionar idioma / Seleccionar idioma">
+      <button type="button" data-lang="pt" class="active">PT</button>
+      <button type="button" data-lang="es">ES</button>
+      <button type="button" data-lang="br">BR</button>
+    </div>
+    <a href="#contacto" class="nav-cta" data-i18n="nav_cta">Agendar Consulta</a>
+  </div>
 </nav>
 
 <section class="hero" id="inicio">
   <div class="hero-content">
-    <div class="hero-tag">Nutrição + Gastronomia</div>
-    <h1>Emagreça com <em>sabor</em> e sem sofrimento</h1>
-    <p>Planos alimentares 100% personalizados que respeitam os seus gostos, a sua rotina e a sua história. Porque perder peso não precisa de ser sinónimo de renúncia.</p>
+    <div class="hero-tag" data-i18n="hero_tag">Nutrição + Gastronomia</div>
+    <h1 data-i18n-html="hero_h1">Emagreça com <em>sabor</em> e sem sofrimento</h1>
+    <p data-i18n="hero_p">Planos alimentares 100% personalizados que respeitam os seus gostos, a sua rotina e a sua história. Porque perder peso não precisa de ser sinónimo de renúncia.</p>
     <div class="hero-btns">
-      <a href="#contacto" class="btn-primary">Quero Começar</a>
-      <a href="#servicios" class="btn-ghost">Conhecer Serviços</a>
+      <a href="#contacto" class="btn-primary" data-i18n="hero_btn_primary">Quero Começar</a>
+      <a href="#servicios" class="btn-ghost" data-i18n="hero_btn_ghost">Conhecer Serviços</a>
     </div>
   </div>
-  <div class="hero-visual">
-    <div class="hero-visual-inner">
-      <span>Nutri & Chef</span>
-      <small>Sabor & Saúde</small>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-visual-ring"></div>
+    <div class="hero-visual-photo"><span class="emoji">🥗</span></div>
+    <div class="hero-badge-rating">★ 4.9</div>
+    <div class="hero-stat-card">
+      <span class="stat-num">100+</span>
+      <span class="stat-label" data-i18n="hero_visual_stat_label">Planos Criados</span>
     </div>
   </div>
 </section>
 
 <section id="servicios">
   <div class="section-header reveal">
-    <h2>O que posso fazer por si</h2>
-    <p>Combinando ciência da nutrição com a arte da cozinha para resultados que se mantêm.</p>
+    <h2 data-i18n="section_servicios_h2">O que posso fazer por si</h2>
+    <p data-i18n="section_servicios_p">Combinando ciência da nutrição com a arte da cozinha para resultados que se mantêm.</p>
   </div>
   <div class="services-grid">
     <div class="service-card reveal">
       <div class="service-icon">🥗</div>
-      <h3>Plano Alimentar Personalizado</h3>
-      <p>Adaptado aos seus gostos, restrições e objetivos. Sem dietas genéricas. Comida que você realmente gosta de comer.</p>
+      <h3 data-i18n="service1_h3">Plano Alimentar Personalizado</h3>
+      <p data-i18n="service1_p">Adaptado aos seus gostos, restrições e objetivos. Sem dietas genéricas. Comida que você realmente gosta de comer.</p>
     </div>
     <div class="service-card reveal">
       <div class="service-icon">👨‍🍳</div>
-      <h3>Consultoria de Chef</h3>
-      <p>Aulas práticas, preparação de refeições e dicas de cozinha saudável para tornar o processo prazeroso e sustentável.</p>
+      <h3 data-i18n="service2_h3">Consultoria de Chef</h3>
+      <p data-i18n="service2_p">Aulas práticas, preparação de refeições e dicas de cozinha saudável para tornar o processo prazeroso e sustentável.</p>
     </div>
     <div class="service-card reveal">
       <div class="service-icon">📊</div>
-      <h3>Acompanhamento Contínuo</h3>
-      <p>Monitorização semanal do progresso, ajustes ao plano e suporte próximo para superar desafios e manter a motivação.</p>
+      <h3 data-i18n="service3_h3">Acompanhamento Contínuo</h3>
+      <p data-i18n="service3_p">Monitorização semanal do progresso, ajustes ao plano e suporte próximo para superar desafios e manter a motivação.</p>
     </div>
     <div class="service-card reveal">
       <div class="service-icon">🏠</div>
-      <h3>Refeições a Domicílio</h3>
-      <p>Chef em casa: preparo refeições equilibradas e saborosas na sua cozinha, ensinando técnicas que pode replicar.</p>
+      <h3 data-i18n="service4_h3">Refeições a Domicílio</h3>
+      <p data-i18n="service4_p">Chef em casa: preparo refeições equilibradas e saborosas na sua cozinha, ensinando técnicas que pode replicar.</p>
+    </div>
+  </div>
+</section>
+
+<section id="blw">
+  <div class="blw-wrap">
+    <div class="section-header reveal">
+      <h2 data-i18n="blw_h2">Especialidade em Baby-Led Weaning (BLW)</h2>
+      <p data-i18n="blw_p">Uma abordagem respeitosa e sem stress para introduzir alimentos sólidos ao seu bebé, promovendo autonomia, exploração sensorial e uma relação saudável com a comida desde o início.</p>
+    </div>
+    <p class="blw-intro reveal" data-i18n="blw_intro">O Baby-Led Weaning é um método de introdução alimentar em que o bebé participa ativamente nas refeições, alimentando-se sozinho com alimentos inteiros e adaptados à sua fase de desenvolvimento — sem papas forçadas nem horários rígidos.</p>
+    <div class="blw-grid">
+      <div class="blw-card reveal">
+        <div class="blw-icon">👶</div>
+        <h3 data-i18n="blw1_h3">Autonomia desde cedo</h3>
+        <p data-i18n="blw1_p">O bebé aprende a reconhecer os sinais de fome e saciedade, desenvolvendo uma relação intuitiva com a comida.</p>
+      </div>
+      <div class="blw-card reveal">
+        <div class="blw-icon">🥑</div>
+        <h3 data-i18n="blw2_h3">Desenvolvimento motor</h3>
+        <p data-i18n="blw2_p">Estimula a coordenação motora fina, a mastigação e a exploração sensorial de texturas e sabores.</p>
+      </div>
+      <div class="blw-card reveal">
+        <div class="blw-icon">🍽️</div>
+        <h3 data-i18n="blw3_h3">Refeições em família</h3>
+        <p data-i18n="blw3_p">O bebé participa à mesa com a família, criando hábitos alimentares positivos desde cedo.</p>
+      </div>
+      <div class="blw-card reveal">
+        <div class="blw-icon">🛡️</div>
+        <h3 data-i18n="blw4_h3">Planos seguros e acompanhados</h3>
+        <p data-i18n="blw4_p">Cada plano de introdução é desenhado com orientação profissional sobre segurança, alergénios e progressão de texturas.</p>
+      </div>
+    </div>
+    <div class="blw-cta-wrap reveal">
+      <a href="#contacto" class="btn-primary" data-i18n="blw_btn">Marcar Consulta sobre BLW</a>
     </div>
   </div>
 </section>
@@ -292,45 +452,45 @@
 <section id="filosofia">
   <div class="philosophy">
     <div class="philosophy-text reveal">
-      <h2>A minha filosofia é simples: comer bem é viver bem</h2>
-      <p>Não acredito em dietas restritivas, contagem obsessiva de calorias ou alimentos "proibidos". Acredito em escolhas conscientes, pratos cheios de cor e sabor, e numa relação saudável com a comida.</p>
-      <p>Como nutricionista e chef, o meu trabalho é traduzir a ciência em pratos deliciosos. Cada plano é desenhado à sua medida — porque você é único e a sua alimentação também deve ser.</p>
-      <p>O trato é humanizado, próximo e sem julgamentos. Estou aqui para o(a) apoiar em cada passo.</p>
+      <h2 data-i18n="philosophy_h2">A minha filosofia é simples: comer bem é viver bem</h2>
+      <p data-i18n="philosophy_p1">Não acredito em dietas restritivas, contagem obsessiva de calorias ou alimentos "proibidos". Acredito em escolhas conscientes, pratos cheios de cor e sabor, e numa relação saudável com a comida.</p>
+      <p data-i18n="philosophy_p2">Como nutricionista e chef, o meu trabalho é traduzir a ciência em pratos deliciosos. Cada plano é desenhado à sua medida — porque você é único e a sua alimentação também deve ser.</p>
+      <p data-i18n="philosophy_p3">O trato é humanizado, próximo e sem julgamentos. Estou aqui para o(a) apoiar em cada passo.</p>
     </div>
     <div class="philosophy-visual reveal">
-      <div class="phil-box"><span class="num">500+</span><span>Planos Criados</span></div>
-      <div class="phil-box"><span class="num">98%</span><span>Satisfação</span></div>
-      <div class="phil-box"><span class="num">8+</span><span>Anos de Experiência</span></div>
-      <div class="phil-box"><span class="num">∞</span><span>Sabor & Saúde</span></div>
+      <div class="phil-box"><span class="num">100+</span><span data-i18n="phil_box1_label">Planos Criados</span></div>
+      <div class="phil-box"><span class="num">98%</span><span data-i18n="phil_box2_label">Satisfação</span></div>
+      <div class="phil-box"><span class="num">8+</span><span data-i18n="phil_box3_label">Anos de Experiência</span></div>
+      <div class="phil-box"><span class="num">∞</span><span data-i18n="phil_box4_label">Sabor & Saúde</span></div>
     </div>
   </div>
 </section>
 
 <section id="testimonios">
   <div class="section-header reveal">
-    <h2>O que dizem os meus pacientes</h2>
-    <p>Histórias reais de transformação, uma refeição de cada vez.</p>
+    <h2 data-i18n="testimonios_h2">O que dizem os meus pacientes</h2>
+    <p data-i18n="testimonios_p">Histórias reais de transformação, uma refeição de cada vez.</p>
   </div>
   <div class="testimonials">
     <div class="testimonial-card reveal">
-      <p>Pensei que perder peso significava comer salada todos os dias. A Nutri & Chef mostrou-me que posso comer o que gosto e mesmo assim emagrecer. Perdi 12kg em 6 meses sem sofrer!</p>
+      <p data-i18n="testimonial1_p">Pensei que perder peso significava comer salada todos os dias. A Nutri & Chef mostrou-me que posso comer o que gosto e mesmo assim emagrecer. Perdi 12kg em 6 meses sem sofrer!</p>
       <div class="testimonial-author">
-        <div class="avatar">MF</div>
-        <div><strong>Maria F.</strong><small>Perdeu 12kg em 6 meses</small></div>
+        <div class="avatar" aria-hidden="true">MF</div>
+        <div><strong>Maria F.</strong><small data-i18n="testimonial1_result">Perdeu 12kg em 6 meses</small></div>
       </div>
     </div>
     <div class="testimonial-card reveal">
-      <p>O acompanhamento é incrível. Sempre que tenho dúvidas ou um evento social, tenho resposta rápida e soluções práticas. E as receitas são deliciosas — a minha família adora!</p>
+      <p data-i18n="testimonial2_p">O acompanhamento é incrível. Sempre que tenho dúvidas ou um evento social, tenho resposta rápida e soluções práticas. E as receitas são deliciosas — a minha família adora!</p>
       <div class="testimonial-author">
-        <div class="avatar">JS</div>
-        <div><strong>João S.</strong><small>Perdeu 8kg em 4 meses</small></div>
+        <div class="avatar" aria-hidden="true">JS</div>
+        <div><strong>João S.</strong><small data-i18n="testimonial2_result">Perdeu 8kg em 4 meses</small></div>
       </div>
     </div>
     <div class="testimonial-card reveal">
-      <p>A experiência de ter a chef em casa foi transformadora. Aprendi a cozinhar de forma saudável e agora consigo manter o peso sozinha. Recomendo a 100%!</p>
+      <p data-i18n="testimonial3_p">A experiência de ter a chef em casa foi transformadora. Aprendi a cozinhar de forma saudável e agora consigo manter o peso sozinha. Recomendo a 100%!</p>
       <div class="testimonial-author">
-        <div class="avatar">AC</div>
-        <div><strong>Ana C.</strong><small>Manteve o peso há 1 ano</small></div>
+        <div class="avatar" aria-hidden="true">AC</div>
+        <div><strong>Ana C.</strong><small data-i18n="testimonial3_result">Manteve o peso há 1 ano</small></div>
       </div>
     </div>
   </div>
@@ -338,41 +498,256 @@
 
 <section id="contacto">
   <div class="cta-section reveal">
-    <h2>Pronto para transformar a sua relação com a comida?</h2>
-    <p>Agende a sua primeira consulta e descubra como é possível emagrecer com prazer, sabor e apoio humanizado.</p>
-    <a href="https://wa.me/351912345678?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Nutri%20%26%20Chef." target="_blank" class="btn-primary">Falar no WhatsApp</a>
+    <h2 data-i18n="cta_h2">Pronto para transformar a sua relação com a comida?</h2>
+    <p data-i18n="cta_p">Agende a sua primeira consulta e descubra como é possível emagrecer com prazer, sabor e apoio humanizado.</p>
+    <a href="https://wa.me/351912345678?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Nutri%20%26%20Chef." target="_blank" rel="noopener" class="btn-primary" id="ctaWaBtn" data-i18n="cta_btn">Falar no WhatsApp</a>
   </div>
 </section>
 
 <footer>
   <div class="logo">Nutri <span>&</span> Chef</div>
-  <p>Nutrição personalizada com alma de chef. Emagrecimento saudável, saboroso e humanizado.</p>
+  <p data-i18n="footer_p">Nutrição personalizada com alma de chef. Emagrecimento saudável, saboroso e humanizado.</p>
   <div class="socials">
-    <a href="#" title="Instagram">📷</a>
-    <a href="#" title="Facebook">📘</a>
-    <a href="#" title="TikTok">🎵</a>
-    <a href="#" title="Email">✉️</a>
+    <a href="#" aria-label="Instagram">📷</a>
+    <a href="#" aria-label="Facebook">📘</a>
+    <a href="#" aria-label="TikTok">🎵</a>
+    <a href="#" aria-label="Email">✉️</a>
   </div>
-  <div class="footer-bottom">© 2026 Nutri & Chef. Todos os direitos reservados.</div>
+  <div class="footer-bottom" data-i18n="footer_bottom">© 2026 Nutri & Chef. Todos os direitos reservados.</div>
 </footer>
 
-<a href="https://wa.me/351912345678?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Nutri%20%26%20Chef." target="_blank" class="whatsapp-float" id="waBtn">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<a href="https://wa.me/351912345678?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Nutri%20%26%20Chef." target="_blank" rel="noopener" class="whatsapp-float" id="waBtn" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-<div class="whatsapp-tooltip" id="waTooltip">Fale connosco! 💬</div>
+<div class="whatsapp-tooltip" id="waTooltip" data-i18n="wa_tooltip">Fale connosco! 💬</div>
 
 <script>
+  // Revelado de secciones al hacer scroll
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
   }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
+
   const waBtn = document.getElementById('waBtn');
   const waTooltip = document.getElementById('waTooltip');
   setTimeout(() => waTooltip.classList.add('show'), 2000);
   setTimeout(() => waTooltip.classList.remove('show'), 7000);
   waBtn.addEventListener('mouseenter', () => waTooltip.classList.add('show'));
   waBtn.addEventListener('mouseleave', () => waTooltip.classList.remove('show'));
+
+  // ---------- Selector de idioma: PT / ES / BR ----------
+  const translations = {
+    pt: {
+      nav_inicio: "Início", nav_servicios: "Serviços", nav_filosofia: "Filosofia",
+      nav_testimonios: "Depoimentos", nav_contacto: "Contacto", nav_cta: "Agendar Consulta",
+      hero_tag: "Nutrição + Gastronomia",
+      hero_h1: 'Emagreça com <em>sabor</em> e sem sofrimento',
+      hero_p: "Planos alimentares 100% personalizados que respeitam os seus gostos, a sua rotina e a sua história. Porque perder peso não precisa de ser sinónimo de renúncia.",
+      hero_btn_primary: "Quero Começar", hero_btn_ghost: "Conhecer Serviços",
+      hero_visual_stat_label: "Planos Criados",
+      section_servicios_h2: "O que posso fazer por si",
+      section_servicios_p: "Combinando ciência da nutrição com a arte da cozinha para resultados que se mantêm.",
+      service1_h3: "Plano Alimentar Personalizado",
+      service1_p: "Adaptado aos seus gostos, restrições e objetivos. Sem dietas genéricas. Comida que você realmente gosta de comer.",
+      service2_h3: "Consultoria de Chef",
+      service2_p: "Aulas práticas, preparação de refeições e dicas de cozinha saudável para tornar o processo prazeroso e sustentável.",
+      service3_h3: "Acompanhamento Contínuo",
+      service3_p: "Monitorização semanal do progresso, ajustes ao plano e suporte próximo para superar desafios e manter a motivação.",
+      service4_h3: "Refeições a Domicílio",
+      service4_p: "Chef em casa: preparo refeições equilibradas e saborosas na sua cozinha, ensinando técnicas que pode replicar.",
+      nav_blw: "BLW",
+      blw_h2: "Especialidade em Baby-Led Weaning (BLW)",
+      blw_p: "Uma abordagem respeitosa e sem stress para introduzir alimentos sólidos ao seu bebé, promovendo autonomia, exploração sensorial e uma relação saudável com a comida desde o início.",
+      blw_intro: "O Baby-Led Weaning é um método de introdução alimentar em que o bebé participa ativamente nas refeições, alimentando-se sozinho com alimentos inteiros e adaptados à sua fase de desenvolvimento — sem papas forçadas nem horários rígidos.",
+      blw1_h3: "Autonomia desde cedo",
+      blw1_p: "O bebé aprende a reconhecer os sinais de fome e saciedade, desenvolvendo uma relação intuitiva com a comida.",
+      blw2_h3: "Desenvolvimento motor",
+      blw2_p: "Estimula a coordenação motora fina, a mastigação e a exploração sensorial de texturas e sabores.",
+      blw3_h3: "Refeições em família",
+      blw3_p: "O bebé participa à mesa com a família, criando hábitos alimentares positivos desde cedo.",
+      blw4_h3: "Planos seguros e acompanhados",
+      blw4_p: "Cada plano de introdução é desenhado com orientação profissional sobre segurança, alergénios e progressão de texturas.",
+      blw_btn: "Marcar Consulta sobre BLW",
+      philosophy_h2: "A minha filosofia é simples: comer bem é viver bem",
+      philosophy_p1: 'Não acredito em dietas restritivas, contagem obsessiva de calorias ou alimentos "proibidos". Acredito em escolhas conscientes, pratos cheios de cor e sabor, e numa relação saudável com a comida.',
+      philosophy_p2: "Como nutricionista e chef, o meu trabalho é traduzir a ciência em pratos deliciosos. Cada plano é desenhado à sua medida — porque você é único e a sua alimentação também deve ser.",
+      philosophy_p3: "O trato é humanizado, próximo e sem julgamentos. Estou aqui para o(a) apoiar em cada passo.",
+      phil_box1_label: "Planos Criados", phil_box2_label: "Satisfação",
+      phil_box3_label: "Anos de Experiência", phil_box4_label: "Sabor & Saúde",
+      testimonios_h2: "O que dizem os meus pacientes",
+      testimonios_p: "Histórias reais de transformação, uma refeição de cada vez.",
+      testimonial1_p: "Pensei que perder peso significava comer salada todos os dias. A Nutri & Chef mostrou-me que posso comer o que gosto e mesmo assim emagrecer. Perdi 12kg em 6 meses sem sofrer!",
+      testimonial1_result: "Perdeu 12kg em 6 meses",
+      testimonial2_p: "O acompanhamento é incrível. Sempre que tenho dúvidas ou um evento social, tenho resposta rápida e soluções práticas. E as receitas são deliciosas — a minha família adora!",
+      testimonial2_result: "Perdeu 8kg em 4 meses",
+      testimonial3_p: "A experiência de ter a chef em casa foi transformadora. Aprendi a cozinhar de forma saudável e agora consigo manter o peso sozinha. Recomendo a 100%!",
+      testimonial3_result: "Manteve o peso há 1 ano",
+      cta_h2: "Pronto para transformar a sua relação com a comida?",
+      cta_p: "Agende a sua primeira consulta e descubra como é possível emagrecer com prazer, sabor e apoio humanizado.",
+      cta_btn: "Falar no WhatsApp",
+      footer_p: "Nutrição personalizada com alma de chef. Emagrecimento saudável, saboroso e humanizado.",
+      footer_bottom: "© 2026 Nutri & Chef. Todos os direitos reservados.",
+      wa_tooltip: "Fale connosco! 💬",
+      wa_cta_text: "Olá! Gostaria de agendar uma consulta com a Nutri & Chef.",
+      wa_float_text: "Olá! Gostaria de saber mais sobre os serviços da Nutri & Chef.",
+      html_lang: "pt"
+    },
+    es: {
+      nav_inicio: "Inicio", nav_servicios: "Servicios", nav_filosofia: "Filosofía",
+      nav_testimonios: "Testimonios", nav_contacto: "Contacto", nav_cta: "Reservar Consulta",
+      hero_tag: "Nutrición + Gastronomía",
+      hero_h1: 'Adelgaza con <em>sabor</em> y sin sufrimiento',
+      hero_p: "Planes alimentarios 100% personalizados que respetan tus gustos, tu rutina y tu historia. Porque perder peso no tiene por qué significar renuncia.",
+      hero_btn_primary: "Quiero Empezar", hero_btn_ghost: "Conocer Servicios",
+      hero_visual_stat_label: "Planes Creados",
+      section_servicios_h2: "Qué puedo hacer por ti",
+      section_servicios_p: "Combinando ciencia de la nutrición con el arte de la cocina para resultados que se mantienen.",
+      service1_h3: "Plan Alimentario Personalizado",
+      service1_p: "Adaptado a tus gustos, restricciones y objetivos. Sin dietas genéricas. Comida que realmente te gusta comer.",
+      service2_h3: "Asesoría de Chef",
+      service2_p: "Clases prácticas, preparación de comidas y consejos de cocina saludable para hacer el proceso placentero y sostenible.",
+      service3_h3: "Seguimiento Continuo",
+      service3_p: "Monitoreo semanal del progreso, ajustes al plan y soporte cercano para superar desafíos y mantener la motivación.",
+      service4_h3: "Comidas a Domicilio",
+      service4_p: "Chef en casa: preparo comidas equilibradas y sabrosas en tu cocina, enseñando técnicas que puedes replicar.",
+      nav_blw: "BLW",
+      blw_h2: "Especialidad en Baby-Led Weaning (BLW)",
+      blw_p: "Un enfoque respetuoso y sin estrés para introducir alimentos sólidos a tu bebé, promoviendo autonomía, exploración sensorial y una relación saludable con la comida desde el principio.",
+      blw_intro: "El Baby-Led Weaning es un método de introducción alimentaria en el que el bebé participa activamente en las comidas, alimentándose solo con alimentos enteros adaptados a su etapa de desarrollo — sin purés forzados ni horarios rígidos.",
+      blw1_h3: "Autonomía desde temprano",
+      blw1_p: "El bebé aprende a reconocer las señales de hambre y saciedad, desarrollando una relación intuitiva con la comida.",
+      blw2_h3: "Desarrollo motor",
+      blw2_p: "Estimula la coordinación motora fina, la masticación y la exploración sensorial de texturas y sabores.",
+      blw3_h3: "Comidas en familia",
+      blw3_p: "El bebé participa en la mesa con la familia, creando hábitos alimentarios positivos desde temprano.",
+      blw4_h3: "Planes seguros y acompañados",
+      blw4_p: "Cada plan de introducción está diseñado con orientación profesional sobre seguridad, alérgenos y progresión de texturas.",
+      blw_btn: "Reservar Consulta sobre BLW",
+      philosophy_h2: "Mi filosofía es simple: comer bien es vivir bien",
+      philosophy_p1: 'No creo en dietas restrictivas, conteo obsesivo de calorías o alimentos "prohibidos". Creo en elecciones conscientes, platos llenos de color y sabor, y en una relación saludable con la comida.',
+      philosophy_p2: "Como nutricionista y chef, mi trabajo es traducir la ciencia en platos deliciosos. Cada plan está diseñado a tu medida — porque tú eres único y tu alimentación también debe serlo.",
+      philosophy_p3: "El trato es humanizado, cercano y sin juicios. Estoy aquí para apoyarte en cada paso.",
+      phil_box1_label: "Planes Creados", phil_box2_label: "Satisfacción",
+      phil_box3_label: "Años de Experiencia", phil_box4_label: "Sabor & Salud",
+      testimonios_h2: "Lo que dicen mis pacientes",
+      testimonios_p: "Historias reales de transformación, una comida a la vez.",
+      testimonial1_p: "Pensaba que perder peso significaba comer ensalada todos los días. Nutri & Chef me mostró que puedo comer lo que me gusta y aun así adelgazar. ¡Perdí 12kg en 6 meses sin sufrir!",
+      testimonial1_result: "Perdió 12kg en 6 meses",
+      testimonial2_p: "El seguimiento es increíble. Cada vez que tengo dudas o un evento social, recibo respuesta rápida y soluciones prácticas. ¡Y las recetas son deliciosas — mi familia las adora!",
+      testimonial2_result: "Perdió 8kg en 4 meses",
+      testimonial3_p: "La experiencia de tener a la chef en casa fue transformadora. Aprendí a cocinar de forma saludable y ahora logro mantener el peso yo sola. ¡Lo recomiendo al 100%!",
+      testimonial3_result: "Mantiene el peso desde hace 1 año",
+      cta_h2: "¿Listo/a para transformar tu relación con la comida?",
+      cta_p: "Reserva tu primera consulta y descubre cómo es posible adelgazar con placer, sabor y apoyo humanizado.",
+      cta_btn: "Hablar por WhatsApp",
+      footer_p: "Nutrición personalizada con alma de chef. Adelgazamiento saludable, sabroso y humanizado.",
+      footer_bottom: "© 2026 Nutri & Chef. Todos los derechos reservados.",
+      wa_tooltip: "¡Hablemos! 💬",
+      wa_cta_text: "¡Hola! Me gustaría reservar una consulta con Nutri & Chef.",
+      wa_float_text: "¡Hola! Me gustaría saber más sobre los servicios de Nutri & Chef.",
+      html_lang: "es"
+    },
+    br: {
+      nav_inicio: "Início", nav_servicios: "Serviços", nav_filosofia: "Filosofia",
+      nav_testimonios: "Depoimentos", nav_contacto: "Contato", nav_cta: "Agendar Consulta",
+      hero_tag: "Nutrição + Gastronomia",
+      hero_h1: 'Emagreça com <em>sabor</em> e sem sofrimento',
+      hero_p: "Planos alimentares 100% personalizados que respeitam seus gostos, sua rotina e sua história. Porque emagrecer não precisa ser sinônimo de renúncia.",
+      hero_btn_primary: "Quero Começar", hero_btn_ghost: "Conhecer Serviços",
+      hero_visual_stat_label: "Planos Criados",
+      section_servicios_h2: "O que posso fazer por você",
+      section_servicios_p: "Combinando ciência da nutrição com a arte da cozinha para resultados que se mantêm.",
+      service1_h3: "Plano Alimentar Personalizado",
+      service1_p: "Adaptado aos seus gostos, restrições e objetivos. Sem dietas genéricas. Comida que você realmente gosta de comer.",
+      service2_h3: "Consultoria de Chef",
+      service2_p: "Aulas práticas, preparação de refeições e dicas de cozinha saudável para tornar o processo prazeroso e sustentável.",
+      service3_h3: "Acompanhamento Contínuo",
+      service3_p: "Monitoramento semanal do progresso, ajustes no plano e suporte próximo para superar desafios e manter a motivação.",
+      service4_h3: "Refeições a Domicílio",
+      service4_p: "Chef em casa: preparo refeições equilibradas e saborosas na sua cozinha, ensinando técnicas que você pode replicar.",
+      nav_blw: "BLW",
+      blw_h2: "Especialidade em Baby-Led Weaning (BLW)",
+      blw_p: "Uma abordagem respeitosa e sem estresse para introduzir alimentos sólidos ao seu bebê, promovendo autonomia, exploração sensorial e uma relação saudável com a comida desde o início.",
+      blw_intro: "O Baby-Led Weaning é um método de introdução alimentar em que o bebê participa ativamente das refeições, alimentando-se sozinho com alimentos inteiros e adaptados à sua fase de desenvolvimento — sem papinhas forçadas nem horários rígidos.",
+      blw1_h3: "Autonomia desde cedo",
+      blw1_p: "O bebê aprende a reconhecer os sinais de fome e saciedade, desenvolvendo uma relação intuitiva com a comida.",
+      blw2_h3: "Desenvolvimento motor",
+      blw2_p: "Estimula a coordenação motora fina, a mastigação e a exploração sensorial de texturas e sabores.",
+      blw3_h3: "Refeições em família",
+      blw3_p: "O bebê participa à mesa com a família, criando hábitos alimentares positivos desde cedo.",
+      blw4_h3: "Planos seguros e acompanhados",
+      blw4_p: "Cada plano de introdução é desenhado com orientação profissional sobre segurança, alérgenos e progressão de texturas.",
+      blw_btn: "Agendar Consulta sobre BLW",
+      philosophy_h2: "Minha filosofia é simples: comer bem é viver bem",
+      philosophy_p1: 'Não acredito em dietas restritivas, contagem obsessiva de calorias ou alimentos "proibidos". Acredito em escolhas conscientes, pratos cheios de cor e sabor, e em uma relação saudável com a comida.',
+      philosophy_p2: "Como nutricionista e chef, meu trabalho é traduzir a ciência em pratos deliciosos. Cada plano é desenhado sob medida — porque você é único e sua alimentação também deve ser.",
+      philosophy_p3: "O atendimento é humanizado, próximo e sem julgamentos. Estou aqui para te apoiar em cada passo.",
+      phil_box1_label: "Planos Criados", phil_box2_label: "Satisfação",
+      phil_box3_label: "Anos de Experiência", phil_box4_label: "Sabor & Saúde",
+      testimonios_h2: "O que dizem meus pacientes",
+      testimonios_p: "Histórias reais de transformação, uma refeição de cada vez.",
+      testimonial1_p: "Eu achava que emagrecer significava comer salada todos os dias. A Nutri & Chef me mostrou que posso comer o que gosto e mesmo assim emagrecer. Perdi 12kg em 6 meses sem sofrer!",
+      testimonial1_result: "Perdeu 12kg em 6 meses",
+      testimonial2_p: "O acompanhamento é incrível. Sempre que tenho dúvidas ou um evento social, tenho resposta rápida e soluções práticas. E as receitas são deliciosas — minha família adora!",
+      testimonial2_result: "Perdeu 8kg em 4 meses",
+      testimonial3_p: "A experiência de ter a chef em casa foi transformadora. Aprendi a cozinhar de forma saudável e agora consigo manter o peso sozinha. Recomendo 100%!",
+      testimonial3_result: "Mantém o peso há 1 ano",
+      cta_h2: "Pronto(a) para transformar sua relação com a comida?",
+      cta_p: "Agende sua primeira consulta e descubra como é possível emagrecer com prazer, sabor e apoio humanizado.",
+      cta_btn: "Falar no WhatsApp",
+      footer_p: "Nutrição personalizada com alma de chef. Emagrecimento saudável, saboroso e humanizado.",
+      footer_bottom: "© 2026 Nutri & Chef. Todos os direitos reservados.",
+      wa_tooltip: "Fale conosco! 💬",
+      wa_cta_text: "Olá! Gostaria de agendar uma consulta com a Nutri & Chef.",
+      wa_float_text: "Olá! Gostaria de saber mais sobre os serviços da Nutri & Chef.",
+      html_lang: "pt-BR"
+    }
+  };
+
+  const waNumber = "351912345678";
+  const ctaWaBtn = document.getElementById('ctaWaBtn');
+  const langButtons = document.querySelectorAll('.lang-switch button');
+
+  function applyLanguage(lang) {
+    const dict = translations[lang];
+    if (!dict) return;
+
+    document.documentElement.lang = dict.html_lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+
+    ctaWaBtn.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(dict.wa_cta_text)}`;
+    waBtn.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(dict.wa_float_text)}`;
+    waBtn.setAttribute('aria-label', dict.cta_btn);
+
+    langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+    localStorage.setItem('nc_lang', lang);
+  }
+
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+  });
+
+  // Detecta idioma guardado o el del navegador; por defecto PT (contenido original)
+  const savedLang = localStorage.getItem('nc_lang');
+  const browserLang = navigator.language ? navigator.language.toLowerCase() : '';
+  let initialLang = 'pt';
+  if (savedLang && translations[savedLang]) {
+    initialLang = savedLang;
+  } else if (browserLang.startsWith('es')) {
+    initialLang = 'es';
+  } else if (browserLang.startsWith('pt-br')) {
+    initialLang = 'br';
+  }
+  applyLanguage(initialLang);
 </script>
 
 </body>
