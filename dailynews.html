@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diário Matinal — A Travessia</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    /* ── ATLAS TOKENS ── */
+    --paper:      #f1e9d8;   /* chart paper, aged */
+    --paper-deep: #e8dcc3;   /* card recess */
+    --ink:        #1b2a33;   /* petrol ink */
+    --ink-soft:   #3a4a52;
+    --brass:      #b8862b;   /* masthead brass */
+    --brass-soft: #cfa54f;
+    --teal:       #2f6e6e;   /* azulejo — Andalucía / Espanha */
+    --teal-deep:  #1f4d4d;
+    --oxblood:    #8c2f2f;   /* selo marítimo — Santos / Brasil */
+    --oxblood-deep:#6e2222;
+    --indigo:     #38406b;   /* Mundo */
+    --rule:       #c9bfa4;
+    --muted:      #746a56;
+    --line-dash:  #a99a72;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Work Sans',sans-serif;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(184,134,43,.08), transparent),
+      var(--paper);
+    color:var(--ink);min-height:100vh;
+  }
+  ::selection{background:var(--brass);color:var(--paper)}
+
+  /* ═══════════════ MASTHEAD — "A TRAVESSIA" ═══════════════ */
+  .masthead{
+    padding:1.6rem 2.5rem 1.3rem;
+    border-bottom:1px solid var(--rule);
+    background:linear-gradient(180deg, rgba(184,134,43,.05), transparent);
+  }
+  .masthead-top{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    flex-wrap:wrap;gap:1.5rem;margin-bottom:1.1rem;
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;
+  }
+  .wordmark{
+    font-family:'Fraunces',serif;font-optical-sizing:auto;
+    font-size:clamp(2.1rem,5vw,3.6rem);font-weight:600;
+    font-style:italic;line-height:.95;letter-spacing:-.01em;color:var(--ink);
+  }
+  .wordmark em{ color:var(--brass); font-style:italic; }
+
+  /* dual-city readout */
+  .crossing-meta{ text-align:right; font-family:'Space Mono',monospace; }
+  .crossing-meta .date-line{
+    font-size:.7rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem;
+  }
+  .crossing-meta .refresh-line{ font-size:.6rem;color:var(--muted); }
+
+  /* The Crossing — route strip */
+  .crossing-strip{
+    display:flex;align-items:center;gap:1rem;
+    padding:.85rem 1.1rem;background:var(--paper-deep);
+    border:1px solid var(--rule);border-radius:3px;
+  }
+  .port{ display:flex;flex-direction:column;gap:.15rem;min-width:88px; }
+  .port.east{ align-items:flex-end;text-align:right; }
+  .port-name{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+    font-size:.95rem;color:var(--ink);
+  }
+  .port-time{ font-family:'Space Mono',monospace;font-size:.85rem;color:var(--brass);font-weight:700; }
+  .port-tag{ font-family:'Space Mono',monospace;font-size:.55rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase; }
+
+  .route-line{
+    flex:1;position:relative;height:2px;
+    background-image:linear-gradient(90deg, var(--line-dash) 60%, transparent 40%);
+    background-size:10px 2px;background-repeat:repeat-x;
+    min-width:60px;
+  }
+  .route-boat{
+    position:absolute;top:-25px;font-size:2rem;
+    animation:sail 14s linear infinite;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));
+  }
+  @keyframes sail{ 0%{left:0%} 100%{left:calc(100% - 14px)} }
+  .route-anchor{ font-size:.85rem;color:var(--brass); }
+
+  @media(prefers-reduced-motion:reduce){ .route-boat{ animation:none; left:45%; } }
+
+  /* ═══════════════ STATUS BAR ═══════════════ */
+  .status-bar{
+    background:var(--ink);color:var(--paper);
+    padding:.55rem 2.5rem;display:flex;align-items:center;justify-content:space-between;
+    gap:1rem;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:.68rem;
+  }
+  .status-bar .status-text{ color:#a9b8bd; }
+  .status-btns{ display:flex;gap:.5rem; }
+  .sbtn{
+    background:none;border:1px solid #4a5a62;color:var(--paper);
+    padding:.3rem .85rem;font-family:'Space Mono',monospace;font-size:.64rem;
+    cursor:pointer;letter-spacing:.03em;transition:all .2s;border-radius:2px;
+  }
+  .sbtn:hover{ background:var(--brass);border-color:var(--brass);color:var(--ink); }
+  .sbtn:disabled{ opacity:.35;cursor:not-allowed; }
+  .progress-wrap{ height:2px;background:var(--paper-deep); }
+  .progress-bar{ height:100%;background:var(--brass);width:0%;transition:width .35s ease; }
+
+  /* ═══════════════ MAIN ═══════════════ */
+  .main{ padding:2rem 2.5rem 3rem;max-width:1640px;margin:0 auto; }
+
+  .cache-note{
+    display:none;gap:.5rem;align-items:center;
+    background:var(--paper-deep);border:1px dashed var(--rule);
+    padding:.55rem 1.1rem;font-family:'Space Mono',monospace;font-size:.65rem;
+    color:var(--muted);margin-bottom:1.5rem;border-radius:2px;
+  }
+  .cache-note strong{ color:var(--ink); }
+
+  /* tabs — brass underline, not solid pills */
+  .tabs{
+    display:flex;gap:1.4rem;flex-wrap:wrap;margin-bottom:2rem;
+    border-bottom:1px solid var(--rule);padding-bottom:0;
+  }
+  .tbtn{
+    font-family:'Work Sans',sans-serif;font-size:.75rem;font-weight:600;
+    letter-spacing:.03em;text-transform:uppercase;
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    padding:.3rem .05rem .7rem;position:relative;transition:color .15s;
+  }
+  .tbtn::after{
+    content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    background:var(--brass);transform:scaleX(0);transition:transform .2s ease;transform-origin:left;
+  }
+  .tbtn:hover{ color:var(--ink); }
+  .tbtn.active{ color:var(--ink); }
+  .tbtn.active::after{ transform:scaleX(1); }
+
+  /* grid & manifest columns */
+  .grid{ display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:2.2rem; }
+  .col{ }
+  .col-head{
+    display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+    padding-bottom:.6rem;margin-bottom:1rem;border-bottom:2px solid var(--col-color, var(--ink));
+  }
+  .col-name{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+    font-size:1.15rem;color:var(--ink);
+  }
+  .col-flag{
+    display:inline-block;width:9px;height:9px;border-radius:50%;
+    background:var(--col-color, var(--ink));margin-right:.5rem;
+  }
+  .col-count{ font-family:'Space Mono',monospace;font-size:.58rem;color:var(--muted); }
+
+  /* news manifest rows */
+  .nlist{ list-style:none; }
+  .nitem{
+    display:flex;gap:.7rem;padding:.75rem 0;
+    border-bottom:1px solid var(--paper-deep);cursor:pointer;
+  }
+  .nitem:last-child{ border-bottom:none; }
+  .nidx{
+    font-family:'Space Mono',monospace;font-size:.65rem;color:var(--col-color, var(--brass));
+    font-weight:700;flex-shrink:0;padding-top:.15rem;min-width:1.4rem;
+  }
+  .ncontent{ flex:1;min-width:0; }
+  .ntitle{
+    font-family:'Fraunces',serif;font-weight:600;font-size:.94rem;
+    line-height:1.32;color:var(--ink);display:block;margin-bottom:.32rem;transition:color .15s;
+  }
+  .nitem:hover .ntitle{ color:var(--col-color, var(--brass)); }
+  .nmeta{ display:flex;gap:.6rem;flex-wrap:wrap;align-items:center; }
+  .nsource{
+    font-family:'Work Sans',sans-serif;font-size:.63rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.04em;color:var(--muted);
+  }
+  .ntime{ font-family:'Space Mono',monospace;font-size:.6rem;color:var(--rule); }
+  .ndesc{
+    font-family:'Work Sans',sans-serif;font-size:.78rem;color:var(--ink-soft);
+    line-height:1.55;margin-top:.4rem;display:none;
+  }
+  .nlink{
+    display:inline-block;margin-top:.4rem;font-family:'Space Mono',monospace;
+    font-size:.64rem;color:var(--col-color, var(--teal));text-decoration:none;
+  }
+  .nlink:hover{ text-decoration:underline; }
+  .nitem.open .ndesc{ display:block; }
+
+  /* trending — manifest ledger style */
+  .tlist{ list-style:none; }
+  .titem{
+    display:flex;gap:.85rem;padding:.7rem 0;
+    border-bottom:1px solid var(--paper-deep);align-items:flex-start;
+  }
+  .titem:last-child{ border-bottom:none; }
+  .trank{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:700;
+    font-size:1.5rem;color:var(--brass-soft);min-width:1.9rem;line-height:1;
+  }
+  .ttopic{ font-family:'Work Sans',sans-serif;font-size:.85rem;font-weight:600;color:var(--ink);line-height:1.35; }
+  .tdesc{ font-family:'Work Sans',sans-serif;font-size:.72rem;color:var(--muted);margin-top:.2rem;line-height:1.45; }
+
+  /* states */
+  .state{
+    padding:2rem 0;text-align:center;color:var(--muted);
+    font-family:'Work Sans',sans-serif;font-size:.78rem;line-height:1.6;
+  }
+  .spin{
+    display:inline-block;width:17px;height:17px;border:2px solid var(--rule);
+    border-top-color:var(--brass);border-radius:50%;
+    animation:spin .8s linear infinite;margin-bottom:.6rem;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .err{ color:var(--oxblood); }
+
+  footer{
+    border-top:1px solid var(--rule);padding:1.3rem 2.5rem;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  }
+  footer p{ font-family:'Space Mono',monospace;font-size:.6rem;color:var(--muted); }
+
+  /* diagnostic drawer */
+  .diag{
+    position:fixed;bottom:0;left:0;right:0;max-height:35vh;overflow-y:auto;
+    background:var(--ink);color:#8fd6c4;font-family:'Space Mono',monospace;font-size:.68rem;
+    padding:.8rem 1.6rem;display:none;z-index:100;border-top:2px solid var(--brass);
+  }
+  .diag.show{ display:block; }
+  .diag-line{ padding:.15rem 0;border-bottom:1px solid rgba(255,255,255,.06); }
+  .diag-line.error{ color:#e08b8b; }
+  .diag-close{ position:absolute;top:.6rem;right:1.6rem;color:var(--paper);cursor:pointer;font-size:.85rem; }
+
+  @media(max-width:640px){
+    .masthead,.status-bar,.main,footer{ padding-left:1rem;padding-right:1rem; }
+    .masthead-top{ flex-direction:column; }
+    .crossing-meta{ text-align:left; }
+    .crossing-strip{ flex-wrap:wrap; }
+    .grid{ grid-template-columns:1fr; }
+  }
+  @media(prefers-reduced-motion:reduce){ .spin{ animation:none; } }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <div>
+      <div class="eyebrow">Edição pessoal · Duas margens do Atlântico</div>
+      <div class="wordmark">Diário <em>Matinal</em></div>
+    </div>
+    <div class="crossing-meta">
+      <div class="date-line" id="dateLine">—</div>
+      <div class="refresh-line" id="nextLbl">a aguardar…</div>
+    </div>
+  </div>
+
+  <!-- THE CROSSING — Santos ⚓︎ ··· ⚓︎ Sevilla -->
+  <div class="crossing-strip">
+    <div class="port west">
+      <span class="port-tag">Santos, BR</span>
+      <span class="port-name">Porto de Santos</span>
+      <span class="port-time" id="timeSantos">--:--</span>
+    </div>
+    <span class="route-anchor">⚓︎</span>
+    <div class="route-line"><span class="route-boat" id="routeBoat">⛵</span></div>
+    <span class="route-anchor">⚓︎</span>
+    <div class="port east">
+      <span class="port-tag">Sevilla, ES</span>
+      <span class="port-name">Puerto de Sevilla</span>
+      <span class="port-time" id="timeSevilla">--:--</span>
+    </div>
+  </div>
+</header>
+
+<div class="status-bar">
+  <span class="status-text" id="statusMsg">Iniciando...</span>
+  <div class="status-btns">
+    <button class="sbtn" onclick="toggleDiag()">⚓ Diagnóstico</button>
+    <button class="sbtn" id="refreshBtn" onclick="fetchAll(true)">↻ Atualizar</button>
+  </div>
+</div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<main class="main">
+  <div class="cache-note" id="cacheInfo">
+    <span>📜 Manifesto de <strong id="cacheTime">—</strong> · próxima travessia em <strong id="cacheNext">—</strong></span>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <p>Diário Matinal · RSS de fontes reais — G1, Folha, El País, El Mundo, BBC, NYT</p>
+  <p id="footerTime">—</p>
+</footer>
+
+<div class="diag" id="diagPanel">
+  <span class="diag-close" onclick="toggleDiag()">✕ fechar</span>
+  <div id="diagLog"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════════════════════════
+const REFRESH_MS = 4 * 60 * 60 * 1000;
+const CACHE_KEY  = 'diario_v9';
+const R2J = url => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=10`;
+
+// G1 URLs corrigidas — a rota real usa /dynamo/, não /rss/g1/
+const REGIONS = [
+  { id:'santos', label:'Santos', color:'var(--oxblood)', feeds:[
+      'https://g1.globo.com/dynamo/sp/santos-regiao/rss2.xml',
+      'https://www.diariodolitoral.com.br/feed/',
+      'https://www.atribuna.com.br/rss.xml',
+  ]},
+  { id:'brasil', label:'Brasil', color:'var(--oxblood-deep)', feeds:[
+      'https://g1.globo.com/dynamo/brasil/rss2.xml',
+      'https://feeds.folha.uol.com.br/poder/rss091.xml',
+  ]},
+  { id:'andalucia', label:'Andalucía', color:'var(--teal)', feeds:[
+      'https://www.diariodesevilla.es/rss',
+      'https://www.lavanguardia.com/rss/home.xml',
+      'https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada',
+  ]},
+  { id:'espanha', label:'Espanha', color:'var(--teal-deep)', feeds:[
+      'https://www.20minutos.es/rss/',
+      'https://www.elmundo.es/rss/portada.xml',
+      'https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada',
+  ]},
+  { id:'mundo', label:'Mundo', color:'var(--indigo)', feeds:[
+      'https://feeds.bbci.co.uk/news/world/rss.xml',
+      'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
+  ]},
+  { id:'trending', label:'Trending', color:'var(--brass)', isTrending:true, feeds:[
+      'https://feeds.bbci.co.uk/news/rss.xml',
+      'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
+      'https://g1.globo.com/dynamo/rss2.xml',
+  ]},
+];
+
+// ═══════════════════════════════════════════════════════════════
+//  THE CROSSING — dual-city clock
+// ═══════════════════════════════════════════════════════════════
+function updateCrossingClock(){
+  const now = new Date();
+  const santos  = now.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit', timeZone:'America/Sao_Paulo' });
+  const sevilla = now.toLocaleTimeString('es-ES', { hour:'2-digit', minute:'2-digit', timeZone:'Europe/Madrid' });
+  const elS = document.getElementById('timeSantos');
+  const elV = document.getElementById('timeSevilla');
+  if(elS) elS.textContent = santos;
+  if(elV) elV.textContent = sevilla;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  DIAGNOSTIC LOG
+// ═══════════════════════════════════════════════════════════════
+let diagLines = [];
+function diag(msg, isError=false){
+  const ts = new Date().toLocaleTimeString('pt-BR');
+  diagLines.push({msg:`[${ts}] ${msg}`, isError});
+  if(diagLines.length > 100) diagLines.shift();
+  renderDiag();
+}
+function renderDiag(){
+  const el = document.getElementById('diagLog');
+  if(!el) return;
+  el.innerHTML = diagLines.map(l => `<div class="diag-line${l.isError?' error':''}">${esc(l.msg)}</div>`).join('');
+  el.parentElement.scrollTop = el.parentElement.scrollHeight;
+}
+function toggleDiag(){ document.getElementById('diagPanel').classList.toggle('show'); }
+
+// ═══════════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════════
+let cache = {}, activeTab = 'all', refreshTimer = null, nextRefreshAt = null;
+
+// ═══════════════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════════════
+const fmtDate = d => { const s = d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}); return s[0].toUpperCase()+s.slice(1); };
+const fmtTime = d => d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+function timeAgo(ts){ const m=(Date.now()-ts)/60000; if(m<1)return'agora'; if(m<60)return`há ${Math.floor(m)}min`; return`há ${Math.floor(m/60)}h`; }
+function countdown(ms){ const m=Math.max(0,Math.floor(ms/60000)); return m>=60?`${Math.floor(m/60)}h ${m%60}min`:`${m}min`; }
+function pubAgo(str){ if(!str)return''; try{ const d=new Date(str),df=(Date.now()-d)/60000; if(isNaN(df))return''; if(df<60)return`há ${Math.floor(df)}min`; if(df<1440)return`há ${Math.floor(df/60)}h`; return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}); }catch{return''} }
+function stripHtml(h){ const d=document.createElement('div'); d.innerHTML=h; return d.textContent||d.innerText||''; }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function updateClock(){
+  const now=new Date();
+  const dl=document.getElementById('dateLine'); if(dl) dl.textContent=fmtDate(now);
+  const ft=document.getElementById('footerTime'); if(ft) ft.textContent=`Última renderização: ${fmtTime(now)}`;
+  if(nextRefreshAt){ const el=document.getElementById('nextLbl'); if(el){ const r=nextRefreshAt-Date.now(); el.textContent=r>0?`próxima travessia em ${countdown(r)}`:'atualizando…'; } }
+  updateCrossingClock();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  FETCH RSS FEED
+// ═══════════════════════════════════════════════════════════════
+async function fetchFeed(url){
+  const proxyUrl = R2J(url);
+  diag(`Buscando: ${url}`);
+  let res;
+  try{ res = await fetch(proxyUrl); }
+  catch(networkErr){ diag(`Falha de rede em ${url}: ${networkErr.message}`, true); throw new Error(`Erro de rede: ${networkErr.message}`); }
+  if(!res.ok){ diag(`HTTP ${res.status} em ${url}`, true); throw new Error(`HTTP ${res.status}`); }
+  let data;
+  try{ data = await res.json(); }
+  catch(parseErr){ diag(`Resposta não é JSON válido de ${url}`, true); throw new Error('Resposta inválida'); }
+  if(data.status !== 'ok'){ diag(`RSS2JSON erro em ${url}: ${data.message || 'desconhecido'}`, true); throw new Error(data.message || 'RSS2JSON error'); }
+  diag(`OK: ${(data.items||[]).length} itens de ${url}`);
+  return data.items || [];
+}
+
+async function fetchRegion(region){
+  const all=[], seen=new Set(), errs=[];
+  for(const feedUrl of region.feeds){
+    if(all.length>=10) break;
+    try{
+      const items = await fetchFeed(feedUrl);
+      for(const it of items){
+        if(all.length>=10) break;
+        const key=(it.title||'').slice(0,60);
+        if(key && !seen.has(key)){
+          seen.add(key);
+          all.push({
+            title: it.title || '—',
+            source: it.author || new URL(feedUrl).hostname.replace('www.',''),
+            summary: it.description ? stripHtml(it.description).slice(0,220) : '',
+            time: pubAgo(it.pubDate),
+            url: it.link || ''
+          });
+        }
+      }
+    }catch(e){ errs.push(`${new URL(feedUrl).hostname}: ${e.message}`); }
+  }
+  if(all.length===0){
+    const errMsg = errs.length ? errs.join(' | ') : 'Nenhum feed retornou dados';
+    diag(`Região ${region.label} falhou completamente: ${errMsg}`, true);
+    throw new Error(errMsg);
+  }
+  return all.slice(0,10);
+}
+
+async function fetchTrending(region){
+  const all=[], seen=new Set();
+  for(const feedUrl of region.feeds){
+    try{
+      const items = await fetchFeed(feedUrl);
+      items.slice(0,4).forEach(it=>{
+        const key=(it.title||'').slice(0,60);
+        if(key && !seen.has(key)){
+          seen.add(key);
+          all.push({
+            topic: it.title,
+            volume: new URL(feedUrl).hostname.replace('www.','').replace('.com','').replace('.co.uk',''),
+            context: it.description ? stripHtml(it.description).slice(0,120) : ''
+          });
+        }
+      });
+    }catch(e){ diag(`Trending feed falhou: ${e.message}`, true); }
+  }
+  if(all.length===0) throw new Error('Nenhum feed de trending funcionou');
+  return all.slice(0,10);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  FETCH ALL
+// ═══════════════════════════════════════════════════════════════
+async function fetchAll(force=false){
+  if(!force && cache.timestamp && (Date.now()-cache.timestamp<REFRESH_MS)){
+    renderAll(); showCacheInfo(); scheduleRefresh(); return;
+  }
+  diag('═══ Iniciando travessia (atualização completa) ═══');
+  const btn=document.getElementById('refreshBtn');
+  const bar=document.getElementById('progressBar');
+  const stat=document.getElementById('statusMsg');
+
+  btn.disabled=true;
+  bar.style.width='0%';
+
+  const results={}, errors={};
+  let done=0;
+  const total=REGIONS.length;
+
+  await Promise.all(REGIONS.map(async region=>{
+    stat.textContent=`Carregando ${region.label}...`;
+    try{
+      results[region.id] = region.isTrending ? await fetchTrending(region) : await fetchRegion(region);
+      diag(`✓ ${region.label}: ${results[region.id].length} itens carregados`);
+    }catch(e){
+      errors[region.id]=e.message;
+      results[region.id]=null;
+    }
+    done++; bar.style.width=`${Math.round(done/total*100)}%`;
+  }));
+
+  cache={timestamp:Date.now(), data:results, errors};
+  try{ localStorage.setItem(CACHE_KEY, JSON.stringify(cache)); diag('Manifesto salvo'); }
+  catch(e){ diag(`Falha ao salvar cache: ${e.message}`, true); }
+
+  bar.style.width='100%';
+  setTimeout(()=>bar.style.width='0%',600);
+
+  const ok=Object.values(results).filter(Boolean).length;
+  stat.textContent=`Atualizado às ${fmtTime(new Date())} · ${ok}/${total} seções`;
+  diag(`═══ Concluído: ${ok}/${total} seções OK ═══`);
+  btn.disabled=false;
+
+  renderAll(); hideCacheInfo(); scheduleRefresh();
+}
+
+function scheduleRefresh(){
+  if(refreshTimer)clearTimeout(refreshTimer);
+  const elapsed=cache.timestamp?Date.now()-cache.timestamp:REFRESH_MS;
+  const wait=Math.max(0,REFRESH_MS-elapsed);
+  nextRefreshAt=Date.now()+wait;
+  refreshTimer=setTimeout(()=>fetchAll(true),wait);
+}
+function showCacheInfo(){
+  const el=document.getElementById('cacheInfo');
+  el.style.display='flex';
+  document.getElementById('cacheTime').textContent=fmtTime(new Date(cache.timestamp));
+  document.getElementById('cacheNext').textContent=nextRefreshAt?countdown(nextRefreshAt-Date.now()):'—';
+}
+function hideCacheInfo(){ document.getElementById('cacheInfo').style.display='none'; }
+
+// ═══════════════════════════════════════════════════════════════
+//  TABS / RENDER
+// ═══════════════════════════════════════════════════════════════
+function buildTabs(){
+  const row=document.getElementById('tabs'); row.innerHTML='';
+  [{id:'all',label:'Todas'}, ...REGIONS].forEach(r=>{
+    const b=document.createElement('button');
+    b.className='tbtn'+(activeTab===r.id?' active':'');
+    b.textContent=r.label;
+    b.onclick=()=>{activeTab=r.id;buildTabs();renderAll()};
+    row.appendChild(b);
+  });
+}
+
+function renderAll(){
+  const grid=document.getElementById('grid'); grid.innerHTML='';
+  const show=activeTab==='all'?REGIONS:REGIONS.filter(r=>r.id===activeTab);
+  show.forEach(region=>{
+    const col=document.createElement('div'); col.className='col'; col.style.setProperty('--col-color', region.color);
+    const items=cache.data?.[region.id], err=cache.errors?.[region.id];
+    const ts=cache.timestamp?timeAgo(cache.timestamp):'';
+    col.innerHTML=`<div class="col-head">
+      <span class="col-name"><span class="col-flag"></span>${region.label}</span>
+      <span class="col-count">${items?items.length:0} · ${ts}</span>
+    </div>`;
+    if(!items&&!err){
+      col.innerHTML+=`<div class="state"><div class="spin"></div><br>Aguardando...</div>`;
+    }else if(err&&!items){
+      col.innerHTML+=`<div class="state err">⚓ ${esc(err)}<br><small style="opacity:.7">Veja "Diagnóstico" para detalhes</small></div>`;
+    }else if(region.isTrending){
+      col.appendChild(mkTrending(items));
+    }else{
+      col.appendChild(mkNews(items));
+    }
+    grid.appendChild(col);
+  });
+}
+
+function mkNews(items){
+  const ul=document.createElement('ul'); ul.className='nlist';
+  items.forEach((it,i)=>{
+    const li=document.createElement('li'); li.className='nitem';
+    li.innerHTML=`<span class="nidx">${String(i+1).padStart(2,'0')}</span>
+      <div class="ncontent"><span class="ntitle">${esc(it.title)}</span>
+      <div class="nmeta"><span class="nsource">${esc(it.source)}</span><span class="ntime">${esc(it.time)}</span></div>
+      <div class="ndesc">${esc(it.summary)}${it.url?`<br><a class="nlink" href="${esc(it.url)}" target="_blank" rel="noopener">Ler artigo →</a>`:''}</div>
+      </div>`;
+    li.addEventListener('click',()=>li.classList.toggle('open'));
+    ul.appendChild(li);
+  });
+  return ul;
+}
+
+function mkTrending(items){
+  const ul=document.createElement('ul'); ul.className='tlist';
+  items.forEach((it,i)=>{
+    const li=document.createElement('li'); li.className='titem';
+    li.innerHTML=`<span class="trank">${i+1}</span>
+      <div><div class="ttopic">${esc(it.topic)}</div>
+      <div class="tdesc">${esc(it.volume)}${it.volume&&it.context?' · ':''}${esc(it.context)}</div></div>`;
+    ul.appendChild(li);
+  });
+  return ul;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════════
+function init(){
+  diag('Diário Matinal iniciado — A Travessia');
+  try{
+    const r=localStorage.getItem(CACHE_KEY);
+    if(r){ cache=JSON.parse(r); diag('Manifesto anterior encontrado'); }
+  }catch(e){ diag(`Erro ao ler cache: ${e.message}`, true); }
+
+  buildTabs();
+  updateClock();
+  setInterval(updateClock,30000);
+
+  if(cache.timestamp && cache.data){
+    renderAll(); showCacheInfo(); scheduleRefresh();
+    if(Date.now()-cache.timestamp>=REFRESH_MS) fetchAll(true);
+  }else{
+    document.getElementById('grid').innerHTML=
+      '<div class="state" style="grid-column:1/-1"><div class="spin"></div><br>Zarpando pela primeira vez…</div>';
+    fetchAll(true);
+  }
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
