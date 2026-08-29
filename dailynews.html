@@ -3,26 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diário Matinal — A Travessia</title>
+<title>Diário Matinal — A Travessia v2</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
   :root{
     /* ── ATLAS TOKENS ── */
-    --paper:      #f1e9d8;   /* chart paper, aged */
-    --paper-deep: #e8dcc3;   /* card recess */
-    --ink:        #1b2a33;   /* petrol ink */
-    --ink-soft:   #3a4a52;
-    --brass:      #b8862b;   /* masthead brass */
-    --brass-soft: #cfa54f;
-    --teal:       #2f6e6e;   /* azulejo — Andalucía / Espanha */
-    --teal-deep:  #1f4d4d;
-    --oxblood:    #8c2f2f;   /* selo marítimo — Santos / Brasil */
-    --oxblood-deep:#6e2222;
-    --indigo:     #38406b;   /* Mundo */
-    --rule:       #c9bfa4;
-    --muted:      #746a56;
-    --line-dash:  #a99a72;
+    --paper:        #f1e9d8;   /* chart paper, aged */
+    --paper-deep:   #e8dcc3;   /* card recess */
+    --paper-light:  #f8f4eb;   /* source card background */
+    --ink:          #1b2a33;   /* petrol ink */
+    --ink-soft:     #3a4a52;
+    --brass:        #b8862b;   /* masthead brass */
+    --brass-soft:   #cfa54f;
+    --teal:         #2f6e6e;   /* azulejo — Andalucía / Espanha */
+    --teal-deep:    #1f4d4d;
+    --oxblood:      #8c2f2f;   /* selo marítimo — Santos / Brasil */
+    --oxblood-deep: #6e2222;
+    --indigo:       #38406b;   /* Mundo */
+    --rule:         #c9bfa4;
+    --muted:        #746a56;
+    --line-dash:    #a99a72;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{
@@ -100,6 +101,20 @@
     gap:1rem;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:.68rem;
   }
   .status-bar .status-text{ color:#a9b8bd; }
+  .status-controls{ display:flex;gap:.75rem;align-items:center;flex-wrap:wrap; }
+  
+  /* View mode switch pills */
+  .view-switch{
+    display:inline-flex;background:rgba(255,255,255,.08);padding:2px;border-radius:3px;
+    border:1px solid #3a4a52;
+  }
+  .vbtn{
+    background:none;border:none;color:#a9b8bd;padding:.2rem .6rem;
+    font-family:'Space Mono',monospace;font-size:.6rem;cursor:pointer;border-radius:2px;
+    transition:all .15s ease;
+  }
+  .vbtn.active{ background:var(--brass);color:var(--ink);font-weight:700; }
+
   .status-btns{ display:flex;gap:.5rem; }
   .sbtn{
     background:none;border:1px solid #4a5a62;color:var(--paper);
@@ -122,7 +137,7 @@
   }
   .cache-note strong{ color:var(--ink); }
 
-  /* tabs — brass underline, not solid pills */
+  /* tabs — brass underline */
   .tabs{
     display:flex;gap:1.4rem;flex-wrap:wrap;margin-bottom:2rem;
     border-bottom:1px solid var(--rule);padding-bottom:0;
@@ -142,11 +157,11 @@
   .tbtn.active::after{ transform:scaleX(1); }
 
   /* grid & manifest columns */
-  .grid{ display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:2.2rem; }
-  .col{ }
+  .grid{ display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:2.2rem; }
+  .col{ display:flex;flex-direction:column; }
   .col-head{
     display:flex;align-items:center;justify-content:space-between;gap:.6rem;
-    padding-bottom:.6rem;margin-bottom:1rem;border-bottom:2px solid var(--col-color, var(--ink));
+    padding-bottom:.6rem;margin-bottom:.8rem;border-bottom:2px solid var(--col-color, var(--ink));
   }
   .col-name{
     font-family:'Fraunces',serif;font-style:italic;font-weight:600;
@@ -158,13 +173,60 @@
   }
   .col-count{ font-family:'Space Mono',monospace;font-size:.58rem;color:var(--muted); }
 
+  /* Source breakdown badges bar in column header */
+  .sources-summary-bar{
+    display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem;
+    padding-bottom:.6rem;border-bottom:1px stroke var(--paper-deep);
+  }
+  .src-summary-pill{
+    font-family:'Space Mono',monospace;font-size:.58rem;
+    background:var(--paper-deep);color:var(--ink-soft);
+    padding:.2rem .45rem;border-radius:3px;border:1px solid var(--rule);
+    display:inline-flex;align-items:center;gap:.3rem;
+  }
+  .src-summary-pill .count{ font-weight:700;color:var(--col-color, var(--brass)); }
+
+  /* Source Group Container (Grouped View) */
+  .source-group{
+    margin-bottom:1.2rem;
+    background:rgba(255,255,255,.3);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .source-group-head{
+    background:var(--paper-deep);
+    padding:.45rem .75rem;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid var(--rule);
+  }
+  .source-group-title{
+    font-family:'Space Mono',monospace;font-size:.68rem;
+    font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.04em;
+    display:flex;align-items:center;gap:.4rem;
+  }
+  .source-group-title::before{
+    content:'◆';font-size:.6rem;color:var(--col-color, var(--brass));
+  }
+  .source-group-badge{
+    font-family:'Space Mono',monospace;font-size:.58rem;
+    color:var(--paper);background:var(--col-color, var(--ink));
+    padding:.1rem .4rem;border-radius:10px;font-weight:700;
+  }
+  .source-group .nlist{ padding:0 .75rem; }
+
   /* news manifest rows */
   .nlist{ list-style:none; }
   .nitem{
     display:flex;gap:.7rem;padding:.75rem 0;
     border-bottom:1px solid var(--paper-deep);cursor:pointer;
+    transition:background-color .18s ease, border-color .18s ease, transform .18s ease;
+    border-left:2px solid transparent;
+    border-radius:3px;
+    padding-left:.55rem;
   }
   .nitem:last-child{ border-bottom:none; }
+  .nitem:hover{ background:rgba(255,255,255,.34); border-left-color:var(--col-color,var(--brass)); transform:translateX(2px); }
   .nidx{
     font-family:'Space Mono',monospace;font-size:.65rem;color:var(--col-color, var(--brass));
     font-weight:700;flex-shrink:0;padding-top:.15rem;min-width:1.4rem;
@@ -175,22 +237,41 @@
     line-height:1.32;color:var(--ink);display:block;margin-bottom:.32rem;transition:color .15s;
   }
   .nitem:hover .ntitle{ color:var(--col-color, var(--brass)); }
-  .nmeta{ display:flex;gap:.6rem;flex-wrap:wrap;align-items:center; }
+  .nmeta{
+    display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;
+  }
   .nsource{
     font-family:'Work Sans',sans-serif;font-size:.63rem;font-weight:600;
     text-transform:uppercase;letter-spacing:.04em;color:var(--muted);
   }
-  .ntime{ font-family:'Space Mono',monospace;font-size:.6rem;color:var(--rule); }
+  .ntime{ font-family:'Space Mono',monospace;font-size:.6rem;color:var(--muted);opacity:.8; }
+  
+  /* DESIGN IMPROVEMENT: Accordion Indicator Chevron */
+  .nexpand-icon{
+    font-size:.65rem;color:var(--muted);
+    transition:transform .2s ease, color .2s ease;
+    margin-left:auto;user-select:none;
+  }
+  .nitem.open .nexpand-icon{
+    transform:rotate(180deg);
+    color:var(--col-color, var(--brass));
+  }
+
   .ndesc{
     font-family:'Work Sans',sans-serif;font-size:.78rem;color:var(--ink-soft);
-    line-height:1.55;margin-top:.4rem;display:none;
+    line-height:1.55;margin-top:.45rem;padding-top:.45rem;
+    border-top:1px dashed var(--rule);display:none;
   }
   .nlink{
-    display:inline-block;margin-top:.4rem;font-family:'Space Mono',monospace;
+    display:inline-flex;align-items:center;gap:.25rem;margin-top:.55rem;font-family:'Space Mono',monospace;
     font-size:.64rem;color:var(--col-color, var(--teal));text-decoration:none;
+    font-weight:700;
   }
   .nlink:hover{ text-decoration:underline; }
-  .nitem.open .ndesc{ display:block; }
+  .ncontent{ cursor:pointer; }
+  .nitem.open .ndesc{ display:block; animation:newsReveal .18s ease; }
+  .nitem.open{ background:rgba(255,255,255,.42); border-left-color:var(--col-color,var(--brass)); }
+  @keyframes newsReveal{ from{opacity:0;transform:translateY(-3px)} to{opacity:1;transform:translateY(0)} }
 
   /* trending — manifest ledger style */
   .tlist{ list-style:none; }
@@ -242,6 +323,7 @@
     .crossing-meta{ text-align:left; }
     .crossing-strip{ flex-wrap:wrap; }
     .grid{ grid-template-columns:1fr; }
+    .status-controls{ flex-direction:column;align-items:stretch; }
   }
   @media(prefers-reduced-motion:reduce){ .spin{ animation:none; } }
 </style>
@@ -280,9 +362,16 @@
 
 <div class="status-bar">
   <span class="status-text" id="statusMsg">Iniciando...</span>
-  <div class="status-btns">
-    <button class="sbtn" onclick="toggleDiag()">⚓ Diagnóstico</button>
-    <button class="sbtn" id="refreshBtn" onclick="fetchAll(true)">↻ Atualizar</button>
+  <div class="status-controls">
+    <!-- VIEW MODE SWITCH (Cronologia vs Agrupado por Fonte) -->
+    <div class="view-switch">
+      <button class="vbtn active" id="btnViewGrouped" onclick="setViewMode('grouped')">🗂️ Por Fonte</button>
+      <button class="vbtn" id="btnViewFlat" onclick="setViewMode('flat')">📜 Cronológico</button>
+    </div>
+    <div class="status-btns">
+      <button class="sbtn" onclick="toggleDiag()">⚓ Diagnóstico</button>
+      <button class="sbtn" id="refreshBtn" onclick="fetchAll(true)">↻ Atualizar</button>
+    </div>
   </div>
 </div>
 <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
@@ -310,10 +399,10 @@
 //  CONFIG
 // ═══════════════════════════════════════════════════════════════
 const REFRESH_MS = 4 * 60 * 60 * 1000;
-const CACHE_KEY  = 'diario_v9';
+const FETCH_TIMEOUT_MS = 10000;
+const CACHE_KEY  = 'diario_v10';
 const R2J = url => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=10`;
 
-// G1 URLs corrigidas — a rota real usa /dynamo/, não /rss/g1/
 const REGIONS = [
   { id:'santos', label:'Santos', color:'var(--oxblood)', feeds:[
       'https://g1.globo.com/dynamo/sp/santos-regiao/rss2.xml',
@@ -346,7 +435,7 @@ const REGIONS = [
 ];
 
 // ═══════════════════════════════════════════════════════════════
-//  THE CROSSING — dual-city clock
+//  THE CROSSING — DUAL-CITY CLOCK
 // ═══════════════════════════════════════════════════════════════
 function updateCrossingClock(){
   const now = new Date();
@@ -377,20 +466,65 @@ function renderDiag(){
 function toggleDiag(){ document.getElementById('diagPanel').classList.toggle('show'); }
 
 // ═══════════════════════════════════════════════════════════════
-//  STATE
+//  STATE & VIEW MODES
 // ═══════════════════════════════════════════════════════════════
 let cache = {}, activeTab = 'all', refreshTimer = null, nextRefreshAt = null;
+let viewMode = 'grouped'; // 'grouped' (por fonte) ou 'flat' (cronológico)
+
+function setViewMode(mode){
+  viewMode = mode;
+  document.getElementById('btnViewGrouped').classList.toggle('active', mode==='grouped');
+  document.getElementById('btnViewFlat').classList.toggle('active', mode==='flat');
+  renderAll();
+}
 
 // ═══════════════════════════════════════════════════════════════
-//  HELPERS
+//  HELPERS (INCLUINDO MELHORIA DE CÓDIGO 2: DOMParser)
 // ═══════════════════════════════════════════════════════════════
 const fmtDate = d => { const s = d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}); return s[0].toUpperCase()+s.slice(1); };
 const fmtTime = d => d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 function timeAgo(ts){ const m=(Date.now()-ts)/60000; if(m<1)return'agora'; if(m<60)return`há ${Math.floor(m)}min`; return`há ${Math.floor(m/60)}h`; }
 function countdown(ms){ const m=Math.max(0,Math.floor(ms/60000)); return m>=60?`${Math.floor(m/60)}h ${m%60}min`:`${m}min`; }
 function pubAgo(str){ if(!str)return''; try{ const d=new Date(str),df=(Date.now()-d)/60000; if(isNaN(df))return''; if(df<60)return`há ${Math.floor(df)}min`; if(df<1440)return`há ${Math.floor(df/60)}h`; return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}); }catch{return''} }
-function stripHtml(h){ const d=document.createElement('div'); d.innerHTML=h; return d.textContent||d.innerText||''; }
+
+/**
+ * MELHORIA DE CÓDIGO 2:
+ * Normalização de HTML recebido dos feeds antes de exibir o resumo.
+ */
+function stripHtml(h){
+  if(!h) return '';
+  try {
+    const doc = new DOMParser().parseFromString(h, 'text/html');
+    return doc.body.textContent || doc.body.innerText || '';
+  } catch(e) {
+    return h.replace(/<[^>]*>?/gm, '');
+  }
+}
+
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function cleanSourceName(author, feedUrl){
+  if(author && author.trim().length > 0 && author.trim().length < 30) {
+    return author.trim();
+  }
+  try {
+    const host = new URL(feedUrl).hostname.replace('www.','');
+    if(host.includes('g1.globo')) return 'G1 Globo';
+    if(host.includes('diariodolitoral')) return 'Diário do Litoral';
+    if(host.includes('atribuna')) return 'A Tribuna';
+    if(host.includes('folha')) return 'Folha de S.Paulo';
+    if(host.includes('diariodesevilla')) return 'Diario de Sevilla';
+    if(host.includes('lavanguardia')) return 'La Vanguardia';
+    if(host.includes('elpais')) return 'El País';
+    if(host.includes('elmundo')) return 'El Mundo';
+    if(host.includes('20minutos')) return '20 Minutos';
+    if(host.includes('bbc')) return 'BBC News';
+    if(host.includes('nytimes')) return 'The New York Times';
+    return host;
+  } catch(e){
+    return 'Fonte';
+  }
+}
 
 function updateClock(){
   const now=new Date();
@@ -406,9 +540,20 @@ function updateClock(){
 async function fetchFeed(url){
   const proxyUrl = R2J(url);
   diag(`Buscando: ${url}`);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   let res;
-  try{ res = await fetch(proxyUrl); }
-  catch(networkErr){ diag(`Falha de rede em ${url}: ${networkErr.message}`, true); throw new Error(`Erro de rede: ${networkErr.message}`); }
+  try{
+    res = await fetch(proxyUrl, { signal: controller.signal });
+  }catch(networkErr){
+    const message = networkErr?.name === 'AbortError'
+      ? `Timeout após ${FETCH_TIMEOUT_MS/1000}s`
+      : networkErr.message;
+    diag(`Falha em ${url}: ${message}`, true);
+    throw new Error(message);
+  }finally{
+    clearTimeout(timeoutId);
+  }
   if(!res.ok){ diag(`HTTP ${res.status} em ${url}`, true); throw new Error(`HTTP ${res.status}`); }
   let data;
   try{ data = await res.json(); }
@@ -418,56 +563,78 @@ async function fetchFeed(url){
   return data.items || [];
 }
 
+/**
+ * MELHORIA DE CÓDIGO 1:
+ * Execução em paralelo das requisições RSS usando Promise.allSettled()
+ */
 async function fetchRegion(region){
   const all=[], seen=new Set(), errs=[];
-  for(const feedUrl of region.feeds){
-    if(all.length>=10) break;
-    try{
-      const items = await fetchFeed(feedUrl);
+  const results = await Promise.allSettled(region.feeds.map(feedUrl => fetchFeed(feedUrl)));
+
+  results.forEach((res, idx) => {
+    const feedUrl = region.feeds[idx];
+    if(res.status === 'fulfilled'){
+      const items = res.value || [];
       for(const it of items){
-        if(all.length>=10) break;
-        const key=(it.title||'').slice(0,60);
+        const key = it.guid || it.link || `${it.title || ''}|${it.pubDate || ''}`;
         if(key && !seen.has(key)){
           seen.add(key);
           all.push({
             title: it.title || '—',
-            source: it.author || new URL(feedUrl).hostname.replace('www.',''),
-            summary: it.description ? stripHtml(it.description).slice(0,220) : '',
+            source: cleanSourceName(it.author, feedUrl),
+            summary: it.description ? stripHtml(it.description).slice(0, 220) : '',
             time: pubAgo(it.pubDate),
             url: it.link || ''
           });
         }
       }
-    }catch(e){ errs.push(`${new URL(feedUrl).hostname}: ${e.message}`); }
-  }
-  if(all.length===0){
+    } else {
+      try {
+        errs.push(`${new URL(feedUrl).hostname}: ${res.reason.message}`);
+      } catch(e) {
+        errs.push(`Feed ${idx}: ${res.reason?.message || 'Erro'}`);
+      }
+    }
+  });
+
+  if(all.length === 0){
     const errMsg = errs.length ? errs.join(' | ') : 'Nenhum feed retornou dados';
     diag(`Região ${region.label} falhou completamente: ${errMsg}`, true);
     throw new Error(errMsg);
   }
-  return all.slice(0,10);
+  return all.slice(0, 15);
 }
 
+/**
+ * MELHORIA DE CÓDIGO 1 (para Trending):
+ * Disparo paralelo dos feeds com Promise.allSettled()
+ */
 async function fetchTrending(region){
   const all=[], seen=new Set();
-  for(const feedUrl of region.feeds){
-    try{
-      const items = await fetchFeed(feedUrl);
-      items.slice(0,4).forEach(it=>{
-        const key=(it.title||'').slice(0,60);
+  const results = await Promise.allSettled(region.feeds.map(feedUrl => fetchFeed(feedUrl)));
+
+  results.forEach((res, idx) => {
+    const feedUrl = region.feeds[idx];
+    if(res.status === 'fulfilled'){
+      const items = res.value || [];
+      items.slice(0,4).forEach(it => {
+        const key = it.guid || it.link || `${it.title || ''}|${it.pubDate || ''}`;
         if(key && !seen.has(key)){
           seen.add(key);
           all.push({
             topic: it.title,
-            volume: new URL(feedUrl).hostname.replace('www.','').replace('.com','').replace('.co.uk',''),
-            context: it.description ? stripHtml(it.description).slice(0,120) : ''
+            volume: cleanSourceName(it.author, feedUrl),
+            context: it.description ? stripHtml(it.description).slice(0, 120) : ''
           });
         }
       });
-    }catch(e){ diag(`Trending feed falhou: ${e.message}`, true); }
-  }
-  if(all.length===0) throw new Error('Nenhum feed de trending funcionou');
-  return all.slice(0,10);
+    } else {
+      diag(`Trending feed falhou (${feedUrl}): ${res.reason?.message}`, true);
+    }
+  });
+
+  if(all.length === 0) throw new Error('Nenhum feed de trending funcionou');
+  return all.slice(0, 10);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -548,14 +715,17 @@ function buildTabs(){
 function renderAll(){
   const grid=document.getElementById('grid'); grid.innerHTML='';
   const show=activeTab==='all'?REGIONS:REGIONS.filter(r=>r.id===activeTab);
+
   show.forEach(region=>{
     const col=document.createElement('div'); col.className='col'; col.style.setProperty('--col-color', region.color);
     const items=cache.data?.[region.id], err=cache.errors?.[region.id];
     const ts=cache.timestamp?timeAgo(cache.timestamp):'';
+
     col.innerHTML=`<div class="col-head">
       <span class="col-name"><span class="col-flag"></span>${region.label}</span>
-      <span class="col-count">${items?items.length:0} · ${ts}</span>
+      <span class="col-count">${items?items.length:0} notícias · ${ts}</span>
     </div>`;
+
     if(!items&&!err){
       col.innerHTML+=`<div class="state"><div class="spin"></div><br>Aguardando...</div>`;
     }else if(err&&!items){
@@ -563,30 +733,166 @@ function renderAll(){
     }else if(region.isTrending){
       col.appendChild(mkTrending(items));
     }else{
-      col.appendChild(mkNews(items));
+      // NOVA FUNCIONALIDADE: Resumo das fontes no topo da coluna
+      col.appendChild(mkSourcesSummaryBar(items));
+
+      // Renderização dependendo do modo de visualização escolhido
+      if(viewMode === 'grouped'){
+        col.appendChild(mkNewsGroupedBySource(items));
+      } else {
+        col.appendChild(mkNewsFlat(items));
+      }
     }
     grid.appendChild(col);
   });
 }
 
-function mkNews(items){
+/**
+ * NOVA FUNCIONALIDADE: Barra Resumo por Fonte dentro de cada região
+ */
+function mkSourcesSummaryBar(items){
+  const bar = document.createElement('div');
+  bar.className = 'sources-summary-bar';
+  const sourceCounts = {};
+  (items || []).forEach(it => {
+    sourceCounts[it.source] = (sourceCounts[it.source] || 0) + 1;
+  });
+  
+  Object.entries(sourceCounts).forEach(([source, count]) => {
+    const pill = document.createElement('span');
+    pill.className = 'src-summary-pill';
+    pill.innerHTML = `${esc(source)} <span class="count">${count}</span>`;
+    bar.appendChild(pill);
+  });
+  return bar;
+}
+
+/**
+ * NOVA FUNCIONALIDADE: Renderização AGRUPADA POR FONTE (Sub-apartado por região)
+ */
+function mkNewsGroupedBySource(items){
+  const container = document.createElement('div');
+  container.className = 'sources-grouped-container';
+
+  // Agrupa notícias por fonte
+  const groups = {};
+  (items || []).forEach(it => {
+    const src = it.source || 'Outros';
+    if(!groups[src]) groups[src] = [];
+    groups[src].push(it);
+  });
+
+  let globalIndex = 1;
+  Object.entries(groups).forEach(([sourceName, groupItems]) => {
+    const groupCard = document.createElement('div');
+    groupCard.className = 'source-group';
+
+    groupCard.innerHTML = `
+      <div class="source-group-head">
+        <span class="source-group-title">${esc(sourceName)}</span>
+        <span class="source-group-badge">${groupItems.length}</span>
+      </div>
+    `;
+
+    const ul = document.createElement('ul');
+    ul.className = 'nlist';
+
+    groupItems.forEach(it => {
+      const li = createNewsItemElement(it, globalIndex++);
+      ul.appendChild(li);
+    });
+
+    groupCard.appendChild(ul);
+    container.appendChild(groupCard);
+  });
+
+  return container;
+}
+
+/**
+ * Renderização plana (Cronológica) clássica
+ */
+function mkNewsFlat(items){
   const ul=document.createElement('ul'); ul.className='nlist';
-  items.forEach((it,i)=>{
-    const li=document.createElement('li'); li.className='nitem';
-    li.innerHTML=`<span class="nidx">${String(i+1).padStart(2,'0')}</span>
-      <div class="ncontent"><span class="ntitle">${esc(it.title)}</span>
-      <div class="nmeta"><span class="nsource">${esc(it.source)}</span><span class="ntime">${esc(it.time)}</span></div>
-      <div class="ndesc">${esc(it.summary)}${it.url?`<br><a class="nlink" href="${esc(it.url)}" target="_blank" rel="noopener">Ler artigo →</a>`:''}</div>
-      </div>`;
-    li.addEventListener('click',()=>li.classList.toggle('open'));
+  (items||[]).forEach((it,i)=>{
+    const li = createNewsItemElement(it, i + 1);
     ul.appendChild(li);
   });
   return ul;
 }
 
+/**
+ * MELHORIA DE DESIGN: Criação dos elementos da notícia com o indicador visual (Chevron ▾)
+ */
+function createNewsItemElement(it, index){
+  const li = document.createElement('li');
+  li.className = 'nitem';
+  const idx = document.createElement('span');
+  idx.className = 'nidx';
+  idx.textContent = String(index).padStart(2,'0');
+
+  const content = document.createElement('div');
+  content.className = 'ncontent';
+
+  const title = document.createElement('span');
+  title.className = 'ntitle';
+  title.textContent = it.title || '—';
+
+  const meta = document.createElement('div');
+  meta.className = 'nmeta';
+
+  const source = document.createElement('span');
+  source.className = 'nsource';
+  source.textContent = it.source || 'Fonte';
+
+  const time = document.createElement('span');
+  time.className = 'ntime';
+  time.textContent = it.time || '';
+
+  const icon = document.createElement('span');
+  icon.className = 'nexpand-icon';
+  icon.title = 'Clique para expandir';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.textContent = '▾';
+
+  meta.append(source, time, icon);
+
+  const desc = document.createElement('div');
+  desc.className = 'ndesc';
+  if(it.summary){
+    desc.appendChild(document.createTextNode(it.summary));
+  }
+
+  if(it.url){
+    if(it.summary) desc.appendChild(document.createElement('br'));
+    const link = document.createElement('a');
+    link.className = 'nlink';
+    link.href = it.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Ler artigo completo →';
+    link.addEventListener('click', e => e.stopPropagation());
+    desc.appendChild(link);
+  }
+
+  content.append(title, meta, desc);
+  li.append(idx, content);
+  li.setAttribute('tabindex', '0');
+  li.setAttribute('role', 'button');
+  const toggle = () => {
+    const open = li.classList.toggle('open');
+    li.setAttribute('aria-expanded', String(open));
+  };
+  li.addEventListener('click', toggle);
+  li.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+  });
+  return li;
+}
+
 function mkTrending(items){
   const ul=document.createElement('ul'); ul.className='tlist';
-  items.forEach((it,i)=>{
+  (items||[]).forEach((it,i)=>{
     const li=document.createElement('li'); li.className='titem';
     li.innerHTML=`<span class="trank">${i+1}</span>
       <div><div class="ttopic">${esc(it.topic)}</div>
@@ -600,7 +906,7 @@ function mkTrending(items){
 //  INIT
 // ═══════════════════════════════════════════════════════════════
 function init(){
-  diag('Diário Matinal iniciado — A Travessia');
+  diag('Diário Matinal iniciado — A Travessia v2');
   try{
     const r=localStorage.getItem(CACHE_KEY);
     if(r){ cache=JSON.parse(r); diag('Manifesto anterior encontrado'); }
