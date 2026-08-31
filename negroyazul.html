@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexo — Consultoría de soluciones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-base:#0e1116;
+    --bg-panel:#151a21;
+    --bg-panel-2:#1b212a;
+    --blue-900:#0d1b2f;
+    --blue-700:#1a3d75;
+    --blue-500:#2f6fdb;
+    --blue-400:#5b93ef;
+    --blue-300:#8ab4ff;
+    --text:#f4f6fa;
+    --text-dim:#9aa5b3;
+    --text-faint:#67717f;
+    --line:rgba(255,255,255,0.08);
+    --line-strong:rgba(255,255,255,0.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-base);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.02em;color:var(--text);}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  section{padding:120px 0;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blue-300);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px;height:7px;
+    background:var(--blue-400);
+    border-radius:1px;
+    display:inline-block;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,17,22,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;max-width:1180px;margin:0 auto;
+  }
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;display:flex;align-items:center;gap:8px;}
+  .logo span{color:var(--blue-400);}
+  .nav-links{display:flex;gap:36px;font-size:14.5px;color:var(--text-dim);}
+  .nav-links a:hover{color:var(--text);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;
+    border-radius:6px;
+    font-size:14.5px;font-weight:500;
+    border:1px solid var(--line-strong);
+    transition:all .2s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--blue-700),var(--blue-500));
+    border:1px solid var(--blue-500);
+    color:#fff;
+  }
+  .btn-primary:hover{filter:brightness(1.12);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;color:var(--text);}
+  .btn-ghost:hover{border-color:var(--line-strong);background:var(--bg-panel);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:100px 0 60px;
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(34px,4.4vw,54px);
+    line-height:1.08;
+    margin-bottom:24px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(90deg,var(--blue-300),var(--blue-500));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{
+    font-size:18px;color:var(--text-dim);max-width:480px;margin-bottom:36px;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-visual{position:relative;}
+  .hero-visual svg{width:100%;height:auto;display:block;}
+
+  /* ---------- TICKER STRIP ---------- */
+  .strip{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg-panel);
+    padding:22px 0;
+  }
+  .strip .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  .strip-item{font-size:13.5px;color:var(--text-dim);display:flex;align-items:center;gap:8px;}
+  .strip-item .mono{color:var(--blue-300);}
+
+  /* ---------- PROBLEM SECTION ---------- */
+  .problem-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    margin-top:56px;
+  }
+  .problem-card{background:var(--bg-panel);padding:32px 28px;}
+  .problem-card .mono{font-size:11.5px;color:var(--text-faint);display:block;margin-bottom:14px;}
+  .problem-card h3{font-size:17px;margin-bottom:8px;font-weight:600;}
+  .problem-card p{font-size:14.5px;color:var(--text-dim);}
+  .section-head{max-width:640px;}
+  .section-head h2{font-size:clamp(26px,3vw,36px);margin-bottom:18px;}
+  .section-head p{font-size:16.5px;color:var(--text-dim);}
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--bg-panel);}
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px;
+  }
+  .service-card{
+    background:var(--bg-base);border:1px solid var(--line);border-radius:12px;
+    padding:30px 26px;transition:border-color .2s ease, transform .2s ease;
+  }
+  .service-card:hover{border-color:var(--blue-700);transform:translateY(-3px);}
+  .service-icon{
+    width:38px;height:38px;border-radius:8px;
+    background:var(--blue-900);border:1px solid var(--blue-700);
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+  }
+  .service-card .mono{font-size:11px;color:var(--blue-300);display:block;margin-bottom:10px;}
+  .service-card h3{font-size:16.5px;margin-bottom:10px;}
+  .service-card p{font-size:14px;color:var(--text-dim);}
+
+  /* ---------- PROCESS ---------- */
+  .process-list{margin-top:60px;}
+  .process-row{
+    display:grid;grid-template-columns:90px 1fr;gap:28px;
+    padding:34px 0;border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .process-row:last-child{border-bottom:1px solid var(--line);}
+  .process-num{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:600;color:var(--blue-700);}
+  .process-row h3{font-size:19px;margin-bottom:8px;}
+  .process-row p{font-size:15px;color:var(--text-dim);max-width:560px;}
+
+  /* ---------- WHY AI ---------- */
+  .why{background:var(--bg-panel);}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;}
+  .why-item{padding-top:20px;border-top:2px solid var(--blue-500);}
+  .why-item h3{font-size:18px;margin-bottom:10px;}
+  .why-item p{font-size:14.5px;color:var(--text-dim);}
+
+  /* ---------- CTA ---------- */
+  .cta{
+    background:linear-gradient(135deg,var(--blue-900),var(--bg-panel-2));
+    border-radius:20px;border:1px solid var(--blue-700);
+    padding:70px 60px;text-align:center;position:relative;overflow:hidden;
+  }
+  .cta h2{font-size:clamp(26px,3.2vw,38px);margin-bottom:16px;}
+  .cta p{color:var(--text-dim);font-size:16.5px;max-width:520px;margin:0 auto 34px;}
+  .cta-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer .mono{font-size:12px;color:var(--text-faint);}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;}
+    .problem-grid,.services-grid,.why-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    section{padding:80px 0;}
+    .cta{padding:50px 28px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+  :focus-visible{outline:2px solid var(--blue-400);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">NEXO<span>.</span></div>
+    <nav class="nav-links">
+      <a href="#problemas">Problemas</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="#contacto" class="btn btn-primary">Cuéntanos tu caso</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <div class="eyebrow">Expediente Nº 000 · abierto a solución</div>
+      <h1>Todo problema burocrático <em>tiene una salida.</em><br>La diseñamos con tecnología e IA.</h1>
+      <p class="lead">Consultoría a medida para trámites, gestiones vecinales, papeleo administrativo, documentación, servicios y flujos de trabajo. Convertimos el caos en un proceso que funciona.</p>
+      <div class="hero-ctas">
+        <a href="#contacto" class="btn btn-primary">Hablemos de tu caso →</a>
+        <a href="#proceso" class="btn btn-ghost">Ver cómo trabajamos</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg">
+        <g id="chaos" stroke="#3a4351" stroke-width="1.4" fill="none" opacity="0.9">
+          <path d="M40,80 L120,180 L70,140 L150,90 L60,210 L130,60" />
+          <path d="M90,250 L180,190 L110,320 L200,260 L80,340" />
+          <path d="M150,60 L60,210 L200,260" />
+        </g>
+        <g id="chaos-dots" fill="#5b93ef">
+          <circle cx="40" cy="80" r="4"/><circle cx="120" cy="180" r="4"/>
+          <circle cx="70" cy="140" r="4"/><circle cx="150" cy="90" r="4"/>
+          <circle cx="60" cy="210" r="4"/><circle cx="130" cy="60" r="4"/>
+          <circle cx="90" cy="250" r="4"/><circle cx="180" cy="190" r="4"/>
+          <circle cx="110" cy="320" r="4"/><circle cx="200" cy="260" r="4"/>
+          <circle cx="80" cy="340" r="4"/>
+        </g>
+
+        <g stroke="#4a5568" stroke-width="1.2" stroke-dasharray="4 4">
+          <path d="M225,200 L335,200"/>
+        </g>
+        <polygon points="335,200 322,193 322,207" fill="#4a5568"/>
+
+        <g id="order-lines" stroke="#5b93ef" stroke-width="2">
+          <line x1="380" y1="90" x2="460" y2="90"/>
+          <line x1="460" y1="90" x2="460" y2="170"/>
+          <line x1="460" y1="170" x2="380" y2="170"/>
+          <line x1="380" y1="170" x2="380" y2="250"/>
+          <line x1="380" y1="250" x2="460" y2="250"/>
+          <line x1="460" y1="250" x2="460" y2="330"/>
+          <line x1="380" y1="90" x2="380" y2="170"/>
+        </g>
+        <g id="order-dots" fill="#8ab4ff">
+          <circle cx="380" cy="90" r="6"/><circle cx="460" cy="90" r="6"/>
+          <circle cx="460" cy="170" r="6"/><circle cx="380" cy="170" r="6"/>
+          <circle cx="380" cy="250" r="6"/><circle cx="460" cy="250" r="6"/>
+          <circle cx="460" cy="330" r="6"/>
+        </g>
+
+        <text x="60" y="400" font-family="JetBrains Mono, monospace" font-size="12" fill="#67717f">caos administrativo</text>
+        <text x="380" y="400" font-family="JetBrains Mono, monospace" font-size="12" fill="#8ab4ff">flujo resuelto</text>
+      </svg>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="wrap">
+      <div class="strip-item"><span class="mono">01</span> Burocrático</div>
+      <div class="strip-item"><span class="mono">02</span> Vecinal</div>
+      <div class="strip-item"><span class="mono">03</span> Administrativo</div>
+      <div class="strip-item"><span class="mono">04</span> Documental</div>
+      <div class="strip-item"><span class="mono">05</span> Gestión de activos</div>
+      <div class="strip-item"><span class="mono">06</span> Flujos de trabajo</div>
+    </div>
+  </div>
+
+  <section id="problemas" class="wrap reveal">
+    <div class="section-head">
+      <div class="eyebrow">El problema</div>
+      <h2>Cada gestión pendiente tiene un coste. Nosotros lo cerramos.</h2>
+      <p>Da igual el organismo, el vecino o el proceso interno: si hay papeleo, plazos y nadie que lo lleve, ahí perdemos tiempo y dinero. Abrimos el expediente y no lo soltamos hasta resolverlo.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <span class="mono">EXP-01 · burocracia</span>
+        <h3>Trámites atascados</h3>
+        <p>Permisos, licencias y registros que llevan semanas parados por un requisito que nadie te explicó.</p>
+      </div>
+      <div class="problem-card">
+        <span class="mono">EXP-02 · vecinal</span>
+        <h3>Conflictos de comunidad</h3>
+        <p>Actas, mediaciones y acuerdos entre vecinos que necesitan a alguien neutral que los formalice.</p>
+      </div>
+      <div class="problem-card">
+        <span class="mono">EXP-03 · documental</span>
+        <h3>Documentación dispersa</h3>
+        <p>Archivos en carpetas distintas, versiones sin controlar, expedientes que nadie sabe dónde están.</p>
+      </div>
+      <div class="problem-card">
+        <span class="mono">EXP-04 · flujo</span>
+        <h3>Procesos que no escalan</h3>
+        <p>Tareas manuales repetidas que deberían automatizarse y hoy dependen de una sola persona.</p>
+      </div>
+      <div class="problem-card">
+        <span class="mono">EXP-05 · activos</span>
+        <h3>Activos sin control</h3>
+        <p>Inventario, mantenimiento y patrimonio gestionados a memoria, sin trazabilidad real.</p>
+      </div>
+      <div class="problem-card">
+        <span class="mono">EXP-06 · a medida</span>
+        <h3>Ese caso que no encaja</h3>
+        <p>Si tu problema no está en ninguna categoría, sigue siendo un caso. Lo diagnosticamos igual.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios" class="services">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div class="eyebrow">Qué hacemos</div>
+        <h2>Soluciones diseñadas a medida, no plantillas genéricas.</h2>
+        <p>Combinamos conocimiento del terreno administrativo con tecnología e IA para construir la ruta más corta a la solución de tu caso concreto.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8ab4ff" stroke-width="1.8"><path d="M9 12h6M9 16h6M9 8h6M5 4h14v16H5z"/></svg>
+          </div>
+          <span class="mono">servicio</span>
+          <h3>Gestión de trámites</h3>
+          <p>Presentamos, seguimos y cerramos gestiones ante organismos públicos y privados en tu nombre.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8ab4ff" stroke-width="1.8"><path d="M12 21c-4-3-8-6-8-11a8 8 0 0116 0c0 5-4 8-8 11z"/></svg>
+          </div>
+          <span class="mono">servicio</span>
+          <h3>Gestiones vecinales</h3>
+          <p>Mediación, actas de comunidad y resolución de conflictos entre partes con acuerdos claros.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8ab4ff" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/></svg>
+          </div>
+          <span class="mono">servicio</span>
+          <h3>Gestión documental</h3>
+          <p>Organización, digitalización y control de versiones para que cualquier expediente sea localizable.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8ab4ff" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          </div>
+          <span class="mono">servicio</span>
+          <h3>Optimización de flujos</h3>
+          <p>Mapeamos tu proceso actual y lo rediseñamos con automatización e IA para que no dependa de una sola persona.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8ab4ff" stroke-width="1.8"><rect x="4" y="7" width="16" height="12" rx="1"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
+          </div>
+          <span class="mono">servicio</span>
+          <h3>Gestión de activos</h3>
+          <p>Inventario, mantenimiento y control patrimonial con trazabilidad real y reportes claros.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8ab4ff" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <span class="mono">servicio</span>
+          <h3>Diagnóstico a medida</h3>
+          <p>Cuando tu caso no tiene categoría, lo analizamos igual y diseñamos una solución específica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proceso" class="wrap reveal">
+    <div class="section-head">
+      <div class="eyebrow">Cómo trabajamos</div>
+      <h2>Cuatro pasos, un caso cerrado.</h2>
+      <p>Un proceso claro de principio a fin, sin sorpresas ni gestiones abandonadas a medias.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-row">
+        <div class="process-num">01</div>
+        <div>
+          <h3>Diagnóstico del expediente</h3>
+          <p>Escuchamos el problema, revisamos la documentación existente y localizamos el bloqueo real, no solo el síntoma.</p>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-num">02</div>
+        <div>
+          <h3>Diseño de la solución con IA</h3>
+          <p>Cruzamos tu caso con normativa aplicable, plantillas y automatización para trazar el camino más corto y viable.</p>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-num">03</div>
+        <div>
+          <h3>Ejecución y gestión</h3>
+          <p>Nos encargamos de trámites, llamadas, formularios y seguimientos hasta obtener respuesta.</p>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-num">04</div>
+        <div>
+          <h3>Cierre y prevención</h3>
+          <p>Resolvemos el caso y dejamos un proceso o sistema documentado para que no vuelva a repetirse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div class="eyebrow">Por qué tecnología e IA</div>
+        <h2>La IA no sustituye el criterio. Lo acelera.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>Velocidad</h3>
+          <p>Búsqueda de normativa, generación de documentos y borradores de escritos en minutos, no en días.</p>
+        </div>
+        <div class="why-item">
+          <h3>Precisión</h3>
+          <p>Menos expedientes rebotados por errores de forma: cada documento se valida antes de salir.</p>
+        </div>
+        <div class="why-item">
+          <h3>A medida</h3>
+          <p>Ninguna plantilla genérica: cada solución se diseña sobre tu caso, tu organismo y tu plazo real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="wrap reveal">
+    <div class="cta">
+      <div class="eyebrow" style="justify-content:center;">Expediente listo para abrirse</div>
+      <h2>Cuéntanos tu caso. Te decimos cómo resolverlo.</h2>
+      <p>Respuesta con una primera valoración del caso y los pasos a seguir, sin compromiso.</p>
+      <div class="cta-ctas">
+        <a href="mailto:hola@nexo-consultoria.com" class="btn btn-primary">Escribir a hola@nexo-consultoria.com</a>
+        <a href="tel:+34900000000" class="btn btn-ghost">Llamar ahora</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo" style="font-size:16px;">NEXO<span>.</span></div>
+    <div class="mono">Expediente abierto desde 2026 · Consultoría de soluciones a medida</div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el=>io.observe(el));
+
+  const chaosLines = document.querySelectorAll('#chaos path');
+  const orderLines = document.querySelectorAll('#order-lines line');
+  [...chaosLines, ...orderLines].forEach((el, i)=>{
+    const len = el.getTotalLength ? el.getTotalLength() : 100;
+    el.style.strokeDasharray = len;
+    el.style.strokeDashoffset = len;
+    el.style.transition = 'stroke-dashoffset 1.1s ease ' + (i*0.12) + 's';
+    requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ el.style.strokeDashoffset = 0; }); });
+  });
+</script>
+
+</body>
+</html>
