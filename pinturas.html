@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinturas Aljarafe — Pintura de casas, azoteas e interiores</title>
+<meta name="description" content="Pintura profesional de interiores, exteriores y azoteas en el Aljarafe sevillano. Presupuesto gratis, garantía por escrito y materiales de primera calidad.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3F5F0;
+    --bg-soft:#EAEEE4;
+    --panel:#FFFFFF;
+    --ink:#1E2A26;
+    --ink-soft:#4B594F;
+    --azul:#2E5C8A;
+    --azul-dark:#1F3F60;
+    --azul-pale:#E4ECF2;
+    --terracota:#B5602E;
+    --terracota-pale:#F3E4D8;
+    --oliva:#6E7C4C;
+    --oliva-pale:#E9EEE0;
+    --line:#D9DED1;
+    --white:#FFFFFF;
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  body.menu-open{overflow:hidden;}
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  ul{margin:0;padding:0;list-style:none;}
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline:2px solid var(--azul);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- HEADER ---------- */
+  :root{
+    --header-nav-height: 72px;
+    --header-top-height: 34px;
+  }
+
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(243,245,240,.96);
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(217,222,209,.9);
+    transition:box-shadow .25s ease, background-color .25s ease;
+  }
+
+  .site-header.scrolled{
+    background:rgba(243,245,240,.985);
+    box-shadow:0 8px 28px rgba(30,42,38,.09);
+  }
+
+  .header-topbar{
+    min-height:var(--header-top-height);
+    background:var(--ink);
+    color:var(--bg-soft);
+    font-size:.78rem;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+
+  .topbar-wrap{
+    min-height:var(--header-top-height);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+  }
+
+  .topbar-info{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    min-width:0;
+  }
+
+  .topbar-item{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    color:rgba(255,255,255,.84);
+    white-space:nowrap;
+  }
+
+  .topbar-item svg{width:14px;height:14px;flex:none;color:#83A8CC;}
+  .topbar-item a{transition:color .2s ease;}
+  .topbar-item a:hover{color:#fff;}
+
+  .topbar-badge{
+    flex:none;
+    padding:3px 10px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+
+  .nav-main{
+    width:100%;
+    max-width:var(--maxw);
+    min-height:var(--header-nav-height);
+    margin:0 auto;
+    padding:0 28px;
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr) auto;
+    align-items:center;
+    column-gap:30px;
+  }
+
+  .logo{
+    display:inline-flex;
+    align-items:center;
+    gap:11px;
+    min-width:0;
+    text-decoration:none;
+    transition:opacity .2s ease;
+  }
+  .logo:hover{opacity:.9;}
+
+  .logo-icon{width:42px;height:42px;flex:none;}
+  .logo-text{display:flex;flex-direction:column;min-width:0;}
+  .logo-title{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:1.22rem;
+    line-height:1.05;
+    color:var(--ink);
+    letter-spacing:-.02em;
+    white-space:nowrap;
+  }
+  .logo-tagline{
+    margin-top:3px;
+    font-size:.68rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.075em;
+    color:var(--terracota);
+    white-space:nowrap;
+  }
+
+  .nav-menu{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:clamp(14px,2vw,26px);
+    min-width:0;
+  }
+
+  .nav-link{
+    position:relative;
+    padding:8px 0;
+    color:var(--ink-soft);
+    font-size:.9rem;
+    font-weight:600;
+    white-space:nowrap;
+    transition:color .2s ease;
+  }
+
+  .nav-link::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:2px;
+    width:0;
+    height:2px;
+    border-radius:2px;
+    background:var(--azul);
+    transition:width .2s ease;
+  }
+
+  .nav-link:hover,.nav-link:focus-visible{color:var(--azul);}
+  .nav-link:hover::after,.nav-link:focus-visible::after{width:100%;}
+
+  .nav-actions{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:9px;
+    flex:none;
+  }
+
+  .nav-actions .btn{white-space:nowrap;}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:42px;
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:.9rem;
+    font-weight:700;
+    line-height:1.2;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease;
+  }
+
+  .btn-primary{background:var(--azul);color:#fff;}
+  .btn-primary:hover{background:var(--azul-dark);transform:translateY(-1px);box-shadow:0 5px 14px rgba(46,92,138,.18);}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--azul);color:var(--azul);background:rgba(228,236,242,.35);}
+  .btn-wa{background:#25D366;color:#fff;}
+  .btn-wa:hover{background:#1EBE5D;transform:translateY(-1px);}
+
+  .menu-toggle{
+    display:none;
+    width:44px;
+    height:44px;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:var(--panel);
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .menu-toggle svg{width:22px;height:22px;}
+
+  .mobile-cta{display:none;}
+
+  /* Header responsive */
+  @media (max-width:1100px){
+    .nav-main{column-gap:20px;}
+    .nav-menu{gap:16px;}
+    .nav-link{font-size:.86rem;}
+    .nav-actions .btn-call{display:none;}
+  }
+
+  @media (max-width:920px){
+    :root{--header-nav-height:68px;}
+    .header-topbar{display:none;}
+
+    .nav-main{
+      min-height:var(--header-nav-height);
+      grid-template-columns:1fr auto;
+      padding:0 20px;
+    }
+
+    .logo-icon{width:40px;height:40px;}
+    .logo-title{font-size:1.12rem;}
+    .logo-tagline{font-size:.62rem;}
+
+    .nav-menu{
+      position:fixed;
+      top:var(--header-nav-height);
+      left:0;
+      right:0;
+      z-index:999;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      justify-content:flex-start;
+      gap:0;
+      max-height:calc(100dvh - var(--header-nav-height));
+      overflow-y:auto;
+      padding:10px 20px 24px;
+      background:rgba(255,255,255,.985);
+      border-bottom:1px solid var(--line);
+      box-shadow:0 18px 35px rgba(30,42,38,.12);
+      transform:translateY(-8px);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition:opacity .2s ease,transform .2s ease,visibility .2s ease;
+    }
+
+    .nav-menu.open{
+      transform:translateY(0);
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+    }
+
+    .nav-link{
+      display:block;
+      width:100%;
+      padding:14px 4px;
+      border-bottom:1px solid var(--bg-soft);
+      font-size:1rem;
+    }
+    .nav-link::after{display:none;}
+
+    .mobile-cta{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+    .mobile-cta .btn{width:100%;}
+
+    .nav-actions .btn{display:none;}
+    .menu-toggle{display:inline-flex;align-items:center;justify-content:center;}
+  }
+
+  @media (max-width:560px){
+    .nav-main{padding:0 16px;}
+    .logo{gap:9px;}
+    .logo-icon{width:38px;height:38px;}
+    .logo-title{font-size:1.03rem;}
+    .logo-tagline{font-size:.57rem;letter-spacing:.06em;}
+    .nav-menu{padding-left:16px;padding-right:16px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .nav-menu{transition:none;}
+  }
+
+  /* Evita que un ancla quede escondida debajo del header sticky */
+  section[id]{scroll-margin-top:calc(var(--header-nav-height) + 18px);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:76px 0 60px;}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;}
+  .eyebrow-line{
+    display:flex;align-items:center;gap:10px;color:var(--azul);
+    font-size:0.9rem;font-weight:600;margin-bottom:18px;
+  }
+  .eyebrow-line span.dot{width:7px;height:7px;border-radius:50%;background:var(--terracota);}
+  .hero h1{font-size:clamp(2.2rem,4.2vw,3.4rem);max-width:14ch;}
+  .hero .sub{margin-top:22px;font-size:1.14rem;color:var(--ink-soft);max-width:46ch;}
+  .hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .trust-row{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap;}
+  .trust-item{display:flex;flex-direction:column;gap:2px;}
+  .trust-item .num{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;color:var(--azul-dark);}
+  .trust-item .lab{font-size:0.85rem;color:var(--ink-soft);}
+  .hero-art{position:relative;}
+  .hero-art svg{width:100%;height:auto;}
+
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-art{order:-1;max-width:340px;margin:0 auto 8px;}
+  }
+
+  /* ---------- SECCIONES ---------- */
+  section{padding:88px 0;}
+  .section-head{max-width:620px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(1.7rem,2.6vw,2.3rem);}
+  .section-head p{margin-top:14px;color:var(--ink-soft);font-size:1.05rem;}
+  .section-alt{background:var(--bg-soft);}
+
+  /* POR QUE ELEGIRNOS */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 40px;}
+  .why-item{display:flex;gap:16px;}
+  .why-item svg{width:30px;height:30px;flex:none;color:var(--azul);margin-top:2px;}
+  .why-item h3{font-size:1.05rem;font-weight:600;margin-bottom:6px;font-family:'Inter',sans-serif;}
+  .why-item p{color:var(--ink-soft);font-size:0.96rem;}
+  @media (max-width:860px){.why-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:560px){.why-grid{grid-template-columns:1fr;}}
+
+  /* SERVICIOS */
+  .services-list{display:flex;flex-direction:column;gap:0;}
+  .service-row{display:grid;grid-template-columns:88px 1fr;gap:32px;padding:40px 0;border-top:1px solid var(--line);}
+  .service-row:last-child{border-bottom:1px solid var(--line);}
+  .service-icon{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;}
+  .service-icon svg{width:32px;height:32px;}
+  .svc-interior .service-icon{background:var(--azul-pale);color:var(--azul-dark);}
+  .svc-exterior .service-icon{background:var(--oliva-pale);color:var(--oliva);}
+  .svc-azotea .service-icon{background:var(--terracota-pale);color:var(--terracota);}
+  .svc-otros .service-icon{background:var(--bg-soft);color:var(--ink-soft);}
+  .service-body h3{font-size:1.35rem;margin-bottom:10px;}
+  .service-body .desc{color:var(--ink-soft);max-width:62ch;}
+  .service-benefits{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px 24px;}
+  .service-benefits li{display:flex;align-items:center;gap:8px;font-size:0.92rem;color:var(--ink);}
+  .service-benefits svg{width:16px;height:16px;color:var(--azul);flex:none;}
+  @media (max-width:640px){.service-row{grid-template-columns:1fr;gap:16px;}}
+
+  /* CALCULADORA */
+  .calc-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;
+    box-shadow:0 12px 32px rgba(30,42,38,0.04);
+  }
+  .calc-controls{display:flex;flex-direction:column;gap:20px;}
+  .calc-result-box{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);
+    padding:32px;display:flex;flex-direction:column;justify-content:space-between;
+    align-items:center;text-align:center;
+  }
+  .calc-amount{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:700;color:var(--azul-dark);margin:12px 0 6px;}
+  .calc-disclaimer{font-size:0.82rem;color:var(--ink-soft);margin-bottom:24px;}
+  .calc-actions{display:flex;flex-direction:column;gap:12px;width:100%;}
+  @media (max-width:860px){.calc-card{grid-template-columns:1fr;padding:28px;}}
+
+  /* PROCESO */
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+  .process-step{padding:0 24px 0 0;position:relative;}
+  .process-step:not(:last-child)::after{
+    content:"";position:absolute;top:19px;right:0;width:calc(100% - 44px);border-top:1px dashed var(--line);
+  }
+  .step-num{
+    width:38px;height:38px;border-radius:50%;background:var(--azul);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:600;font-size:1rem;margin-bottom:20px;
+  }
+  .process-step h3{font-size:1.05rem;margin-bottom:8px;}
+  .process-step p{color:var(--ink-soft);font-size:0.93rem;}
+  @media (max-width:860px){
+    .process-grid{grid-template-columns:1fr 1fr;row-gap:36px;}
+    .process-step:nth-child(2)::after{display:none;}
+    .process-step:not(:last-child)::after{width:calc(100% - 10px);}
+  }
+  @media (max-width:560px){
+    .process-grid{grid-template-columns:1fr;}
+    .process-step::after{display:none !important;}
+  }
+
+  /* NOSOTROS */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+  .about-copy p{color:var(--ink-soft);margin-bottom:16px;font-size:1.02rem;}
+  .about-copy p:last-child{margin-bottom:0;}
+  .values-list{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
+  .values-list li{display:flex;gap:12px;font-size:0.96rem;}
+  .values-list svg{width:18px;height:18px;color:var(--azul);flex:none;margin-top:2px;}
+  .stats-panel{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:28px;
+  }
+  .stat h4{font-family:'Fraunces',serif;font-size:2rem;color:var(--azul-dark);font-weight:600;}
+  .stat p{color:var(--ink-soft);font-size:0.88rem;margin-top:4px;}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr;}}
+
+  /* TESTIMONIOS */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .testi-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;display:flex;flex-direction:column;gap:16px;
+  }
+  .stars{display:flex;gap:3px;color:var(--terracota);}
+  .stars svg{width:16px;height:16px;}
+  .testi-quote{color:var(--ink);font-size:0.98rem;}
+  .testi-person{display:flex;align-items:center;gap:12px;margin-top:auto;}
+  .avatar{
+    width:40px;height:40px;border-radius:50%;background:var(--azul-pale);color:var(--azul-dark);
+    display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.85rem;
+    font-family:'Fraunces',serif;
+  }
+  .testi-person .name{font-size:0.92rem;font-weight:600;}
+  .testi-person .loc{font-size:0.82rem;color:var(--ink-soft);}
+  @media (max-width:860px){.testi-grid{grid-template-columns:1fr;}}
+
+  /* FAQ */
+  .faq-list{max-width:760px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%;background:none;border:none;text-align:left;cursor:pointer;
+    padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:'Fraunces',serif;font-size:1.08rem;color:var(--ink);
+  }
+  .faq-q svg{width:20px;height:20px;flex:none;color:var(--azul);transition:transform .2s;}
+  .faq-item.open .faq-q svg{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{color:var(--ink-soft);padding-bottom:22px;max-width:64ch;font-size:0.97rem;}
+
+  /* CONTACTO */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .form-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:36px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:0.86rem;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  .field input, .field select, .field textarea{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:9px;
+    font-family:'Inter',sans-serif;font-size:0.95rem;background:#FCFDFB;color:var(--ink);
+  }
+  .field textarea{resize:vertical;min-height:90px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:520px){.field-row{grid-template-columns:1fr;}}
+
+  .contact-side h3{font-size:1.2rem;margin-bottom:16px;}
+  .contact-info{display:flex;flex-direction:column;gap:18px;margin-bottom:36px;}
+  .contact-info li{display:flex;gap:14px;align-items:flex-start;}
+  .contact-info svg{width:20px;height:20px;color:var(--azul);flex:none;margin-top:2px;}
+  .contact-info .label{font-size:0.82rem;color:var(--ink-soft);}
+  .contact-info .val{font-size:0.98rem;font-weight:500;}
+  .coverage h4{font-size:0.95rem;margin-bottom:12px;}
+  .coverage-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .coverage-tags span{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:999px;
+    padding:6px 14px;font-size:0.84rem;color:var(--ink-soft);
+  }
+  @media (max-width:860px){.contact-grid{grid-template-columns:1fr;}}
+
+  /* ---------- FOOTER CON REDES SOCIALES ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 52px 0 32px;
+    background: var(--panel);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--azul);
+  }
+
+  /* Iconos de Redes Sociales */
+  .footer-social-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .social-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .social-list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .social-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.22s ease;
+  }
+
+  .social-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .social-btn:hover {
+    background: var(--azul);
+    color: var(--white);
+    border-color: var(--azul);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 92, 138, 0.25);
+  }
+
+  .social-btn.social-wa:hover {
+    background: #25D366;
+    border-color: #25D366;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--bg-soft);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-note {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  /* WHATSAPP FLOAT */
+  .wa-float{
+    position:fixed;bottom:26px;right:26px;z-index:60;
+    width:58px;height:58px;border-radius:50%;
+    background:#25D366;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 22px rgba(0,0,0,0.18);
+    transition:transform .2s ease;
+  }
+  .wa-float:hover{transform:scale(1.08);}
+  .wa-float svg{width:28px;height:28px;}
+
+  /* Animaciones */
+  .hero-fade{animation:heroIn .7s ease both;}
+  .hero-fade.d2{animation-delay:.1s;}
+  .hero-fade.d3{animation-delay:.2s;}
+  @keyframes heroIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- HEADER CON NUEVO LOGO PROFESIONAL -->
+<header class="site-header" id="header">
+  <div class="header-topbar">
+    <div class="wrap topbar-wrap">
+      <div class="topbar-info">
+        <span class="topbar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92V19.92C22 20.51 21.51 21 20.92 21C10.4 21 2 12.6 2 2.08C2 1.49 2.49 1 3.08 1H6.08C6.63 1 7.09 1.4 7.15 1.95C7.29 3.13 7.56 4.29 7.94 5.4C8.11 5.87 7.98 6.4 7.62 6.75L6.14 8.23C7.29 10.66 9.34 12.71 11.77 13.86L13.25 12.38C13.6 12.02 14.13 11.89 14.6 12.06C15.71 12.44 16.87 12.71 18.05 12.85C18.6 12.91 19 13.37 19 13.92V16.92"/></svg>
+          <a href="tel:655123456">655 12 34 56</a>
+        </span>
+        <span class="topbar-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Lun - Vie: 8:00 - 19:00
+        </span>
+      </div>
+      <span class="topbar-badge">Servicio prioritario en el Aljarafe</span>
+    </div>
+  </div>
+
+  <div class="nav-main">
+    <!-- LOGO PROFESIONAL VECTORIAL -->
+    <a href="#inicio" class="logo" aria-label="Inicio - Pinturas Aljarafe">
+      <svg class="logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="44" height="44" rx="11" fill="url(#logo-grad)"/>
+        <!-- Silueta de Tejado / Casa -->
+        <path d="M12 23L22 13L32 23" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Pincel / Trazo de Pintura -->
+        <path d="M16 25.5H28C28.8 25.5 29.5 26.2 29.5 27V27.5C29.5 28.3 28.8 29 28 29H18C16.9 29 16 29.9 16 31V32.5" stroke="#E9EEE0" stroke-width="2.2" stroke-linecap="round"/>
+        <rect x="19" y="24" width="8" height="3" rx="1.5" fill="#B5602E"/>
+        <defs>
+          <linearGradient id="logo-grad" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2E5C8A"/>
+            <stop offset="1" stop-color="#1F3F60"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-title">Pinturas Aljarafe</span>
+        <span class="logo-tagline">Especialistas en Sevilla</span>
+      </div>
+    </a>
+
+    <!-- Enlaces del Menú -->
+    <nav class="nav-menu" id="navMenu" aria-label="Navegación principal">
+      <a href="#servicios" class="nav-link">Servicios</a>
+      <a href="#calculadora" class="nav-link">Calculadora</a>
+      <a href="#proceso" class="nav-link">Proceso</a>
+      <a href="#nosotros" class="nav-link">Nosotros</a>
+      <a href="#opiniones" class="nav-link">Opiniones</a>
+      <a href="#faq" class="nav-link">Preguntas</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+      
+      <div class="mobile-cta">
+        <a href="#contacto" class="btn btn-primary">Pedir Presupuesto Gratis</a>
+        <a href="tel:655123456" class="btn btn-ghost">Llamar: 655 12 34 56</a>
+      </div>
+    </nav>
+
+    <!-- Acciones directas -->
+    <div class="nav-actions">
+      <a href="tel:655123456" class="btn btn-ghost btn-call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M22 16.92V19.92C22 20.51 21.51 21 20.92 21C10.4 21 2 12.6 2 2.08C2 1.49 2.49 1 3.08 1H6.08C6.63 1 7.09 1.4 7.15 1.95C7.29 3.13 7.56 4.29 7.94 5.4C8.11 5.87 7.98 6.4 7.62 6.75L6.14 8.23C7.29 10.66 9.34 12.71 11.77 13.86L13.25 12.38C13.6 12.02 14.13 11.89 14.6 12.06C15.71 12.44 16.87 12.71 18.05 12.85C18.6 12.91 19 13.37 19 13.92V16.92"/></svg>
+        Llamar
+      </a>
+      <a href="#contacto" class="btn btn-primary">Pedir presupuesto</a>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navMenu">
+        <svg id="menuIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7H20M4 12H20M4 17H20" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow-line hero-fade"><span class="dot"></span>Pintores en Tomares, Bormujos, Mairena y todo el Aljarafe</div>
+        <h1 class="hero-fade d2">Paredes y azoteas que aguantan el sol del Aljarafe</h1>
+        <p class="sub hero-fade d3">Pintamos interiores, fachadas y cubiertas con materiales pensados para el clima de Sevilla. Presupuesto claro, plazos que se cumplen y una casa que se entrega tan limpia como se encontró.</p>
+        <div class="hero-ctas hero-fade d3">
+          <a href="#calculadora" class="btn btn-primary">Calcula tu presupuesto online</a>
+          <a href="#servicios" class="btn btn-ghost">Ver servicios</a>
+        </div>
+        <div class="trust-row hero-fade d3">
+          <div class="trust-item"><span class="num">+12</span><span class="lab">años pintando en el Aljarafe</span></div>
+          <div class="trust-item"><span class="num">100%</span><span class="lab">presupuesto sin compromiso</span></div>
+          <div class="trust-item"><span class="num">2 años</span><span class="lab">de garantía por escrito</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="70" y="180" width="300" height="190" fill="#FFFFFF" stroke="#1E2A26" stroke-width="2"/>
+          <polygon points="55,180 220,90 385,180" fill="#F3E4D8" stroke="#B5602E" stroke-width="2.2"/>
+          <rect x="130" y="230" width="60" height="60" fill="#E4ECF2" stroke="#2E5C8A" stroke-width="2"/>
+          <rect x="250" y="230" width="60" height="60" fill="#E4ECF2" stroke="#2E5C8A" stroke-width="2"/>
+          <rect x="195" y="300" width="55" height="70" fill="#2E5C8A"/>
+          <line x1="160" y1="230" x2="160" y2="290" stroke="#2E5C8A" stroke-width="2"/>
+          <line x1="130" y1="260" x2="190" y2="260" stroke="#2E5C8A" stroke-width="2"/>
+          <line x1="280" y1="230" x2="280" y2="290" stroke="#2E5C8A" stroke-width="2"/>
+          <line x1="250" y1="260" x2="310" y2="260" stroke="#2E5C8A" stroke-width="2"/>
+          <g transform="translate(330,150) rotate(35)">
+            <rect x="0" y="0" width="14" height="46" rx="3" fill="#6E7C4C"/>
+            <rect x="-4" y="42" width="22" height="20" rx="3" fill="#B5602E"/>
+          </g>
+          <path d="M40 380C120 366 360 366 440 380" stroke="#D9DEC1" stroke-width="2"/>
+          <circle cx="410" cy="70" r="26" fill="#F3E4D8"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE ELEGIRNOS -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Por qué elegirnos</h2>
+        <p>Garantía, limpieza y honestidad en cada proyecto que realizamos.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L20 6V11C20 16 16.5 19.5 12 21C7.5 19.5 4 16 4 11V6L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Garantía por escrito</h3><p>Dos años de garantía en mano de obra en todos los trabajos, sin letra pequeña.</p></div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 20L9 15M9 15L14 10L19 5M9 15L4 10M14 10L19 15M19 5L21 3M19 5V9M19 5H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Materiales de primera calidad</h3><p>Trabajamos con pinturas y membranas reconocidas, pensadas para el sol y humedad de Sevilla.</p></div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 7H20M6 7V19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7M9 7V4C9 3.4 9.4 3 10 3H14C14.6 3 15 3.4 15 4V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Presupuesto cerrado</h3><p>El precio que te damos es el que pagas. Nada de sorpresas cuando termina el trabajo.</p></div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7V12L15.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div><h3>Puntualidad</h3><p>Empezamos y acabamos cuando decimos. Tu día a día se interrumpe lo justo.</p></div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 21L21 21M6 21V9L12 4L18 9V21M9 21V15H15V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Protegemos tu casa</h3><p>Cubrimos muebles y suelos, dejando cada rincón tan limpio como lo encontramos.</p></div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <div><h3>Más de una década en el Aljarafe</h3><p>Conocemos las viviendas de la zona: desde chalets en Tomares hasta pisos en Mairena.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Servicios</h2>
+        <p>Cuatro formas de dejar tu casa como nueva, cada una con su propia técnica y sus propios tiempos.</p>
+      </div>
+
+      <div class="services-list">
+        <div class="service-row svc-interior">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 21H21M5 21V7L12 3L19 7V21M9 21V13H15V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="service-body">
+            <h3>Pintura de interiores</h3>
+            <p class="desc">Salones, dormitorios, cocinas y baños con acabados en mate, satinado o texturizado, según el uso de cada estancia. Antes de pintar, lijamos, reparamos grietas y desconchones, y aplicamos las manos de imprimación necesarias para que el color final salga uniforme y dure.</p>
+            <ul class="service-benefits">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Acabados mate, satinado o texturizado</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reparación de grietas y desconchones incluida</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Trabajo por estancias sin dejar la casa patas arriba</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="service-row svc-exterior">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 21H21M6 21V9L12 4L18 9V21M12 4V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="service-body">
+            <h3>Pintura de exteriores y fachadas</h3>
+            <p class="desc">Usamos pinturas pliolite o al silicato con alta resistencia a los rayos UV, la lluvia y los cambios de temperatura. Lavado a presión previo, sellado de fisuras e imprimación técnica adaptada a cada fachada.</p>
+            <ul class="service-benefits">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Pinturas con protección UV para el clima sevillano</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Lavado a presión y sellado de fisuras previo</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Andamiaje y seguridad incluidos en el presupuesto</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="service-row svc-azotea">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12L12 4L21 12M6 10V20H18V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 16C10.5 14.5 11.5 14.5 12 16C12.5 17.5 13.5 17.5 14 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div class="service-body">
+            <h3>Pintura e impermeabilización de azoteas</h3>
+            <p class="desc">Aplicamos membranas líquidas o pinturas elastoméricas transitables que sellan la superficie, absorben movimientos y reflejan el calor, rebajando la temperatura de la vivienda en verano.</p>
+            <ul class="service-benefits">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Evita filtraciones y humedades en las plantas inferiores</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reduce el calor que entra en la vivienda en verano</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Revisión de sumideros, juntas y petos incluida</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="service-row svc-otros">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 20L14 10M14 10L20 4M14 10L18 14M4 20L8 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="service-body">
+            <h3>Otros trabajos</h3>
+            <p class="desc">Estucos, veneciano, microcemento decorativo, alisado de gotelet y tratamiento/pintado de carpinterías metálicas o de madera.</p>
+            <ul class="service-benefits">
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Estucos, veneciano y microcemento decorativo</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Lijado y pintura de carpinterías de madera y hierro</li>
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Retoques puntuales sin mínimo de presupuesto</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA DE PRESUPUESTO -->
+  <section class="section-alt" id="calculadora">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Calculadora de presupuesto</h2>
+        <p>Obtén una estimación orientativa del coste de tu proyecto en menos de un minuto.</p>
+      </div>
+
+      <div class="calc-card">
+        <div class="calc-controls">
+          <div class="field">
+            <label for="calc-servicio">Tipo de trabajo</label>
+            <select id="calc-servicio">
+              <option value="interior" data-rate="8">Pintura de Interiores (Paredes/Techos)</option>
+              <option value="fachada" data-rate="12">Pintura de Fachada / Exterior</option>
+              <option value="azotea" data-rate="14">Impermeabilización de Azotea</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="calc-metros">Superficie aproximada (m² de pared/suelo)</label>
+            <input type="number" id="calc-metros" value="80" min="10" max="1000" step="5">
+          </div>
+
+          <div class="field">
+            <label for="calc-estado">Estado de las paredes / superficie</label>
+            <select id="calc-estado">
+              <option value="bueno" data-mult="1.0">Buen estado (solo pintar)</option>
+              <option value="medio" data-mult="1.2">Poco deteriorado (pequeñas grietas)</option>
+              <option value="malo" data-mult="1.4">Mal estado (reparaciones profundas / desconchones)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div>
+            <div style="font-size:0.9rem;font-weight:600;color:var(--ink-soft);">Estimación aproximada:</div>
+            <div class="calc-amount" id="calc-total">640 € - 770 €</div>
+            <p class="calc-disclaimer">* Incluye mano de obra, preparación de superficies, materiales de alta gama y limpieza final. IVA no incl.</p>
+          </div>
+
+          <div class="calc-actions">
+            <button type="button" class="btn btn-wa" id="calc-btn-wa">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0C5.4 0 0 5.4 0 12C0 14.1 0.6 16.1 1.6 17.9L0 24L6.3 22.4C8 23.3 9.9 23.8 12 23.8C18.6 23.8 24 18.4 24 11.8C24 8.7 22.8 5.7 20.5 3.5ZM12 21.8C10.1 21.8 8.3 21.3 6.8 20.4L6.4 20.2L2.9 21.1L3.8 17.7L3.6 17.3C2.6 15.7 2.1 13.9 2.1 12C2.1 6.6 6.6 2.1 12 2.1C14.6 2.1 17.1 3.1 19 5C20.8 6.9 21.9 9.3 21.9 11.9C21.9 17.3 17.4 21.8 12 21.8Z"/></svg>
+              Enviar esta estimación por WhatsApp
+            </button>
+            <a href="#contacto" class="btn btn-ghost" id="calc-btn-form">Rellenar en el formulario de contacto</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Cómo trabajamos</h2>
+        <p>Cuatro pasos, siempre los mismos, para que sepas qué esperar desde el primer contacto.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-num">1</div>
+          <h3>Contacto y visita</h3>
+          <p>Nos cuentas qué necesitas y, si hace falta ver el espacio, concertamos una visita sin compromiso en tu casa.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">2</div>
+          <h3>Presupuesto detallado</h3>
+          <p>Te enviamos un presupuesto por escrito con materiales, plazos y precio cerrado, sin letra pequeña.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">3</div>
+          <h3>Preparación y pintura</h3>
+          <p>Protegemos la zona de trabajo, preparamos la superficie y aplicamos las manos necesarias en el plazo acordado.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">4</div>
+          <h3>Entrega y garantía</h3>
+          <p>Revisamos el resultado contigo, limpiamos la zona y te entregamos la garantía por escrito del trabajo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section class="section-alt" id="nosotros">
+    <div class="wrap about-grid">
+      <div class="about-copy">
+        <div class="section-head" style="margin-bottom:24px;">
+          <h2>Sobre nosotros</h2>
+        </div>
+        <p>Pinturas Aljarafe nació de una idea sencilla: que contratar a un pintor no debería dar la misma incertidumbre que comprar a ciegas. Empezamos pintando viviendas en Tomares y, con los años, hemos ido creciendo pueblo a pueblo por todo el Aljarafe.</p>
+        <p>Hoy seguimos siendo un equipo cercano a propósito: preferimos conocer bien cada casa que asumir más trabajo del que podemos cuidar. Presupuestos realistas, plazos cumplidos y garantía garantizada.</p>
+        <ul class="values-list">
+          <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Honestidad en cada presupuesto: si algo no es necesario, te lo decimos.</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Limpieza y respeto por tu casa mientras trabajamos en ella.</li>
+          <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Compromiso con los plazos que acordamos contigo.</li>
+        </ul>
+      </div>
+      <div class="stats-panel">
+        <div class="stat"><h4>+12</h4><p>años trabajando en el Aljarafe</p></div>
+        <div class="stat"><h4>+400</h4><p>viviendas pintadas</p></div>
+        <div class="stat"><h4>9</h4><p>municipios en nuestra zona de cobertura</p></div>
+        <div class="stat"><h4>2 años</h4><p>de garantía por escrito</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="opiniones">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Opiniones reales de vecinos del Aljarafe que confiaron en nosotros para su casa.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+          </div>
+          <p class="testi-quote">Pintaron toda la planta baja de casa en tres días, tal cual habían dicho. Se nota que llevan años haciendo esto.</p>
+          <div class="testi-person">
+            <div class="avatar">MR</div>
+            <div><div class="name">Marisa R.</div><div class="loc">Tomares</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+          </div>
+          <p class="testi-quote">Teníamos una humedad recurrente en la azotea. La impermeabilizaron y no ha vuelto a aparecer ninguna filtración.</p>
+          <div class="testi-person">
+            <div class="avatar">JG</div>
+            <div><div class="name">Javier G.</div><div class="loc">Bormujos</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z"/></svg>
+          </div>
+          <p class="testi-quote">El presupuesto que nos dieron fue exactamente lo que pagamos al final. Cero sorpresas y dejaron todo impecable.</p>
+          <div class="testi-person">
+            <div class="avatar">CL</div>
+            <div><div class="name">Carmen L.</div><div class="loc">Mairena del Aljarafe</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-alt" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Preguntas frecuentes</h2>
+        <p>Lo que más nos preguntan antes de empezar un trabajo.</p>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item open">
+          <button class="faq-q" aria-expanded="true">¿Cuánto tarda en pintarse una vivienda?<svg viewBox="0 0 24 24" fill="none"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          <div class="faq-a"><p>Un piso de 2-3 habitaciones suele estar listo en 3 a 5 días, y una fachada o azotea entre 2 y 4 días. Te damos un plazo concreto en el presupuesto.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">¿Qué tipos de pintura utilizáis?<svg viewBox="0 0 24 24" fill="none"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          <div class="faq-a"><p>En interiores usamos pinturas plásticas mate, satinadas o texturizadas. En exteriores, pliolite o al silicato con protección UV. En azoteas, membranas líquidas transitables.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">¿Tiene garantía el trabajo?<svg viewBox="0 0 24 24" fill="none"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          <div class="faq-a"><p>Sí, todos nuestros trabajos incluyen 2 años de garantía por escrito sobre mano de obra.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">¿Hace falta desalojar la vivienda mientras se pinta?<svg viewBox="0 0 24 24" fill="none"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          <div class="faq-a"><p>No suele ser necesario. Trabajamos por habitaciones o zonas para que puedas seguir haciendo tu vida normal.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Solicita tu presupuesto</h2>
+        <p>Cuéntanos qué necesitas y te respondemos en menos de 24 horas laborables.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="form-panel" id="contactForm" onsubmit="event.preventDefault(); alert('Solicitud enviada correctamente. Nos pondremos en contacto contigo a la brevedad.');">
+          <div class="field-row">
+            <div class="field">
+              <label for="nombre">Nombre y apellidos</label>
+              <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="servicio">Tipo de servicio</label>
+              <select id="servicio" name="servicio">
+                <option>Pintura de interiores</option>
+                <option>Pintura de exteriores / fachada</option>
+                <option>Azotea / impermeabilización</option>
+                <option>Otro trabajo</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="metros">Metros cuadrados aprox.</label>
+              <input type="text" id="metros" name="metros" placeholder="Ej. 90 m²">
+            </div>
+          </div>
+          <div class="field">
+            <label for="direccion">Dirección o municipio</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Ej. Tomares, Mairena...">
+          </div>
+          <div class="field">
+            <label for="mensaje">Detalles sobre el espacio a pintar</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Número de habitaciones, estado actual de las paredes..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;">Enviar solicitud</button>
+        </form>
+
+        <div class="contact-side">
+          <h3>Habla con nosotros directamente</h3>
+          <ul class="contact-info">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92V19.92C22 20.51 21.51 21 20.92 21C10.4 21 2 12.6 2 2.08C2 1.49 2.49 1 3.08 1H6.08C6.63 1 7.09 1.4 7.15 1.95C7.29 3.13 7.56 4.29 7.94 5.4C8.11 5.87 7.98 6.4 7.62 6.75L6.14 8.23C7.29 10.66 9.34 12.71 11.77 13.86L13.25 12.38C13.6 12.02 14.13 11.89 14.6 12.06C15.71 12.44 16.87 12.71 18.05 12.85C18.6 12.91 19 13.37 19 13.92V16.92" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div><div class="label">Teléfono</div><div class="val">655 12 34 56</div></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 6L12 13L21 6M4 5H20C20.55 5 21 5.45 21 6V18C21 18.55 20.55 19 20 19H4C3.45 19 3 18.55 3 18V6C3 5.45 3.45 5 4 5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div><div class="label">Correo</div><div class="val">hola@pinturasaljarafe.es</div></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7V12L15.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <div><div class="label">Horario</div><div class="val">Lunes a viernes, 8:00–19:00</div></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 5 14.5 5 9.5C5 5.9 8.1 3 12 3C15.9 3 19 5.9 19 9.5C19 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
+              <div><div class="label">Sede</div><div class="val">Tomares, Sevilla</div></div>
+            </li>
+          </ul>
+          <div class="coverage">
+            <h4>Zona de cobertura</h4>
+            <div class="coverage-tags">
+              <span>Tomares</span><span>Bormujos</span><span>Mairena del Aljarafe</span>
+              <span>Castilleja de la Cuesta</span><span>Gines</span><span>Espartinas</span>
+              <span>Valencina de la Concepción</span><span>Camas</span><span>Sanlúcar la Mayor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER CON REDES SOCIALES E ICONOS -->
+<footer>
+  <div class="wrap footer-content">
+    <div class="footer-main">
+      <!-- Logo en footer -->
+      <a href="#inicio" class="logo" aria-label="Inicio - Pinturas Aljarafe">
+        <svg class="logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px;height:36px;">
+          <rect width="44" height="44" rx="11" fill="url(#logo-grad-footer)"/>
+          <path d="M12 23L22 13L32 23" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 25.5H28C28.8 25.5 29.5 26.2 29.5 27V27.5C29.5 28.3 28.8 29 28 29H18C16.9 29 16 29.9 16 31V32.5" stroke="#E9EEE0" stroke-width="2.2" stroke-linecap="round"/>
+          <rect x="19" y="24" width="8" height="3" rx="1.5" fill="#B5602E"/>
+          <defs>
+            <linearGradient id="logo-grad-footer" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#2E5C8A"/>
+              <stop offset="1" stop-color="#1F3F60"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title" style="font-size:1.15rem;">Pinturas Aljarafe</span>
+        </div>
+      </a>
+
+      <!-- Navegación pie de página -->
+      <nav class="footer-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#calculadora">Calculadora</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#faq">Preguntas</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <!-- Redes Sociales -->
+      <div class="footer-social-wrapper">
+        <span class="social-title">Síguenos:</span>
+        <div class="social-list">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram de Pinturas Aljarafe" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook de Pinturas Aljarafe" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://wa.me/34655123456" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-btn social-wa">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0C5.4 0 0 5.4 0 12C0 14.1 0.6 16.1 1.6 17.9L0 24L6.3 22.4C8 23.3 9.9 23.8 12 23.8C18.6 23.8 24 18.4 24 11.8C24 8.7 22.8 5.7 20.5 3.5ZM12 21.8C10.1 21.8 8.3 21.3 6.8 20.4L6.4 20.2L2.9 21.1L3.8 17.7L3.6 17.3C2.6 15.7 2.1 13.9 2.1 12C2.1 6.6 6.6 2.1 12 2.1C14.6 2.1 17.1 3.1 19 5C20.8 6.9 21.9 9.3 21.9 11.9C21.9 17.3 17.4 21.8 12 21.8Z"/></svg>
+          </a>
+          <a href="https://maps.google.com" target="_blank" rel="noopener" aria-label="Ubicación y Reseñas en Google Maps" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-note">© 2026 Pinturas Aljarafe. Pintura de interiores, exteriores y azoteas en Tomares y todo el Aljarafe sevillano.</p>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/34655123456" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0C5.4 0 0 5.4 0 12C0 14.1 0.6 16.1 1.6 17.9L0 24L6.3 22.4C8 23.3 9.9 23.8 12 23.8C18.6 23.8 24 18.4 24 11.8C24 8.7 22.8 5.7 20.5 3.5ZM12 21.8C10.1 21.8 8.3 21.3 6.8 20.4L6.4 20.2L2.9 21.1L3.8 17.7L3.6 17.3C2.6 15.7 2.1 13.9 2.1 12C2.1 6.6 6.6 2.1 12 2.1C14.6 2.1 17.1 3.1 19 5C20.8 6.9 21.9 9.3 21.9 11.9C21.9 17.3 17.4 21.8 12 21.8ZM17.4 14.4C17.1 14.3 15.6 13.5 15.3 13.4C15 13.3 14.8 13.3 14.6 13.6C14.4 13.9 13.8 14.5 13.6 14.7C13.4 14.9 13.3 14.9 13 14.8C12.7 14.6 11.7 14.3 10.5 13.2C9.6 12.4 9 11.4 8.8 11.1C8.6 10.8 8.8 10.6 8.9 10.5C9.1 10.3 9.2 10.2 9.4 10C9.5 9.8 9.6 9.7 9.6 9.5C9.7 9.3 9.6 9.1 9.6 9C9.5 8.8 9 7.4 8.7 6.8C8.5 6.2 8.3 6.3 8.1 6.3C7.9 6.3 7.7 6.3 7.5 6.3C7.3 6.3 6.9 6.4 6.6 6.7C6.3 7 5.5 7.8 5.5 9.2C5.5 10.6 6.6 12 6.8 12.2C6.9 12.4 8.9 15.6 12.1 16.9C14.5 17.9 15 17.7 15.5 17.6C16.1 17.6 17.3 16.9 17.5 16.2C17.8 15.5 17.8 14.9 17.7 14.8C17.6 14.6 17.5 14.5 17.4 14.4Z"/></svg>
+</a>
+
+<script>
+  // HEADER: scroll + menú móvil
+  const header = document.getElementById('header');
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  const menuIcon = document.getElementById('menuIcon');
+  const mobileBreakpoint = 920;
+
+  const iconHamburger = '<path d="M4 7H20M4 12H20M4 17H20" stroke-linecap="round"/>';
+  const iconClose = '<path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>';
+
+  function updateHeaderState(){
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  }
+
+  function setMenu(open){
+    if (!menuToggle || !navMenu) return;
+    navMenu.classList.toggle('open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+    if (menuIcon) menuIcon.innerHTML = open ? iconClose : iconHamburger;
+    document.body.classList.toggle('menu-open', open);
+  }
+
+  function toggleMenu(){
+    setMenu(!navMenu.classList.contains('open'));
+  }
+
+  updateHeaderState();
+  window.addEventListener('scroll', updateHeaderState, {passive:true});
+
+  menuToggle?.addEventListener('click', toggleMenu);
+
+  navMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') setMenu(false);
+  });
+
+  document.addEventListener('click', event => {
+    if (!navMenu?.classList.contains('open')) return;
+    if (!navMenu.contains(event.target) && !menuToggle?.contains(event.target)) setMenu(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > mobileBreakpoint) setMenu(false);
+  });
+
+  // ACORDEÓN FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    if(item.classList.contains('open')) a.style.maxHeight = a.scrollHeight + 'px';
+    
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        q.setAttribute('aria-expanded', 'true');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // CALCULADORA
+  const calcServicio = document.getElementById('calc-servicio');
+  const calcMetros = document.getElementById('calc-metros');
+  const calcEstado = document.getElementById('calc-estado');
+  const calcTotal = document.getElementById('calc-total');
+  const calcBtnWa = document.getElementById('calc-btn-wa');
+  const calcBtnForm = document.getElementById('calc-btn-form');
+
+  function calcularPresupuesto() {
+    const rate = parseFloat(calcServicio.options[calcServicio.selectedIndex].dataset.rate || 8);
+    const m2 = parseFloat(calcMetros.value) || 0;
+    const mult = parseFloat(calcEstado.options[calcEstado.selectedIndex].dataset.mult || 1);
+
+    const baseCost = Math.max(m2 * rate * mult, 150);
+    const minCost = Math.round(baseCost * 0.9);
+    const maxCost = Math.round(baseCost * 1.1);
+
+    calcTotal.textContent = `${minCost} € - ${maxCost} €`;
+    return { minCost, maxCost, m2, servicioText: calcServicio.options[calcServicio.selectedIndex].text };
+  }
+
+  [calcServicio, calcMetros, calcEstado].forEach(el => {
+    el.addEventListener('input', calcularPresupuesto);
+    el.addEventListener('change', calcularPresupuesto);
+  });
+  calcularPresupuesto();
+
+  calcBtnWa.addEventListener('click', () => {
+    const data = calcularPresupuesto();
+    const mensaje = `Hola, he calculado un presupuesto estimado en su web:\n- Servicio: ${data.servicioText}\n- Superficie: ${data.m2} m²\n- Estimación: ${data.minCost}€ - ${data.maxCost}€\n¿Podríais confirmarme disponibilidad para una visita?`;
+    window.open(`https://wa.me/34655123456?text=${encodeURIComponent(mensaje)}`, '_blank');
+  });
+
+  calcBtnForm.addEventListener('click', () => {
+    const data = calcularPresupuesto();
+    document.getElementById('metros').value = `${data.m2} m²`;
+    document.getElementById('mensaje').value = `Estimación calculada online: ${data.minCost}€ - ${data.maxCost}€ para ${data.servicioText}.`;
+  });
+</script>
+
+</body>
+</html>
