@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>presupuesto. — Orçamentos profissionais em minutos, sem burocracia</title>
-<meta name="description" content="A ferramenta gratuita para autónomos e pequenos negócios criarem orçamentos profissionais: logótipo, cálculo automático de IVA, exportação em PDF e envio por e-mail. Sem conta, sem instalar nada.">
-<meta name="keywords" content="gerador de orçamentos, orçamento para autónomos, criar orçamento online, orçamento em PDF, calculadora de IVA">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://generadordepresupuesto.es/">
+  <title>presupuesto. — Orçamentos profissionais em minutos, sem burocracia</title>
+  <meta name="description"
+    content="A ferramenta gratuita para autónomos e pequenos negócios criarem orçamentos profissionais: logótipo, cálculo automático de IVA, exportação em PDF e envio por e-mail. Sem conta, sem instalar nada.">
+  <meta name="keywords"
+    content="gerador de orçamentos, orçamento para autónomos, criar orçamento online, orçamento em PDF, calculadora de IVA">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://generadordepresupuesto.es/">
 
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_PT">
-<meta property="og:site_name" content="presupuesto.">
-<meta property="og:title" content="presupuesto. — Orçamentos profissionais em minutos, sem burocracia">
-<meta property="og:description" content="Crie orçamentos com logótipo, cálculo automático de IVA e exportação em PDF — grátis, sem conta, tudo no navegador.">
-<meta property="og:url" content="https://generadordepresupuesto.es/">
-<meta property="og:image" content="https://generadordepresupuesto.es/preview.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_PT">
+  <meta property="og:site_name" content="presupuesto.">
+  <meta property="og:title" content="presupuesto. — Orçamentos profissionais em minutos, sem burocracia">
+  <meta property="og:description"
+    content="Crie orçamentos com logótipo, cálculo automático de IVA e exportação em PDF — grátis, sem conta, tudo no navegador.">
+  <meta property="og:url" content="https://generadordepresupuesto.es/">
+  <meta property="og:image" content="https://generadordepresupuesto.es/preview.png">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="presupuesto. — Orçamentos profissionais em minutos">
-<meta name="twitter:description" content="Grátis, sem conta, sem burocracia. Feito para autónomos.">
-<meta name="twitter:image" content="https://generadordepresupuesto.es/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="presupuesto. — Orçamentos profissionais em minutos">
+  <meta name="twitter:description" content="Grátis, sem conta, sem burocracia. Feito para autónomos.">
+  <meta name="twitter:image" content="https://generadordepresupuesto.es/preview.png">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%231c2321'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23a85c32' font-family='Georgia,serif' font-weight='bold'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%231c2321'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23a85c32' font-family='Georgia,serif' font-weight='bold'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
 
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -39,560 +44,855 @@
 }
 </script>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap">
 
-<style>
-  :root{
-    --ink:#1c2321;
-    --paper:#faf8f3;
-    --paper-2:#f1ede2;
-    --slate:#4a5859;
-    --copper:#a85c32;
-    --copper-dim:#8a4926;
-    --line:#d8d3c7;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter',system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  img,svg{display:block;max-width:100%;}
-  a{color:inherit;}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  <style>
+    :root {
+      --ink: #1c2321;
+      --paper: #faf8f3;
+      --paper-2: #f1ede2;
+      --slate: #4a5859;
+      --copper: #a85c32;
+      --copper-dim: #8a4926;
+      --line: #d8d3c7;
+    }
 
-  /* ---------- Nav ---------- */
-  nav.top{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:22px 24px;
-    max-width:1080px;margin:0 auto;
-  }
-  .site-logo{
-    font-family:'Plus Jakarta Sans',sans-serif;
-    font-weight:800;font-size:21px;letter-spacing:-0.03em;
-    text-decoration:none;color:var(--ink);
-  }
-  .site-logo .dot{color:var(--copper);}
-  .nav-right{display:flex;align-items:center;gap:18px;}
-  .nav-link{font-size:13.5px;font-weight:600;text-decoration:none;color:var(--slate);}
-  .nav-link:hover{color:var(--ink);}
-  .lang-switch{display:flex;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
-  button.lang-btn{
-    border:none;background:var(--paper);color:var(--slate);
-    font-size:11px;font-weight:700;letter-spacing:.03em;
-    padding:6px 9px;cursor:pointer;font-family:'Inter',sans-serif;
-  }
-  button.lang-btn + button.lang-btn{border-left:1px solid var(--line);}
-  button.lang-btn:hover{background:var(--paper-2);color:var(--ink);}
-  button.lang-btn.active{background:var(--ink);color:var(--paper);}
-  .btn{
-    display:inline-block;
-    font-family:'Inter',sans-serif;
-    font-weight:700;
-    font-size:13.5px;
-    letter-spacing:.01em;
-    padding:11px 20px;
-    border-radius:2px;
-    text-decoration:none;
-    cursor:pointer;
-    border:1px solid var(--ink);
-    transition:transform .12s ease, background .15s, color .15s, box-shadow .15s;
-  }
-  .btn-primary{background:var(--copper);border-color:var(--copper);color:#fff;}
-  .btn-primary:hover{background:var(--copper-dim);border-color:var(--copper-dim);transform:translateY(-1px);}
-  .btn-ghost{background:transparent;color:var(--ink);}
-  .btn-ghost:hover{background:var(--ink);color:var(--paper);}
+    * {
+      box-sizing: border-box;
+    }
 
-  /* ---------- Hero ---------- */
-  .hero{
-    padding:56px 0 88px;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:56px;
-    align-items:center;
-  }
-  .eyebrow{
-    font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--copper);margin-bottom:18px;
-  }
-  h1{
-    font-family:'Fraunces',Georgia,serif;
-    font-weight:700;
-    font-size:48px;
-    line-height:1.07;
-    letter-spacing:-0.01em;
-    margin:0 0 20px;
-  }
-  h1 em{
-    font-style:italic;
-    color:var(--copper);
-  }
-  .hero p.lead{
-    font-size:16.5px;
-    line-height:1.65;
-    color:var(--slate);
-    max-width:480px;
-    margin:0 0 32px;
-  }
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:22px;}
-  .trust-line{
-    font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:11.5px;
-    color:var(--slate);
-    letter-spacing:.02em;
-  }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  /* ---------- Mock quote card (signature element) ---------- */
-  .mock-wrap{position:relative;}
-  .mock-card{
-    background:var(--paper);
-    border:1px solid var(--ink);
-    padding:28px 30px;
-    max-width:380px;
-    margin-left:auto;
-    transform:rotate(1.4deg);
-    box-shadow:14px 18px 0 rgba(28,35,33,0.08), 0 2px 24px rgba(28,35,33,0.10);
-    position:relative;
-  }
-  .mock-card::before{
-    content:"";
-    position:absolute;top:8px;left:8px;right:8px;bottom:8px;
-    border:1px solid var(--line);
-    pointer-events:none;
-  }
-  .mock-top{
-    display:flex;justify-content:space-between;align-items:flex-start;
-    border-bottom:2px solid var(--ink);
-    padding-bottom:14px;margin-bottom:16px;
-  }
-  .mock-biz{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:16px;}
-  .mock-tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);font-weight:700;}
-  .mock-row{
-    display:flex;justify-content:space-between;
-    font-size:11.5px;
-    padding:7px 0;
-    border-bottom:1px solid var(--line);
-  }
-  .mock-row span:first-child{color:var(--ink);}
-  .mock-row span:last-child{font-family:'IBM Plex Mono',ui-monospace,monospace;color:var(--slate);}
-  .mock-total{
-    display:flex;justify-content:space-between;align-items:baseline;
-    margin-top:14px;padding-top:14px;border-top:2px solid var(--ink);
-  }
-  .mock-total .lbl{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:13px;}
-  .mock-total .val{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;font-size:17px;color:var(--copper);}
-  .mock-stamp{
-    position:absolute;
-    bottom:-14px;right:22px;
-    background:var(--ink);
-    color:var(--paper);
-    font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:10px;
-    letter-spacing:.08em;
-    padding:6px 12px;
-    transform:rotate(-3deg);
-  }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* ---------- Trust strip ---------- */
-  .trust-strip{
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    background:var(--paper-2);
-  }
-  .trust-strip .wrap{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
-  }
-  .trust-item{
-    padding:28px 24px;
-    border-left:1px solid var(--line);
-  }
-  .trust-item:first-child{border-left:none;}
-  .trust-item h3{
-    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:16px;margin:0 0 6px;
-  }
-  .trust-item p{font-size:13px;color:var(--slate);line-height:1.55;margin:0;}
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
 
-  /* ---------- Features ---------- */
-  .features{padding:88px 0;}
-  .section-head{max-width:560px;margin-bottom:48px;}
-  .section-head .eyebrow{margin-bottom:14px;}
-  h2{
-    font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:32px;
-    margin:0 0 12px;letter-spacing:-0.01em;
-  }
-  .section-head p{color:var(--slate);font-size:15px;line-height:1.6;margin:0;}
+    a {
+      color: inherit;
+    }
 
-  .feature-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-  }
-  .feature-card{
-    background:var(--paper);
-    padding:28px 26px;
-  }
-  .feature-card h3{
-    font-size:15px;font-weight:700;margin:0 0 8px;
-  }
-  .feature-card p{font-size:13px;color:var(--slate);line-height:1.6;margin:0;}
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-  /* ---------- Autónomos (dark section) ---------- */
-  .statement{
-    background:var(--ink);
-    color:var(--paper);
-    padding:88px 0;
-  }
-  .statement .eyebrow{color:var(--copper);}
-  .statement blockquote{
-    margin:0;
-    font-family:'Fraunces',Georgia,serif;
-    font-weight:600;
-    font-size:28px;
-    line-height:1.35;
-    letter-spacing:-0.01em;
-    max-width:760px;
-  }
-  .statement blockquote em{font-style:italic;color:#e0b088;}
-  .statement .who{
-    margin-top:28px;
-    font-size:13.5px;
-    color:#b8beb9;
-    max-width:520px;
-    line-height:1.6;
-  }
+    /* ---------- Nav ---------- */
+    nav.top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 24px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
 
-  /* ---------- Final CTA ---------- */
-  .final-cta{
-    padding:96px 0;
-    text-align:center;
-  }
-  .final-cta h2{font-size:34px;margin-bottom:16px;}
-  .final-cta p{color:var(--slate);font-size:15px;margin-bottom:32px;}
+    .site-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: var(--ink);
+    }
 
-  /* ---------- Footer ---------- */
-  footer{
-    border-top:1px solid var(--line);
-    padding:36px 0 44px;
-  }
-  footer .wrap{
-    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
-  }
-  .footer-links{display:flex;gap:20px;}
-  .footer-links a{font-size:13px;color:var(--slate);text-decoration:none;}
-  .footer-links a:hover{color:var(--ink);}
-  .powered{
-    font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:11px;
-    color:var(--slate);
-    letter-spacing:.02em;
-  }
-  .powered .spark{color:var(--copper);}
+    .site-logo .dot {
+      color: var(--copper);
+    }
 
-  @media (max-width:860px){
-    .hero-grid{grid-template-columns:1fr;}
-    .mock-card{margin:0 auto;transform:rotate(1deg);}
-    .trust-strip .wrap{grid-template-columns:1fr;}
-    .trust-item{border-left:none;border-top:1px solid var(--line);}
-    .trust-item:first-child{border-top:none;}
-    .feature-grid{grid-template-columns:1fr;}
-    h1{font-size:34px;}
-    h2{font-size:26px;}
-    .statement blockquote{font-size:22px;}
-  }
-  @media (max-width:600px){
-    nav.top{flex-direction:column;gap:14px;align-items:flex-start;}
-    .nav-right{width:100%;justify-content:space-between;}
-  }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
 
-  :focus-visible{outline:2px solid var(--copper);outline-offset:2px;}
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none !important;transition:none !important;}
-  }
-</style>
+    .nav-link {
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--slate);
+    }
+
+    .nav-link:hover {
+      color: var(--ink);
+    }
+
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    button.lang-btn {
+      border: none;
+      background: var(--paper);
+      color: var(--slate);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      padding: 6px 9px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    button.lang-btn+button.lang-btn {
+      border-left: 1px solid var(--line);
+    }
+
+    button.lang-btn:hover {
+      background: var(--paper-2);
+      color: var(--ink);
+    }
+
+    button.lang-btn.active {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 13.5px;
+      letter-spacing: .01em;
+      padding: 11px 20px;
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid var(--ink);
+      transition: transform .12s ease, background .15s, color .15s, box-shadow .15s;
+    }
+
+    .btn-primary {
+      background: var(--copper);
+      border-color: var(--copper);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--copper-dim);
+      border-color: var(--copper-dim);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .btn-ghost:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: 56px 0 88px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 1.07;
+      letter-spacing: -0.01em;
+      margin: 0 0 20px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--copper);
+    }
+
+    .hero p.lead {
+      font-size: 16.5px;
+      line-height: 1.65;
+      color: var(--slate);
+      max-width: 480px;
+      margin: 0 0 32px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .trust-line {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 11.5px;
+      color: var(--slate);
+      letter-spacing: .02em;
+    }
+
+    /* ---------- Mock quote card (signature element) ---------- */
+    .mock-wrap {
+      position: relative;
+    }
+
+    .mock-card {
+      background: var(--paper);
+      border: 1px solid var(--ink);
+      padding: 28px 30px;
+      max-width: 380px;
+      margin-left: auto;
+      transform: rotate(1.4deg);
+      box-shadow: 14px 18px 0 rgba(28, 35, 33, 0.08), 0 2px 24px rgba(28, 35, 33, 0.10);
+      position: relative;
+    }
+
+    .mock-card::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 1px solid var(--line);
+      pointer-events: none;
+    }
+
+    .mock-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+
+    .mock-biz {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .mock-tag {
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--copper);
+      font-weight: 700;
+    }
+
+    .mock-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mock-row span:first-child {
+      color: var(--ink);
+    }
+
+    .mock-row span:last-child {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      color: var(--slate);
+    }
+
+    .mock-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .mock-total .lbl {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .mock-total .val {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--copper);
+    }
+
+    .mock-stamp {
+      position: absolute;
+      bottom: -14px;
+      right: 22px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: .08em;
+      padding: 6px 12px;
+      transform: rotate(-3deg);
+    }
+
+    /* ---------- Trust strip ---------- */
+    .trust-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-2);
+    }
+
+    .trust-strip .wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .trust-item {
+      padding: 28px 24px;
+      border-left: 1px solid var(--line);
+    }
+
+    .trust-item:first-child {
+      border-left: none;
+    }
+
+    .trust-item h3 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      font-size: 16px;
+      margin: 0 0 6px;
+    }
+
+    .trust-item p {
+      font-size: 13px;
+      color: var(--slate);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ---------- Features ---------- */
+    .features {
+      padding: 88px 0;
+    }
+
+    .section-head {
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    .section-head .eyebrow {
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700;
+      font-size: 32px;
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-head p {
+      color: var(--slate);
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .feature-card {
+      background: var(--paper);
+      padding: 28px 26px;
+    }
+
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: var(--slate);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ---------- Autónomos (dark section) ---------- */
+    .statement {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 88px 0;
+    }
+
+    .statement .eyebrow {
+      color: var(--copper);
+    }
+
+    .statement blockquote {
+      margin: 0;
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      max-width: 760px;
+    }
+
+    .statement blockquote em {
+      font-style: italic;
+      color: #e0b088;
+    }
+
+    .statement .who {
+      margin-top: 28px;
+      font-size: 13.5px;
+      color: #b8beb9;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    /* ---------- Final CTA ---------- */
+    .final-cta {
+      padding: 96px 0;
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      font-size: 34px;
+      margin-bottom: 16px;
+    }
+
+    .final-cta p {
+      color: var(--slate);
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 0 44px;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--slate);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--ink);
+    }
+
+    .powered {
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 11px;
+      color: var(--slate);
+      letter-spacing: .02em;
+    }
+
+    .powered .spark {
+      color: var(--copper);
+    }
+
+    @media (max-width:860px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mock-card {
+        margin: 0 auto;
+        transform: rotate(1deg);
+      }
+
+      .trust-strip .wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-item {
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
+
+      .trust-item:first-child {
+        border-top: none;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      h2 {
+        font-size: 26px;
+      }
+
+      .statement blockquote {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width:600px) {
+      nav.top {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--copper);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="top">
-  <a href="index.html" class="site-logo">presupuesto<span class="dot">.</span></a>
-  <div class="nav-right">
-    <a href="como-usar.html" class="nav-link" data-i18n="navHelp">Como usar</a>
-    <div class="lang-switch">
-      <button type="button" class="lang-btn" data-lang="pt">PT</button>
-      <button type="button" class="lang-btn" data-lang="br">BR</button>
-      <button type="button" class="lang-btn" data-lang="es">ES</button>
-      <button type="button" class="lang-btn" data-lang="en">EN</button>
-    </div>
-    <a href="gerador.html" class="btn btn-ghost" data-i18n="navCta">Abrir gerador</a>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow" data-i18n="heroEyebrow">Feito para quem trabalha por conta própria</div>
-      <h1 data-i18n="heroTitle">Orçamentos profissionais em minutos. <em>Sem burocracia.</em></h1>
-      <p class="lead" data-i18n="heroLead">A ferramenta gratuita para autónomos e pequenos negócios criarem orçamentos com boa apresentação — sem criar conta, sem instalar nada, sem complicação.</p>
-      <div class="hero-ctas">
-        <a href="gerador.html" class="btn btn-primary" data-i18n="heroCtaPrimary">Criar orçamento grátis →</a>
-        <a href="como-usar.html" class="btn btn-ghost" data-i18n="heroCtaSecondary">Ver como funciona</a>
+  <nav class="top">
+    <a href="index.html" class="site-logo">presupuesto<span class="dot">.</span></a>
+    <div class="nav-right">
+      <a href="como-usar.html" class="nav-link" data-i18n="navHelp">Como usar</a>
+      <div class="lang-switch">
+        <button type="button" class="lang-btn" data-lang="pt">PT</button>
+        <button type="button" class="lang-btn" data-lang="br">BR</button>
+        <button type="button" class="lang-btn" data-lang="es">ES</button>
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
       </div>
-      <div class="trust-line" data-i18n="trustLine">GRÁTIS · SEM CONTA · TUDO NO SEU NAVEGADOR</div>
+      <a href="gerador.html" class="btn btn-ghost" data-i18n="navCta">Abrir gerador</a>
     </div>
+  </nav>
 
-    <div class="mock-wrap">
-      <div class="mock-card">
-        <div class="mock-top">
-          <div>
-            <div class="mock-biz">Sua Empresa, Lda.</div>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow" data-i18n="heroEyebrow">Feito para quem trabalha por conta própria</div>
+        <h1 data-i18n="heroTitle">Orçamentos profissionais em minutos. <em>Sem burocracia.</em></h1>
+        <p class="lead" data-i18n="heroLead">A ferramenta gratuita para autónomos e pequenos negócios criarem orçamentos
+          com boa apresentação — sem criar conta, sem instalar nada, sem complicação.</p>
+        <div class="hero-ctas">
+          <a href="gerador.html" class="btn btn-primary" data-i18n="heroCtaPrimary">Criar orçamento grátis →</a>
+          <a href="como-usar.html" class="btn btn-ghost" data-i18n="heroCtaSecondary">Ver como funciona</a>
+        </div>
+        <div class="trust-line" data-i18n="trustLine">GRÁTIS · SEM CONTA · TUDO NO SEU NAVEGADOR</div>
+      </div>
+
+      <div class="mock-wrap">
+        <div class="mock-card">
+          <div class="mock-top">
+            <div>
+              <div class="mock-biz">Sua Empresa, Lda.</div>
+            </div>
+            <div class="mock-tag" data-i18n="mockTag">Orçamento</div>
           </div>
-          <div class="mock-tag" data-i18n="mockTag">Orçamento</div>
+          <div class="mock-row"><span data-i18n="mockRow1">Consultoria inicial</span><span>250,00 €</span></div>
+          <div class="mock-row"><span data-i18n="mockRow2">Mão de obra (8h)</span><span>280,00 €</span></div>
+          <div class="mock-row"><span data-i18n="mockRow3">Materiais</span><span>96,50 €</span></div>
+          <div class="mock-total">
+            <span class="lbl" data-i18n="mockTotalLabel">Total com IVA</span>
+            <span class="val">764,03 €</span>
+          </div>
         </div>
-        <div class="mock-row"><span data-i18n="mockRow1">Consultoria inicial</span><span>250,00 €</span></div>
-        <div class="mock-row"><span data-i18n="mockRow2">Mão de obra (8h)</span><span>280,00 €</span></div>
-        <div class="mock-row"><span data-i18n="mockRow3">Materiais</span><span>96,50 €</span></div>
-        <div class="mock-total">
-          <span class="lbl" data-i18n="mockTotalLabel">Total com IVA</span>
-          <span class="val">764,03 €</span>
+        <div class="mock-stamp" data-i18n="mockStamp">PDF EM 1 CLIQUE</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="wrap">
+      <div class="trust-item">
+        <h3 data-i18n="trust1t">Sem burocracia</h3>
+        <p data-i18n="trust1p">Abra a página e comece a preencher. Sem registos, sem planos, sem período de teste.</p>
+      </div>
+      <div class="trust-item">
+        <h3 data-i18n="trust2t">Os seus dados, no seu computador</h3>
+        <p data-i18n="trust2p">O logótipo e as preferências ficam guardados só no seu navegador — nunca num servidor.
+        </p>
+      </div>
+      <div class="trust-item">
+        <h3 data-i18n="trust3t">Pronto em minutos</h3>
+        <p data-i18n="trust3p">Preencha os serviços, confirme o IVA, exporte o PDF. É tudo o que precisa fazer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-i18n="featEyebrow">O que vem incluído</div>
+        <h2 data-i18n="featTitle">Tudo o que um orçamento profissional precisa</h2>
+        <p data-i18n="featLead">Sem módulos extra para desbloquear, sem versão paga escondida atrás de um botão.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 data-i18n="f1t">Logótipo e marca própria</h3>
+          <p data-i18n="f1p">Adicione o logótipo do seu negócio uma vez — fica guardado automaticamente para a próxima
+            vez.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="f2t">Cálculo automático de IVA</h3>
+          <p data-i18n="f2p">Subtotal, IVA e total recalculados em tempo real, com a percentagem que precisar.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="f3t">Exportação em PDF</h3>
+          <p data-i18n="f3p">Um documento limpo e profissional, pronto a enviar ao cliente em segundos.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="f4t">Enviar por e-mail</h3>
+          <p data-i18n="f4p">Descarregue o PDF e abra o seu e-mail já com o destinatário e assunto preenchidos.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="f5t">Português, espanhol ou inglês</h3>
+          <p data-i18n="f5p">Troque o idioma da interface e do PDF exportado com um clique.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="f6t">Sem conta, sem instalação</h3>
+          <p data-i18n="f6p">Funciona em qualquer navegador. Feche a aba e continue mais tarde de onde ficou.</p>
         </div>
       </div>
-      <div class="mock-stamp" data-i18n="mockStamp">PDF EM 1 CLIQUE</div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="trust-strip">
-  <div class="wrap">
-    <div class="trust-item">
-      <h3 data-i18n="trust1t">Sem burocracia</h3>
-      <p data-i18n="trust1p">Abra a página e comece a preencher. Sem registos, sem planos, sem período de teste.</p>
+  <section class="statement">
+    <div class="wrap">
+      <div class="eyebrow" data-i18n="stEyebrow">Para quem fatura por conta própria</div>
+      <blockquote data-i18n="stQuote">Eletricistas, consultores, designers, canalizadores — <em>quem precisa de um
+          orçamento com bom aspeto</em>, rápido, sem lidar com software de faturação caro ou complicado.</blockquote>
+      <p class="who" data-i18n="stWho">Se trabalha por conta própria e ainda faz orçamentos num documento de texto ou à
+        mão, esta ferramenta foi pensada para si.</p>
     </div>
-    <div class="trust-item">
-      <h3 data-i18n="trust2t">Os seus dados, no seu computador</h3>
-      <p data-i18n="trust2p">O logótipo e as preferências ficam guardados só no seu navegador — nunca num servidor.</p>
-    </div>
-    <div class="trust-item">
-      <h3 data-i18n="trust3t">Pronto em minutos</h3>
-      <p data-i18n="trust3p">Preencha os serviços, confirme o IVA, exporte o PDF. É tudo o que precisa fazer.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="features">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow" data-i18n="featEyebrow">O que vem incluído</div>
-      <h2 data-i18n="featTitle">Tudo o que um orçamento profissional precisa</h2>
-      <p data-i18n="featLead">Sem módulos extra para desbloquear, sem versão paga escondida atrás de um botão.</p>
+  <section class="final-cta">
+    <div class="wrap">
+      <h2 data-i18n="finalTitle">Pronto para o seu primeiro orçamento?</h2>
+      <p data-i18n="finalLead">Grátis, sem conta, sem burocracia. Comece agora.</p>
+      <a href="gerador.html" class="btn btn-primary" data-i18n="finalCta">Criar orçamento grátis →</a>
     </div>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <h3 data-i18n="f1t">Logótipo e marca própria</h3>
-        <p data-i18n="f1p">Adicione o logótipo do seu negócio uma vez — fica guardado automaticamente para a próxima vez.</p>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="gerador.html" data-i18n="footGerador">Gerador</a>
+        <a href="como-usar.html" data-i18n="footHelp">Como usar</a>
+        <a href="planoalimentar.html" data-i18n="footplan">Plano alimentar</a>
+        <a href="nutriychef.html" data-i18n="nutriychef">Nutri y Chef</a>
+        <a href="dailynews.html" data-i18n="dailynews">Matinal</a>
+        <a href="nexo-v3.html" data-i18n="Nexus">Nexus</a>
+        <a href="negroyazul.html" data-i18n="Solid">Solid</a>
+        <a href="pinturas.html" data-i18n="Pintura">Pintura</a>
+        <a href="family-green.html" data-i18n="familygreen">Family Green</a>
+        <a href="freitas-lima.html" data-i18n="Freitas&Lima">Freitas&Lima</a>
+
       </div>
-      <div class="feature-card">
-        <h3 data-i18n="f2t">Cálculo automático de IVA</h3>
-        <p data-i18n="f2p">Subtotal, IVA e total recalculados em tempo real, com a percentagem que precisar.</p>
-      </div>
-      <div class="feature-card">
-        <h3 data-i18n="f3t">Exportação em PDF</h3>
-        <p data-i18n="f3p">Um documento limpo e profissional, pronto a enviar ao cliente em segundos.</p>
-      </div>
-      <div class="feature-card">
-        <h3 data-i18n="f4t">Enviar por e-mail</h3>
-        <p data-i18n="f4p">Descarregue o PDF e abra o seu e-mail já com o destinatário e assunto preenchidos.</p>
-      </div>
-      <div class="feature-card">
-        <h3 data-i18n="f5t">Português, espanhol ou inglês</h3>
-        <p data-i18n="f5p">Troque o idioma da interface e do PDF exportado com um clique.</p>
-      </div>
-      <div class="feature-card">
-        <h3 data-i18n="f6t">Sem conta, sem instalação</h3>
-        <p data-i18n="f6p">Funciona em qualquer navegador. Feche a aba e continue mais tarde de onde ficou.</p>
-      </div>
+      <div class="powered">Powered by <a href="https://quotegen.es/">Quotegen</a><span class="spark">⚡</span></div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<section class="statement">
-  <div class="wrap">
-    <div class="eyebrow" data-i18n="stEyebrow">Para quem fatura por conta própria</div>
-    <blockquote data-i18n="stQuote">Eletricistas, consultores, designers, canalizadores — <em>quem precisa de um orçamento com bom aspeto</em>, rápido, sem lidar com software de faturação caro ou complicado.</blockquote>
-    <p class="who" data-i18n="stWho">Se trabalha por conta própria e ainda faz orçamentos num documento de texto ou à mão, esta ferramenta foi pensada para si.</p>
-  </div>
-</section>
+  <script>
+    const T = {
+      pt: {
+        navHelp: 'Como usar', navCta: 'Abrir gerador',
+        heroEyebrow: 'Feito para quem trabalha por conta própria',
+        heroTitle: 'Orçamentos profissionais em minutos. <em>Sem burocracia.</em>',
+        heroLead: 'A ferramenta gratuita para autónomos e pequenos negócios criarem orçamentos com boa apresentação — sem criar conta, sem instalar nada, sem complicação.',
+        heroCtaPrimary: 'Criar orçamento grátis →', heroCtaSecondary: 'Ver como funciona',
+        trustLine: 'GRÁTIS · SEM CONTA · TUDO NO SEU NAVEGADOR',
+        mockTag: 'Orçamento', mockRow1: 'Consultoria inicial', mockRow2: 'Mão de obra (8h)', mockRow3: 'Materiais',
+        mockTotalLabel: 'Total com IVA', mockStamp: 'PDF EM 1 CLIQUE',
+        trust1t: 'Sem burocracia', trust1p: 'Abra a página e comece a preencher. Sem registos, sem planos, sem período de teste.',
+        trust2t: 'Os seus dados, no seu computador', trust2p: 'O logótipo e as preferências ficam guardados só no seu navegador — nunca num servidor.',
+        trust3t: 'Pronto em minutos', trust3p: 'Preencha os serviços, confirme o IVA, exporte o PDF. É tudo o que precisa fazer.',
+        featEyebrow: 'O que vem incluído',
+        featTitle: 'Tudo o que um orçamento profissional precisa',
+        featLead: 'Sem módulos extra para desbloquear, sem versão paga escondida atrás de um botão.',
+        f1t: 'Logótipo e marca própria', f1p: 'Adicione o logótipo do seu negócio uma vez — fica guardado automaticamente para a próxima vez.',
+        f2t: 'Cálculo automático de IVA', f2p: 'Subtotal, IVA e total recalculados em tempo real, com a percentagem que precisar.',
+        f3t: 'Exportação em PDF', f3p: 'Um documento limpo e profissional, pronto a enviar ao cliente em segundos.',
+        f4t: 'Enviar por e-mail', f4p: 'Descarregue o PDF e abra o seu e-mail já com o destinatário e assunto preenchidos.',
+        f5t: 'Português, espanhol ou inglês', f5p: 'Troque o idioma da interface e do PDF exportado com um clique.',
+        f6t: 'Sem conta, sem instalação', f6p: 'Funciona em qualquer navegador. Feche a aba e continue mais tarde de onde ficou.',
+        stEyebrow: 'Para quem fatura por conta própria',
+        stQuote: 'Eletricistas, consultores, designers, canalizadores — <em>quem precisa de um orçamento com bom aspeto</em>, rápido, sem lidar com software de faturação caro ou complicado.',
+        stWho: 'Se trabalha por conta própria e ainda faz orçamentos num documento de texto ou à mão, esta ferramenta foi pensada para si.',
+        finalTitle: 'Pronto para o seu primeiro orçamento?', finalLead: 'Grátis, sem conta, sem burocracia. Comece agora.', finalCta: 'Criar orçamento grátis →',
+        footGerador: 'Gerador', footHelp: 'Como usar', footplan: 'Plano alimentar', nutriychef: 'Nutri & Chef', dailynews: 'Matinal', Nexus: 'Nexus', Solid: 'Solid', Pintura: 'Pintura', familygreen: 'Family Green', FreitasLima: 'Freitas&Lima'
+      },
+      br: {
+        navHelp: 'Como usar', navCta: 'Abrir gerador',
+        heroEyebrow: 'Feito para quem trabalha por conta própria',
+        heroTitle: 'Orçamentos profissionais em minutos. <em>Sem burocracia.</em>',
+        heroLead: 'A ferramenta gratuita para autônomos e pequenos negócios criarem orçamentos com boa apresentação — sem criar conta, sem instalar nada, sem complicação.',
+        heroCtaPrimary: 'Criar orçamento grátis →', heroCtaSecondary: 'Ver como funciona',
+        trustLine: 'GRÁTIS · SEM CONTA · TUDO NO SEU NAVEGADOR',
+        mockTag: 'Orçamento', mockRow1: 'Consultoria inicial', mockRow2: 'Mão de obra (8h)', mockRow3: 'Materiais',
+        mockTotalLabel: 'Total com IVA', mockStamp: 'PDF EM 1 CLIQUE',
+        trust1t: 'Sem burocracia', trust1p: 'Abra a página e comece a preencher. Sem cadastro, sem planos, sem período de teste.',
+        trust2t: 'Seus dados, no seu computador', trust2p: 'O logotipo e as preferências ficam salvos só no seu navegador — nunca em um servidor.',
+        trust3t: 'Pronto em minutos', trust3p: 'Preencha os serviços, confirme o IVA, exporte o PDF. É só isso que você precisa fazer.',
+        featEyebrow: 'O que vem incluído',
+        featTitle: 'Tudo o que um orçamento profissional precisa',
+        featLead: 'Sem módulos extras para desbloquear, sem versão paga escondida atrás de um botão.',
+        f1t: 'Logotipo e marca própria', f1p: 'Adicione o logotipo do seu negócio uma vez — ele fica salvo automaticamente para a próxima vez.',
+        f2t: 'Cálculo automático de IVA', f2p: 'Subtotal, IVA e total recalculados em tempo real, com a porcentagem que você precisar.',
+        f3t: 'Exportação em PDF', f3p: 'Um documento limpo e profissional, pronto para enviar ao cliente em segundos.',
+        f4t: 'Enviar por e-mail', f4p: 'Baixe o PDF e abra seu e-mail já com o destinatário e assunto preenchidos.',
+        f5t: 'Português, espanhol ou inglês', f5p: 'Troque o idioma da interface e do PDF exportado com um clique.',
+        f6t: 'Sem conta, sem instalação', f6p: 'Funciona em qualquer navegador. Feche a aba e continue depois de onde parou.',
+        stEyebrow: 'Para quem fatura por conta própria',
+        stQuote: 'Eletricistas, consultores, designers, encanadores — <em>quem precisa de um orçamento com boa aparência</em>, rápido, sem lidar com software de faturamento caro ou complicado.',
+        stWho: 'Se você trabalha por conta própria e ainda faz orçamentos em um documento de texto ou à mão, esta ferramenta foi pensada para você.',
+        finalTitle: 'Pronto para o seu primeiro orçamento?', finalLead: 'Grátis, sem conta, sem burocracia. Comece agora.', finalCta: 'Criar orçamento grátis →',
+        footGerador: 'Gerador', footHelp: 'Como usar', footplan: 'Plano alimentar', nutriychef: 'Nutri E Chef', dailynews: 'Matinal', Nexus: 'Nexus', Solid: 'Solid', Pintura: 'Pintura', familygreen: 'Family Green', FreitasLima: 'Freitas&Lima'
+      },
+      es: {
+        navHelp: 'Cómo usar', navCta: 'Abrir generador',
+        heroEyebrow: 'Hecho para quien trabaja por cuenta propia',
+        heroTitle: 'Presupuestos profesionales en minutos. <em>Sin burocracia.</em>',
+        heroLead: 'La herramienta gratuita para autónomos y pequeños negocios que quieren crear presupuestos con buena presentación — sin crear cuenta, sin instalar nada, sin complicaciones.',
+        heroCtaPrimary: 'Crear presupuesto gratis →', heroCtaSecondary: 'Ver cómo funciona',
+        trustLine: 'GRATIS · SIN CUENTA · TODO EN SU NAVEGADOR',
+        mockTag: 'Presupuesto', mockRow1: 'Consultoría inicial', mockRow2: 'Mano de obra (8h)', mockRow3: 'Materiales',
+        mockTotalLabel: 'Total con IVA', mockStamp: 'PDF EN 1 CLIC',
+        trust1t: 'Sin burocracia', trust1p: 'Abra la página y empiece a rellenar. Sin registros, sin planes, sin período de prueba.',
+        trust2t: 'Sus datos, en su ordenador', trust2p: 'El logotipo y las preferencias se guardan solo en su navegador — nunca en un servidor.',
+        trust3t: 'Listo en minutos', trust3p: 'Rellene los servicios, confirme el IVA, exporte el PDF. Eso es todo.',
+        featEyebrow: 'Qué incluye',
+        featTitle: 'Todo lo que necesita un presupuesto profesional',
+        featLead: 'Sin módulos extra que desbloquear, sin versión de pago escondida detrás de un botón.',
+        f1t: 'Logotipo y marca propia', f1p: 'Añada el logotipo de su negocio una vez — se guarda automáticamente para la próxima vez.',
+        f2t: 'Cálculo automático de IVA', f2p: 'Subtotal, IVA y total recalculados en tiempo real, con el porcentaje que necesite.',
+        f3t: 'Exportación en PDF', f3p: 'Un documento limpio y profesional, listo para enviar al cliente en segundos.',
+        f4t: 'Enviar por e-mail', f4p: 'Descargue el PDF y abra su correo ya con el destinatario y asunto rellenados.',
+        f5t: 'Portugués, español o inglés', f5p: 'Cambie el idioma de la interfaz y del PDF exportado con un clic.',
+        f6t: 'Sin cuenta, sin instalación', f6p: 'Funciona en cualquier navegador. Cierre la pestaña y continúe más tarde donde lo dejó.',
+        stEyebrow: 'Para quien factura por cuenta propia',
+        stQuote: 'Electricistas, consultores, diseñadores, fontaneros — <em>quien necesita un presupuesto con buen aspecto</em>, rápido, sin lidiar con software de facturación caro o complicado.',
+        stWho: 'Si trabaja por cuenta propia y todavía hace presupuestos en un documento de texto o a mano, esta herramienta está pensada para usted.',
+        finalTitle: '¿Listo para su primer presupuesto?', finalLead: 'Gratis, sin cuenta, sin burocracia. Empiece ahora.', finalCta: 'Crear presupuesto gratis →',
+        footGerador: 'Generador', footHelp: 'Cómo usar', footplan: 'Plan alimentar', nutriychef: 'Nutri y Chef', dailynews: 'Mañana', Nexus: 'Nexus', Solid: 'Solid', Pintura: 'Pintura', familygreen: 'Family Green', FreitasLima: 'Freitas&Lima'
+      },
+      en: {
+        navHelp: 'How to use', navCta: 'Open generator',
+        heroEyebrow: 'Made for the self-employed',
+        heroTitle: 'Professional quotes in minutes. <em>No red tape.</em>',
+        heroLead: 'The free tool for freelancers and small businesses to create well-presented quotes — no account, no install, no hassle.',
+        heroCtaPrimary: 'Create a free quote →', heroCtaSecondary: 'See how it works',
+        trustLine: 'FREE · NO ACCOUNT · ALL IN YOUR BROWSER',
+        mockTag: 'Quote', mockRow1: 'Initial consulting', mockRow2: 'Labor (8h)', mockRow3: 'Materials',
+        mockTotalLabel: 'Total incl. VAT', mockStamp: 'PDF IN 1 CLICK',
+        trust1t: 'No red tape', trust1p: 'Open the page and start filling it in. No sign-up, no plans, no trial period.',
+        trust2t: 'Your data, on your computer', trust2p: 'Your logo and preferences are saved only in your browser — never on a server.',
+        trust3t: 'Ready in minutes', trust3p: 'Fill in the services, confirm the VAT, export the PDF. That\'s it.',
+        featEyebrow: 'What\'s included',
+        featTitle: 'Everything a professional quote needs',
+        featLead: 'No add-ons to unlock, no paid tier hidden behind a button.',
+        f1t: 'Logo and branding', f1p: 'Add your business logo once — it\'s saved automatically for next time.',
+        f2t: 'Automatic VAT calculation', f2p: 'Subtotal, VAT and total recalculated in real time, at whatever rate you need.',
+        f3t: 'PDF export', f3p: 'A clean, professional document, ready to send to your client in seconds.',
+        f4t: 'Send by email', f4p: 'Download the PDF and open your email client with the recipient and subject already filled in.',
+        f5t: 'Portuguese, Spanish or English', f5p: 'Switch the interface and exported PDF language with one click.',
+        f6t: 'No account, no install', f6p: 'Works in any browser. Close the tab and pick up later where you left off.',
+        stEyebrow: 'For the self-employed',
+        stQuote: 'Electricians, consultants, designers, plumbers — <em>anyone who needs a good-looking quote</em>, fast, without dealing with expensive or complicated invoicing software.',
+        stWho: 'If you work for yourself and are still writing quotes in a text document or by hand, this tool was made for you.',
+        finalTitle: 'Ready for your first quote?', finalLead: 'Free, no account, no red tape. Start now.', finalCta: 'Create a free quote →',
+        footGerador: 'Generator', footHelp: 'How to use', footplan: 'Food plan', nutriychef: 'Nutri & Chef', dailynews: 'Morning', Nexus: 'Nexus', Solid: 'Solid', Pintura: 'Paint', familygreen: 'Family Green', FreitasLima: 'Freitas&Lima'
+      }
+    };
 
-<section class="final-cta">
-  <div class="wrap">
-    <h2 data-i18n="finalTitle">Pronto para o seu primeiro orçamento?</h2>
-    <p data-i18n="finalLead">Grátis, sem conta, sem burocracia. Comece agora.</p>
-    <a href="gerador.html" class="btn btn-primary" data-i18n="finalCta">Criar orçamento grátis →</a>
-  </div>
-</section>
+    function detectLang() {
+      try {
+        const saved = localStorage.getItem('presupuesto_lang');
+        if (saved && T[saved]) return saved;
+      } catch (e) { }
+      const nav = (navigator.language || 'es').toLowerCase();
+      if (nav.startsWith('pt-br')) return 'br';
+      if (nav.startsWith('pt')) return 'pt';
+      if (nav.startsWith('en')) return 'en';
+      return 'es';
+    }
 
-<footer>
-  <div class="wrap">
-    <div class="footer-links">
-      <a href="gerador.html" data-i18n="footGerador">Gerador</a>
-      <a href="como-usar.html" data-i18n="footHelp">Como usar</a>
-      <a href="planoalimentar.html" data-i18n="footplan">Plano alimentar</a>
-      <a href="nutriychef.html" data-i18n="nutriychef">Nutri y Chef</a>
-      <a href="dailynews.html" data-i18n="dailynews">Matinal</a>
-      <a href="nexo-v3.html" data-i18n="Nexus">Nexus</a>
-      <a href="negroyazul.html" data-i18n="Solid">Solid</a>
-      <a href="pinturas.html" data-i18n="Pintura">Pintura</a>
-      <a href="family-green.html" data-i18n="family-green">Family Green</a>
+    function apply(lang) {
+      const localeMap = { pt: 'pt-PT', br: 'pt-BR', es: 'es-ES', en: 'en-US' };
+      document.documentElement.lang = localeMap[lang] || 'es-ES';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.innerHTML = T[lang][el.dataset.i18n];
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      try { localStorage.setItem('presupuesto_lang', lang); } catch (e) { }
+    }
 
-    </div>
-    <div class="powered">Powered by <a href="https://quotegen.es/">Quotegen</a><span class="spark">⚡</span></div>
-  </div>
-</footer>
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => apply(btn.dataset.lang));
+    });
 
-<script>
-const T = {
-  pt:{
-    navHelp:'Como usar', navCta:'Abrir gerador',
-    heroEyebrow:'Feito para quem trabalha por conta própria',
-    heroTitle:'Orçamentos profissionais em minutos. <em>Sem burocracia.</em>',
-    heroLead:'A ferramenta gratuita para autónomos e pequenos negócios criarem orçamentos com boa apresentação — sem criar conta, sem instalar nada, sem complicação.',
-    heroCtaPrimary:'Criar orçamento grátis →', heroCtaSecondary:'Ver como funciona',
-    trustLine:'GRÁTIS · SEM CONTA · TUDO NO SEU NAVEGADOR',
-    mockTag:'Orçamento', mockRow1:'Consultoria inicial', mockRow2:'Mão de obra (8h)', mockRow3:'Materiais',
-    mockTotalLabel:'Total com IVA', mockStamp:'PDF EM 1 CLIQUE',
-    trust1t:'Sem burocracia', trust1p:'Abra a página e comece a preencher. Sem registos, sem planos, sem período de teste.',
-    trust2t:'Os seus dados, no seu computador', trust2p:'O logótipo e as preferências ficam guardados só no seu navegador — nunca num servidor.',
-    trust3t:'Pronto em minutos', trust3p:'Preencha os serviços, confirme o IVA, exporte o PDF. É tudo o que precisa fazer.',
-    featEyebrow:'O que vem incluído',
-    featTitle:'Tudo o que um orçamento profissional precisa',
-    featLead:'Sem módulos extra para desbloquear, sem versão paga escondida atrás de um botão.',
-    f1t:'Logótipo e marca própria', f1p:'Adicione o logótipo do seu negócio uma vez — fica guardado automaticamente para a próxima vez.',
-    f2t:'Cálculo automático de IVA', f2p:'Subtotal, IVA e total recalculados em tempo real, com a percentagem que precisar.',
-    f3t:'Exportação em PDF', f3p:'Um documento limpo e profissional, pronto a enviar ao cliente em segundos.',
-    f4t:'Enviar por e-mail', f4p:'Descarregue o PDF e abra o seu e-mail já com o destinatário e assunto preenchidos.',
-    f5t:'Português, espanhol ou inglês', f5p:'Troque o idioma da interface e do PDF exportado com um clique.',
-    f6t:'Sem conta, sem instalação', f6p:'Funciona em qualquer navegador. Feche a aba e continue mais tarde de onde ficou.',
-    stEyebrow:'Para quem fatura por conta própria',
-    stQuote:'Eletricistas, consultores, designers, canalizadores — <em>quem precisa de um orçamento com bom aspeto</em>, rápido, sem lidar com software de faturação caro ou complicado.',
-    stWho:'Se trabalha por conta própria e ainda faz orçamentos num documento de texto ou à mão, esta ferramenta foi pensada para si.',
-    finalTitle:'Pronto para o seu primeiro orçamento?', finalLead:'Grátis, sem conta, sem burocracia. Comece agora.', finalCta:'Criar orçamento grátis →',
-    footGerador:'Gerador', footHelp:'Como usar',footplan:'Plano alimentar',nutriychef:'Nutri & Chef',dailynews:'Matinal',Nexus:'Nexus',Solid:'Solid',Pintura:'Pintura'
-  },
-  br:{
-    navHelp:'Como usar', navCta:'Abrir gerador',
-    heroEyebrow:'Feito para quem trabalha por conta própria',
-    heroTitle:'Orçamentos profissionais em minutos. <em>Sem burocracia.</em>',
-    heroLead:'A ferramenta gratuita para autônomos e pequenos negócios criarem orçamentos com boa apresentação — sem criar conta, sem instalar nada, sem complicação.',
-    heroCtaPrimary:'Criar orçamento grátis →', heroCtaSecondary:'Ver como funciona',
-    trustLine:'GRÁTIS · SEM CONTA · TUDO NO SEU NAVEGADOR',
-    mockTag:'Orçamento', mockRow1:'Consultoria inicial', mockRow2:'Mão de obra (8h)', mockRow3:'Materiais',
-    mockTotalLabel:'Total com IVA', mockStamp:'PDF EM 1 CLIQUE',
-    trust1t:'Sem burocracia', trust1p:'Abra a página e comece a preencher. Sem cadastro, sem planos, sem período de teste.',
-    trust2t:'Seus dados, no seu computador', trust2p:'O logotipo e as preferências ficam salvos só no seu navegador — nunca em um servidor.',
-    trust3t:'Pronto em minutos', trust3p:'Preencha os serviços, confirme o IVA, exporte o PDF. É só isso que você precisa fazer.',
-    featEyebrow:'O que vem incluído',
-    featTitle:'Tudo o que um orçamento profissional precisa',
-    featLead:'Sem módulos extras para desbloquear, sem versão paga escondida atrás de um botão.',
-    f1t:'Logotipo e marca própria', f1p:'Adicione o logotipo do seu negócio uma vez — ele fica salvo automaticamente para a próxima vez.',
-    f2t:'Cálculo automático de IVA', f2p:'Subtotal, IVA e total recalculados em tempo real, com a porcentagem que você precisar.',
-    f3t:'Exportação em PDF', f3p:'Um documento limpo e profissional, pronto para enviar ao cliente em segundos.',
-    f4t:'Enviar por e-mail', f4p:'Baixe o PDF e abra seu e-mail já com o destinatário e assunto preenchidos.',
-    f5t:'Português, espanhol ou inglês', f5p:'Troque o idioma da interface e do PDF exportado com um clique.',
-    f6t:'Sem conta, sem instalação', f6p:'Funciona em qualquer navegador. Feche a aba e continue depois de onde parou.',
-    stEyebrow:'Para quem fatura por conta própria',
-    stQuote:'Eletricistas, consultores, designers, encanadores — <em>quem precisa de um orçamento com boa aparência</em>, rápido, sem lidar com software de faturamento caro ou complicado.',
-    stWho:'Se você trabalha por conta própria e ainda faz orçamentos em um documento de texto ou à mão, esta ferramenta foi pensada para você.',
-    finalTitle:'Pronto para o seu primeiro orçamento?', finalLead:'Grátis, sem conta, sem burocracia. Comece agora.', finalCta:'Criar orçamento grátis →',
-    footGerador:'Gerador', footHelp:'Como usar',footplan:'Plano alimentar',nutriychef:'Nutri E Chef',dailynews:'Matinal',Nexus:'Nexus',Solid:'Solid',Pintura:'Pintura'
-  },
-  es:{
-    navHelp:'Cómo usar', navCta:'Abrir generador',
-    heroEyebrow:'Hecho para quien trabaja por cuenta propia',
-    heroTitle:'Presupuestos profesionales en minutos. <em>Sin burocracia.</em>',
-    heroLead:'La herramienta gratuita para autónomos y pequeños negocios que quieren crear presupuestos con buena presentación — sin crear cuenta, sin instalar nada, sin complicaciones.',
-    heroCtaPrimary:'Crear presupuesto gratis →', heroCtaSecondary:'Ver cómo funciona',
-    trustLine:'GRATIS · SIN CUENTA · TODO EN SU NAVEGADOR',
-    mockTag:'Presupuesto', mockRow1:'Consultoría inicial', mockRow2:'Mano de obra (8h)', mockRow3:'Materiales',
-    mockTotalLabel:'Total con IVA', mockStamp:'PDF EN 1 CLIC',
-    trust1t:'Sin burocracia', trust1p:'Abra la página y empiece a rellenar. Sin registros, sin planes, sin período de prueba.',
-    trust2t:'Sus datos, en su ordenador', trust2p:'El logotipo y las preferencias se guardan solo en su navegador — nunca en un servidor.',
-    trust3t:'Listo en minutos', trust3p:'Rellene los servicios, confirme el IVA, exporte el PDF. Eso es todo.',
-    featEyebrow:'Qué incluye',
-    featTitle:'Todo lo que necesita un presupuesto profesional',
-    featLead:'Sin módulos extra que desbloquear, sin versión de pago escondida detrás de un botón.',
-    f1t:'Logotipo y marca propia', f1p:'Añada el logotipo de su negocio una vez — se guarda automáticamente para la próxima vez.',
-    f2t:'Cálculo automático de IVA', f2p:'Subtotal, IVA y total recalculados en tiempo real, con el porcentaje que necesite.',
-    f3t:'Exportación en PDF', f3p:'Un documento limpio y profesional, listo para enviar al cliente en segundos.',
-    f4t:'Enviar por e-mail', f4p:'Descargue el PDF y abra su correo ya con el destinatario y asunto rellenados.',
-    f5t:'Portugués, español o inglés', f5p:'Cambie el idioma de la interfaz y del PDF exportado con un clic.',
-    f6t:'Sin cuenta, sin instalación', f6p:'Funciona en cualquier navegador. Cierre la pestaña y continúe más tarde donde lo dejó.',
-    stEyebrow:'Para quien factura por cuenta propia',
-    stQuote:'Electricistas, consultores, diseñadores, fontaneros — <em>quien necesita un presupuesto con buen aspecto</em>, rápido, sin lidiar con software de facturación caro o complicado.',
-    stWho:'Si trabaja por cuenta propia y todavía hace presupuestos en un documento de texto o a mano, esta herramienta está pensada para usted.',
-    finalTitle:'¿Listo para su primer presupuesto?', finalLead:'Gratis, sin cuenta, sin burocracia. Empiece ahora.', finalCta:'Crear presupuesto gratis →',
-    footGerador:'Generador', footHelp:'Cómo usar',footplan:'Plan alimentar',nutriychef:'Nutri y Chef',dailynews:'Mañana',Nexus:'Nexus',Solid:'Solid',Pintura:'Pintura'
-  },
-  en:{
-    navHelp:'How to use', navCta:'Open generator',
-    heroEyebrow:'Made for the self-employed',
-    heroTitle:'Professional quotes in minutes. <em>No red tape.</em>',
-    heroLead:'The free tool for freelancers and small businesses to create well-presented quotes — no account, no install, no hassle.',
-    heroCtaPrimary:'Create a free quote →', heroCtaSecondary:'See how it works',
-    trustLine:'FREE · NO ACCOUNT · ALL IN YOUR BROWSER',
-    mockTag:'Quote', mockRow1:'Initial consulting', mockRow2:'Labor (8h)', mockRow3:'Materials',
-    mockTotalLabel:'Total incl. VAT', mockStamp:'PDF IN 1 CLICK',
-    trust1t:'No red tape', trust1p:'Open the page and start filling it in. No sign-up, no plans, no trial period.',
-    trust2t:'Your data, on your computer', trust2p:'Your logo and preferences are saved only in your browser — never on a server.',
-    trust3t:'Ready in minutes', trust3p:'Fill in the services, confirm the VAT, export the PDF. That\'s it.',
-    featEyebrow:'What\'s included',
-    featTitle:'Everything a professional quote needs',
-    featLead:'No add-ons to unlock, no paid tier hidden behind a button.',
-    f1t:'Logo and branding', f1p:'Add your business logo once — it\'s saved automatically for next time.',
-    f2t:'Automatic VAT calculation', f2p:'Subtotal, VAT and total recalculated in real time, at whatever rate you need.',
-    f3t:'PDF export', f3p:'A clean, professional document, ready to send to your client in seconds.',
-    f4t:'Send by email', f4p:'Download the PDF and open your email client with the recipient and subject already filled in.',
-    f5t:'Portuguese, Spanish or English', f5p:'Switch the interface and exported PDF language with one click.',
-    f6t:'No account, no install', f6p:'Works in any browser. Close the tab and pick up later where you left off.',
-    stEyebrow:'For the self-employed',
-    stQuote:'Electricians, consultants, designers, plumbers — <em>anyone who needs a good-looking quote</em>, fast, without dealing with expensive or complicated invoicing software.',
-    stWho:'If you work for yourself and are still writing quotes in a text document or by hand, this tool was made for you.',
-    finalTitle:'Ready for your first quote?', finalLead:'Free, no account, no red tape. Start now.', finalCta:'Create a free quote →',
-    footGerador:'Generator', footHelp:'How to use',footplan:'Food plan',nutriychef:'Nutri & Chef',dailynews:'Morning',Nexus:'Nexus',Solid:'Solid',Pintura:'Paint'
-  }
-};
-
-function detectLang(){
-  try{
-    const saved = localStorage.getItem('presupuesto_lang');
-    if(saved && T[saved]) return saved;
-  }catch(e){}
-  const nav = (navigator.language || 'es').toLowerCase();
-  if(nav.startsWith('pt-br')) return 'br';
-  if(nav.startsWith('pt')) return 'pt';
-  if(nav.startsWith('en')) return 'en';
-  return 'es';
-}
-
-function apply(lang){
-  const localeMap = { pt:'pt-PT', br:'pt-BR', es:'es-ES', en:'en-US' };
-  document.documentElement.lang = localeMap[lang] || 'es-ES';
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    el.innerHTML = T[lang][el.dataset.i18n];
-  });
-  document.querySelectorAll('.lang-btn').forEach(btn=>{
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
-  try{ localStorage.setItem('presupuesto_lang', lang); }catch(e){}
-}
-
-document.querySelectorAll('.lang-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=> apply(btn.dataset.lang));
-});
-
-apply(detectLang());
-</script>
+    apply(detectLang());
+  </script>
 </body>
+
 </html>
